@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:playbook/playbook.dart';
@@ -16,11 +15,8 @@ class Snapshot extends TestTool {
       await FontBuilder.loadFonts();
     });
 
-    await Directory(directoryPath).create();
-
     for (final device in devices) {
       final ensuredDirectoryPath = '$directoryPath/${device.name}';
-      await Directory(ensuredDirectoryPath).create();
 
       for (final story in playbook.stories) {
         for (final scenario in story.scenarios) {
