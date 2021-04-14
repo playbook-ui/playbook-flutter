@@ -109,6 +109,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  playbook_meta:
+    dependency: transitive
+    description:
+      path: "../playbook_meta"
+      relative: true
+    source: path
+    version: "0.0.1"
   sky_engine:
     dependency: transitive
     description: flutter
