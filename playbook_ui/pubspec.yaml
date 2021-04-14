@@ -14,7 +14,6 @@ dependencies:
 
   # Dependency
   playbook:
-    path: ../playbook
 
 dev_dependencies:
   flutter_test:
@@ -23,3 +22,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+dependency_overrides:
+  playbook:
+    path: ../playbook
