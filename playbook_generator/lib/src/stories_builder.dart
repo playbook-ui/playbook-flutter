@@ -7,7 +7,8 @@ import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart';
-import 'package:source_gen/source_gen.dart' show LibraryReader, TypeChecker;
+import 'package:source_gen/source_gen.dart'
+    show LibraryReader, defaultFileHeader;
 
 class StoriesBuilder implements Builder {
   static const _outputName = 'generated_stories.dart';
@@ -49,8 +50,13 @@ class StoriesBuilder implements Builder {
         ]),
     );
     final emitter = DartEmitter(Allocator.simplePrefixing(), true, true);
-    final content =
-        DartFormatter().format(storiesLibrary.accept(emitter).toString());
+    final content = DartFormatter().format(
+      '''
+$defaultFileHeader
+
+${storiesLibrary.accept(emitter)}
+''',
+    );
     await buildStep.writeAsString(_output(buildStep), content);
   }
 
