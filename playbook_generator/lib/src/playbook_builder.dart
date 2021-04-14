@@ -10,8 +10,8 @@ import 'package:path/path.dart';
 import 'package:source_gen/source_gen.dart'
     show LibraryReader, defaultFileHeader;
 
-class StoriesBuilder implements Builder {
-  static const _outputName = 'generated_stories.dart';
+class PlaybookBuilder implements Builder {
+  static const _outputName = 'generated_playbook.dart';
   static const _playbookUrl = 'package:playbook/playbook.dart';
 
   @override
