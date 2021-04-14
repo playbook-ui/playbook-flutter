@@ -19,9 +19,6 @@ dependencies:
   file: ^6.1.0
   yaml: ^3.1.0
 
-  playbook_meta:
-    path: ../playbook_meta
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
