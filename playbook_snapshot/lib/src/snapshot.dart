@@ -3,6 +3,11 @@ import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:playbook/playbook.dart';
 
+import 'font_builder.dart';
+import 'snapshot_device.dart';
+import 'snapshot_support.dart';
+import 'test_tool.dart';
+
 class Snapshot extends TestTool {
   Snapshot({required this.directoryPath, required this.devices});
 

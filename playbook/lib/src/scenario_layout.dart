@@ -1,38 +1,67 @@
-abstract class ScenarioLayoutSizing {}
+abstract class ScenarioLayoutSizing {
+  const ScenarioLayoutSizing();
+}
 
-class ScenarioLayoutCompressed extends ScenarioLayoutSizing {}
+class ScenarioLayoutCompressed extends ScenarioLayoutSizing {
+  const ScenarioLayoutCompressed();
+}
 
-class ScenarioLayoutFill extends ScenarioLayoutSizing {}
+class ScenarioLayoutFill extends ScenarioLayoutSizing {
+  const ScenarioLayoutFill();
+}
 
 class ScenarioLayoutFixed extends ScenarioLayoutSizing {
-  ScenarioLayoutFixed(this.value);
+  const ScenarioLayoutFixed(this.value);
 
   final double value;
 }
 
 class ScenarioLayout {
-  ScenarioLayout.fill()
-      : h = ScenarioLayoutFill(),
-        v = ScenarioLayoutFill();
+  const ScenarioLayout.fill()
+      : _dh = null,
+        _dv = null,
+        _h = const ScenarioLayoutFill(),
+        _v = const ScenarioLayoutFill();
 
-  ScenarioLayout.compressed()
-      : h = ScenarioLayoutCompressed(),
-        v = ScenarioLayoutCompressed();
+  const ScenarioLayout.compressed()
+      : _dh = null,
+        _dv = null,
+        _h = const ScenarioLayoutCompressed(),
+        _v = const ScenarioLayoutCompressed();
 
-  ScenarioLayout.fixed(double width, double height)
-      : h = ScenarioLayoutFixed(width),
-        v = ScenarioLayoutFixed(height);
+  const ScenarioLayout.fixed(double width, double height)
+      : _dh = width,
+        _dv = height,
+        _h = null,
+        _v = null;
 
-  ScenarioLayout.fixedH(double width, {ScenarioLayoutSizing? crossAxisLayout})
-      : h = ScenarioLayoutFixed(width),
-        v = crossAxisLayout ?? ScenarioLayoutCompressed();
+  const ScenarioLayout.fixedH(
+    double width, {
+    ScenarioLayoutSizing crossAxisLayout = const ScenarioLayoutCompressed(),
+  })  : _dh = width,
+        _dv = null,
+        _h = null,
+        _v = crossAxisLayout;
 
-  ScenarioLayout.fixedV(double height, {ScenarioLayoutSizing? crossAxisLayout})
-      : h = crossAxisLayout ?? ScenarioLayoutCompressed(),
-        v = ScenarioLayoutFixed(height);
+  const ScenarioLayout.fixedV(
+    double height, {
+    ScenarioLayoutSizing crossAxisLayout = const ScenarioLayoutCompressed(),
+  })  : _dh = null,
+        _dv = height,
+        _h = crossAxisLayout,
+        _v = null;
 
-  ScenarioLayout.sizing(this.h, this.v);
+  const ScenarioLayout.sizing(this._h, this._v)
+      : _dh = null,
+        _dv = null;
 
-  ScenarioLayoutSizing h;
-  ScenarioLayoutSizing v;
+  final double? _dh;
+  final double? _dv;
+
+  final ScenarioLayoutSizing? _h;
+  final ScenarioLayoutSizing? _v;
+
+  ScenarioLayoutSizing get h => _h ?? ScenarioLayoutFixed(_dh!);
+
+  ScenarioLayoutSizing get v => _v ?? ScenarioLayoutFixed(_dv!);
 }

@@ -1,0 +1,21 @@
+name: playbook_generator
+description: Playbook Generator Package
+version: 0.0.1
+
+publish_to: 'none'
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  analyzer: ^1.0.0
+  build: ^2.0.0
+  source_gen: ^1.0.0
+  path: ^1.8.0
+  glob: ^2.0.0
+  code_builder: ^3.7.0
+  dartx: ^0.7.0
+  dart_style: ^2.0.0
+
+dev_dependencies:
+  effective_dart: ^1.3.0
