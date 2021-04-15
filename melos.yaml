@@ -1,0 +1,42 @@
+name: Playbook
+
+packages:
+  - playbook*/**
+  - example/**
+
+ide:
+  intellij: true
+  vscode: false
+
+scripts:
+  pub:get: melos exec -- exec flutter pub get
+
+  format: melos exec -- exec flutter format -n .
+
+  analyze: melos exec -- exec flutter analyze .
+
+  clean: melos exec -- exec flutter clean
+
+  gen:build_runner:
+    run: |
+      melos exec -- exec flutter pub run build_runner build --delete-conflicting-outputs
+    select-package:
+      depends-on: 'build_runner'
+
+  test:unit:
+    run: |
+      melos exec -- exec flutter test
+    select-package:
+      no-depends-on:
+        - 'playbook_snapshot'
+      dir-exists:
+        - test
+
+  test:snapshot:
+    run: |
+      melos exec -- exec flutter test --update-goldens
+    select-package:
+      depends-on:
+        - 'playbook_snapshot'
+      dir-exists:
+        - test
