@@ -4,7 +4,7 @@ enum SnapshotDevice {
   iPhoneSE,
   iPhone8,
   iPhone11,
-  pixcel4,
+  pixel4,
   xperia,
 }
 
@@ -17,7 +17,7 @@ extension SnapshotDeviceExt on SnapshotDevice {
         return const Size(375, 667);
       case SnapshotDevice.iPhone11:
         return const Size(414, 896);
-      case SnapshotDevice.pixcel4:
+      case SnapshotDevice.pixel4:
         return const Size(411, 869);
       case SnapshotDevice.xperia:
         return const Size(360, 640);
