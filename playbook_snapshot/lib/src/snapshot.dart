@@ -33,7 +33,7 @@ class Snapshot extends TestTool {
 
             await expectLater(
               find.byWidget(scenario.child),
-              matchesGoldenFile('$ensuredDirectoryPath/${story.title}_${scenario.title}.png'),
+              matchesGoldenFile('$ensuredDirectoryPath/${story.title}/${scenario.title}.png'),
             );
           });
         }
