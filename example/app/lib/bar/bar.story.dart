@@ -13,3 +13,11 @@ Scenario twoLineText() {
 Scenario emptyText() {
   return Scenario('Empty', child: BarWidget(text: ''));
 }
+
+List<Scenario> variousText() {
+  return ['Text 1', 'Text2']
+      .map(
+        (e) => Scenario(e, child: BarWidget(text: e)),
+      )
+      .toList();
+}
