@@ -61,24 +61,28 @@ ${storiesLibrary.accept(emitter)}
   }
 
   List<Code> _createScenarioCodes(LibraryReader storyLibraryReader) {
-    final scenarioElements = storyLibraryReader.element.topLevelElements
+    final uri = storyLibraryReader.element.librarySource.uri.toString();
+    final scenarioCodes = storyLibraryReader.element.topLevelElements
         .whereType<FunctionElement>()
         .where(
-          (e) =>
-              e.isPublic &&
-              e.returnType.getDisplayString(withNullability: true) ==
-                  'Scenario' &&
-              e.parameters.isEmpty,
-        );
-
-    final scenarioCodes = scenarioElements
-        .map((e) => refer(
-              '${e.displayName}()',
-              storyLibraryReader.element.librarySource.uri.toString(),
-            ).code)
-        .toList();
-
-    return scenarioCodes;
+          (e) => e.isPublic && e.parameters.isEmpty,
+        )
+        .flatMap<Code>(
+      (e) {
+        final returnTypeString =
+            e.returnType.getDisplayString(withNullability: true);
+        final scenarioRefer = refer('${e.displayName}', uri);
+        if (returnTypeString == 'Scenario') {
+          return [scenarioRefer([]).code];
+        }
+        if (returnTypeString == 'List<Scenario>') {
+          return [Code.scope((a) => '...${a(scenarioRefer)}()')];
+        } else {
+          return [];
+        }
+      },
+    );
+    return scenarioCodes.toList();
   }
 
   Method _createStoryFunction(
