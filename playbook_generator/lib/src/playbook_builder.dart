@@ -49,7 +49,11 @@ class PlaybookBuilder implements Builder {
           ...storyFunctions,
         ]),
     );
-    final emitter = DartEmitter(Allocator.simplePrefixing(), true, true);
+    final emitter = DartEmitter(
+      allocator: Allocator.simplePrefixing(),
+      orderDirectives: true,
+      useNullSafetySyntax: true,
+    );
     final content = DartFormatter().format(
       '''
 $defaultFileHeader
