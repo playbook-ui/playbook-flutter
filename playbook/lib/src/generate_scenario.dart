@@ -1,5 +1,6 @@
 import 'scenario_layout.dart';
 
+// TODO: alignment
 class GenerateScenario {
   const GenerateScenario({
     this.title,

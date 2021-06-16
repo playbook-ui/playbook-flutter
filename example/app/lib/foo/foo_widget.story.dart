@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:playbook/playbook.dart';
+import 'package:playbook/playbook_annotations.dart';
 
 const storyTitle = 'FooWidget';
 
@@ -15,4 +16,26 @@ Scenario foo2() {
       child: Container(width: 200, height: 250, color: Colors.amber),
     ),
   );
+}
+
+@GenerateScenario(
+  title: 'foo3',
+  layout: ScenarioLayout.sizing(
+    ScenarioLayoutFixed(100),
+    ScenarioLayoutFixed(200),
+  ),
+)
+class Foo3 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+@GenerateScenario()
+class $Foo4 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
 }
