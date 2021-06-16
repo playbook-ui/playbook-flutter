@@ -3,7 +3,9 @@ import 'package:source_gen/source_gen.dart';
 
 /// Currently only for ScenarioLayout
 String constantReaderToSource(
-    ConstantReader reader, String Function(Reference) a) {
+  ConstantReader reader,
+  String Function(Reference) allocator,
+) {
   if (reader.isString) {
     return '\'${reader.stringValue}\'';
   } else if (reader.isDouble) {
@@ -13,9 +15,9 @@ String constantReaderToSource(
     final constructor =
         '${revivable.source.fragment}${revivable.accessor.isEmpty ? '' : '.${revivable.accessor}'}';
     final url = 'package:${revivable.source.path.replaceFirst('lib/', '')}';
-    final constructorRefer = a(refer(constructor, url));
+    final constructorRefer = allocator(refer(constructor, url));
     final parameters = revivable.positionalArguments
-        .map((e) => constantReaderToSource(ConstantReader(e), a))
+        .map((e) => constantReaderToSource(ConstantReader(e), allocator))
         .join(', ');
     return '$constructorRefer($parameters)';
   }

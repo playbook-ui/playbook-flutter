@@ -19,7 +19,7 @@ Scenario foo2() {
 }
 
 @GenerateScenario(
-  title: 'foo3',
+  title: 'foo3foo3',
   layout: ScenarioLayout.sizing(
     ScenarioLayoutFixed(100),
     ScenarioLayoutFixed(200),
@@ -33,7 +33,7 @@ class Foo3 extends StatelessWidget {
 }
 
 @GenerateScenario()
-class $Foo4 extends StatelessWidget {
+class $Foo4_Bar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container();

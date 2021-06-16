@@ -75,14 +75,16 @@ ${storiesLibrary.accept(emitter)}
         .where((e) {
       if (e.element is! ClassElement) return false;
       final classElement = e.element as ClassElement;
-      return classElement.allSupertypes
-          .any((s) => s.getDisplayString(withNullability: true) == 'Widget');
+      return classElement.isPublic &&
+          classElement.unnamedConstructor?.isDefaultConstructor == true &&
+          classElement.allSupertypes.any(
+              (s) => s.getDisplayString(withNullability: true) == 'Widget');
     }).map((e) {
       final annotation = e.annotation;
       final title = annotation.read('title');
       final titleParam = title.isString
-          ? title.stringValue.removePrefix('\$')
-          : e.element.displayName.removePrefix('\$');
+          ? title.stringValue
+          : e.element.displayName.removePrefix('\$').replaceAll('_', ' ');
       final scaleParam = annotation.read('scale').doubleValue;
       return Code.scope((a) => '''
 ${a(refer('Scenario', _playbookUrl))}(
