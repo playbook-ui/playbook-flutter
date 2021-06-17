@@ -5,16 +5,28 @@ import 'component/component.dart';
 import 'scenario_container.dart';
 
 class PlaybookGallery extends StatefulWidget {
-  const PlaybookGallery({
+  PlaybookGallery({
+    Key? key,
+    String title = '',
+    ThemeData? theme,
+    required Playbook playbook,
+  }) : this.builder(
+          key: key,
+          title: title,
+          theme: theme,
+          playbookBuilder: () => playbook,
+        );
+
+  PlaybookGallery.builder({
     Key? key,
     this.title = '',
     this.theme,
-    required this.builder,
+    required this.playbookBuilder,
   }) : super(key: key);
 
   final String title;
   final ThemeData? theme;
-  final Playbook Function() builder;
+  final Playbook Function() playbookBuilder;
 
   @override
   _PlaybookGalleryState createState() => _PlaybookGalleryState();
@@ -28,7 +40,7 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
   @override
   void initState() {
     super.initState();
-    _playbook = widget.builder();
+    _playbook = widget.playbookBuilder();
     _stories = _playbook.stories;
 
     _textEditingController.addListener(() {
@@ -130,7 +142,7 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
   void reassemble() {
     super.reassemble();
     setState(() {
-      _playbook = widget.builder();
+      _playbook = widget.playbookBuilder();
       _filterStories();
     });
   }
