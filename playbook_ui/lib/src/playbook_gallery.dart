@@ -41,10 +41,9 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
   void initState() {
     super.initState();
     _playbook = widget.playbookBuilder();
-    _stories = _playbook.stories;
-
+    _updateStories();
     _textEditingController.addListener(() {
-      setState(_filterStories);
+      setState(_updateStories);
     });
   }
 
@@ -143,13 +142,13 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
     super.reassemble();
     setState(() {
       _playbook = widget.playbookBuilder();
-      _filterStories();
+      _updateStories();
     });
   }
 
-  void _filterStories() {
+  void _updateStories() {
     if (_textEditingController.text.isEmpty) {
-      _stories = _playbook.stories;
+      _stories = _playbook.stories.toList();
     } else {
       final reg = RegExp(_textEditingController.text, caseSensitive: false);
       _stories = _playbook.stories
@@ -165,6 +164,10 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
           )
           .where((story) => story.scenarios.isNotEmpty)
           .toList();
+    }
+    _stories.sort((s1, s2) => s1.title.compareTo(s2.title));
+    for (var story in _stories) {
+      story.scenarios..sort((s1, s2) => s1.title.compareTo(s2.title));
     }
   }
 }
