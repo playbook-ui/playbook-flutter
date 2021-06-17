@@ -7,26 +7,14 @@ import 'scenario_container.dart';
 class PlaybookGallery extends StatefulWidget {
   PlaybookGallery({
     Key? key,
-    String title = '',
-    ThemeData? theme,
-    required Playbook playbook,
-  }) : this.builder(
-          key: key,
-          title: title,
-          theme: theme,
-          playbookBuilder: () => playbook,
-        );
-
-  PlaybookGallery.builder({
-    Key? key,
     this.title = '',
     this.theme,
-    required this.playbookBuilder,
+    required this.playbook,
   }) : super(key: key);
 
   final String title;
   final ThemeData? theme;
-  final Playbook Function() playbookBuilder;
+  final Playbook playbook;
 
   @override
   _PlaybookGalleryState createState() => _PlaybookGalleryState();
@@ -34,13 +22,11 @@ class PlaybookGallery extends StatefulWidget {
 
 class _PlaybookGalleryState extends State<PlaybookGallery> {
   final _textEditingController = TextEditingController();
-  late Playbook _playbook;
   List<Story> _stories = [];
 
   @override
   void initState() {
     super.initState();
-    _playbook = widget.playbookBuilder();
     _updateStories();
     _textEditingController.addListener(() {
       setState(_updateStories);
@@ -142,20 +128,17 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
   }
 
   @override
-  void reassemble() {
-    super.reassemble();
-    setState(() {
-      _playbook = widget.playbookBuilder();
-      _updateStories();
-    });
+  void didUpdateWidget(covariant PlaybookGallery oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _updateStories();
   }
 
   void _updateStories() {
     if (_textEditingController.text.isEmpty) {
-      _stories = _playbook.stories.toList();
+      _stories = widget.playbook.stories.toList();
     } else {
       final reg = RegExp(_textEditingController.text, caseSensitive: false);
-      _stories = _playbook.stories
+      _stories = widget.playbook.stories
           .map(
             (story) => Story(
               story.title,
