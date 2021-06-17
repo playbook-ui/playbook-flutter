@@ -101,7 +101,8 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
                         child: Wrap(
                           spacing: 16,
                           children: story.scenarios
-                              .map((e) => ScenarioContainer(scenario: e))
+                              .map((e) => ScenarioContainer(
+                                  key: ValueKey(e), scenario: e))
                               .toList()
                                 ..sort(
                                   (s1, s2) => s1.scenario.title
