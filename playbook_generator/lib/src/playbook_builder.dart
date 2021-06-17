@@ -104,9 +104,8 @@ ${a(refer('Scenario', _playbookUrl))}(
             e.returnType.getDisplayString(withNullability: true);
         final scenarioRefer = refer(e.displayName, uri);
         if (returnTypeString == 'Scenario') {
-          [scenarioRefer([]).code];
-        }
-        if (returnTypeString == 'List<Scenario>') {
+          return [scenarioRefer([]).code];
+        } else if (returnTypeString == 'List<Scenario>') {
           return [Code.scope((a) => '...${a(scenarioRefer)}()')];
         } else {
           return [];
