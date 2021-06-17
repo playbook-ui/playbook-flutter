@@ -16,3 +16,28 @@ Scenario foo2() {
     ),
   );
 }
+
+@GenerateScenario(
+  title: 'foo3foo3',
+  layout: ScenarioLayout.sizing(
+    ScenarioLayoutFixed(100),
+    ScenarioLayoutFixed(200),
+  ),
+)
+class Foo3 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+@GenerateScenario()
+class $Foo4_Bar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+@GenerateScenario()
+Widget $foo5() => Text('Foo 5');

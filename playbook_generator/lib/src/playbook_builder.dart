@@ -7,8 +7,11 @@ import 'package:dart_style/dart_style.dart';
 import 'package:dartx/dartx.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart';
+import 'package:playbook/playbook_annotations.dart';
 import 'package:source_gen/source_gen.dart'
-    show LibraryReader, defaultFileHeader;
+    show LibraryReader, TypeChecker, defaultFileHeader;
+
+import 'constant_reader_utils.dart';
 
 class PlaybookBuilder implements Builder {
   static const _outputName = 'generated_playbook.dart';
@@ -66,27 +69,58 @@ ${storiesLibrary.accept(emitter)}
 
   List<Code> _createScenarioCodes(LibraryReader storyLibraryReader) {
     final uri = storyLibraryReader.element.librarySource.uri.toString();
+
+    final generatedScenarioCodes = storyLibraryReader
+        .annotatedWith(TypeChecker.fromRuntime(GenerateScenario))
+        .where((e) {
+      final element = e.element;
+      if (!element.isPublic) return false;
+      if (element is ClassElement) {
+        return element.unnamedConstructor?.isDefaultConstructor == true &&
+            element.allSupertypes.any(
+              (s) => s.getDisplayString(withNullability: true) == 'Widget',
+            );
+      } else if (element is FunctionElement) {
+        return element.parameters.isEmpty &&
+            element.returnType.getDisplayString(withNullability: true) ==
+                'Widget';
+      } else {
+        return false;
+      }
+    }).map((e) {
+      final annotation = e.annotation;
+      final title = annotation.read('title');
+      final titleParam = title.isString
+          ? title.stringValue
+          : e.element.displayName.removePrefix('\$').replaceAll('_', ' ');
+      final scaleParam = annotation.read('scale').doubleValue;
+      return Code.scope((a) => '''
+${a(refer('Scenario', _playbookUrl))}(
+  '$titleParam',
+  layout: ${constantReaderToSource(annotation.read('layout'), a)},
+  scale: $scaleParam,
+  child: ${a(refer(e.element.displayName, uri))}(),
+)''');
+    });
+
     final scenarioCodes = storyLibraryReader.element.topLevelElements
         .whereType<FunctionElement>()
-        .where(
-          (e) => e.isPublic && e.parameters.isEmpty,
-        )
+        .where((e) => e.isPublic && e.parameters.isEmpty)
         .flatMap<Code>(
       (e) {
         final returnTypeString =
             e.returnType.getDisplayString(withNullability: true);
-        final scenarioRefer = refer('${e.displayName}', uri);
+        final scenarioRefer = refer(e.displayName, uri);
         if (returnTypeString == 'Scenario') {
           return [scenarioRefer([]).code];
-        }
-        if (returnTypeString == 'List<Scenario>') {
+        } else if (returnTypeString == 'List<Scenario>') {
           return [Code.scope((a) => '...${a(scenarioRefer)}()')];
         } else {
           return [];
         }
       },
     );
-    return scenarioCodes.toList();
+    return <Code>[...generatedScenarioCodes, ...scenarioCodes];
   }
 
   Method _createStoryFunction(

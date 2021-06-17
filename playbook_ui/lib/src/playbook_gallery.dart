@@ -27,27 +27,9 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
   @override
   void initState() {
     super.initState();
-    _stories = widget.playbook.stories;
-
+    _updateStories();
     _textEditingController.addListener(() {
-      setState(() {
-        if (_textEditingController.text.isEmpty) {
-          _stories = widget.playbook.stories;
-        } else {
-          final reg = RegExp(_textEditingController.text, caseSensitive: false);
-          _stories = widget.playbook.stories
-              .map(
-                (story) => Story(
-                  story.title,
-                  scenarios: story.title.contains(reg)
-                      ? story.scenarios
-                      : story.scenarios.where((scenario) => scenario.title.contains(reg)).toList(),
-                ),
-              )
-              .where((story) => story.scenarios.isNotEmpty)
-              .toList();
-        }
-      });
+      setState(_updateStories);
     });
   }
 
@@ -95,8 +77,14 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
                           Flexible(
                             child: Text(
                               story.title,
-                              style: Theme.of(context).textTheme.headline6?.copyWith(
-                                    color: Theme.of(context).textTheme.headline3?.color,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  ?.copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .headline3
+                                        ?.color,
                                   ),
                             ),
                           ),
@@ -112,8 +100,13 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
                         clipBehavior: Clip.none,
                         child: Wrap(
                           spacing: 16,
-                          children:
-                              story.scenarios.map((e) => ScenarioContainer(scenario: e)).toList(),
+                          children: story.scenarios
+                              .map((e) => ScenarioContainer(scenario: e))
+                              .toList()
+                                ..sort(
+                                  (s1, s2) => s1.scenario.title
+                                      .compareTo(s2.scenario.title),
+                                ),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -132,5 +125,33 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
         ),
       ),
     );
+  }
+
+  @override
+  void didUpdateWidget(covariant PlaybookGallery oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _updateStories();
+  }
+
+  void _updateStories() {
+    if (_textEditingController.text.isEmpty) {
+      _stories = widget.playbook.stories.toList();
+    } else {
+      final reg = RegExp(_textEditingController.text, caseSensitive: false);
+      _stories = widget.playbook.stories
+          .map(
+            (story) => Story(
+              story.title,
+              scenarios: story.title.contains(reg)
+                  ? story.scenarios
+                  : story.scenarios
+                      .where((scenario) => scenario.title.contains(reg))
+                      .toList(),
+            ),
+          )
+          .where((story) => story.scenarios.isNotEmpty)
+          .toList();
+    }
+    _stories.sort((s1, s2) => s1.title.compareTo(s2.title));
   }
 }

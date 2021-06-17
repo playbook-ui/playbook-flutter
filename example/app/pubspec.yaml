@@ -12,14 +12,18 @@ dependencies:
   flutter:
     sdk: flutter
   playbook:
-    path: ../../playbook
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.0.0
   playbook_generator:
-    path: ../../playbook_generator
 
 flutter:
   uses-material-design: true
+
+dependency_overrides:
+  playbook:
+    path: ../../playbook
+  playbook_generator:
+    path: ../../playbook_generator

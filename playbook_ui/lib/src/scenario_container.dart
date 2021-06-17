@@ -66,24 +66,27 @@ class ScenarioContainer extends StatelessWidget {
           ),
         ],
       ),
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        fullscreenDialog: true,
-        builder: (_) {
-          return DialogScaffold(
-            title: Text(
-              scenario.title,
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            body: Theme(
-              data: ThemeProvider.of(context).theme,
-              child: Align(
-                alignment: scenario.alignment,
-                child: scenario.child,
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        Navigator.of(context).push(MaterialPageRoute(
+          fullscreenDialog: true,
+          builder: (_) {
+            return DialogScaffold(
+              title: Text(
+                scenario.title,
+                style: Theme.of(context).textTheme.bodyText1,
               ),
-            ),
-          );
-        },
-      )),
+              body: Theme(
+                data: ThemeProvider.of(context).theme,
+                child: Align(
+                  alignment: scenario.alignment,
+                  child: scenario.child,
+                ),
+              ),
+            );
+          },
+        ));
+      },
     );
   }
 }
