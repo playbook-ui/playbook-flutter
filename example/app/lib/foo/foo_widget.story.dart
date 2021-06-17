@@ -5,7 +5,7 @@ import 'package:playbook/playbook_annotations.dart';
 const storyTitle = 'FooWidget';
 
 Scenario foo1() {
-  return Scenario('Hello', child: Container(color: Colors.blue));
+  return Scenario('Hello', child: Container(color: Colors.red));
 }
 
 Scenario foo2() {
@@ -39,3 +39,6 @@ class $Foo4_Bar extends StatelessWidget {
     return Container();
   }
 }
+
+@GenerateScenario()
+Widget $foo5() => Text('Foo 5');

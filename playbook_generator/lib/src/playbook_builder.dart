@@ -73,12 +73,20 @@ ${storiesLibrary.accept(emitter)}
     final generatedScenarioCodes = storyLibraryReader
         .annotatedWith(TypeChecker.fromRuntime(GenerateScenario))
         .where((e) {
-      if (e.element is! ClassElement) return false;
-      final classElement = e.element as ClassElement;
-      return classElement.isPublic &&
-          classElement.unnamedConstructor?.isDefaultConstructor == true &&
-          classElement.allSupertypes.any(
-              (s) => s.getDisplayString(withNullability: true) == 'Widget');
+      final element = e.element;
+      if (!element.isPublic) return false;
+      if (element is ClassElement) {
+        return element.unnamedConstructor?.isDefaultConstructor == true &&
+            element.allSupertypes.any(
+              (s) => s.getDisplayString(withNullability: true) == 'Widget',
+            );
+      } else if (element is FunctionElement) {
+        return element.parameters.isEmpty &&
+            element.returnType.getDisplayString(withNullability: true) ==
+                'Widget';
+      } else {
+        return false;
+      }
     }).map((e) {
       final annotation = e.annotation;
       final title = annotation.read('title');
