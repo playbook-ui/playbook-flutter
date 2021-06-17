@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:playbook/playbook.dart';
-import 'package:playbook/playbook_annotations.dart';
 
 const storyTitle = 'FooWidget';
 
