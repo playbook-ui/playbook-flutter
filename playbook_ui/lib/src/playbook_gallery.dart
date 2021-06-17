@@ -9,12 +9,12 @@ class PlaybookGallery extends StatefulWidget {
     Key? key,
     this.title = '',
     this.theme,
-    required this.playbook,
+    required this.builder,
   }) : super(key: key);
 
   final String title;
   final ThemeData? theme;
-  final Playbook playbook;
+  final Playbook Function() builder;
 
   @override
   _PlaybookGalleryState createState() => _PlaybookGalleryState();
@@ -22,32 +22,17 @@ class PlaybookGallery extends StatefulWidget {
 
 class _PlaybookGalleryState extends State<PlaybookGallery> {
   final _textEditingController = TextEditingController();
+  late Playbook _playbook;
   List<Story> _stories = [];
 
   @override
   void initState() {
     super.initState();
-    _stories = widget.playbook.stories;
+    _playbook = widget.builder();
+    _stories = _playbook.stories;
 
     _textEditingController.addListener(() {
-      setState(() {
-        if (_textEditingController.text.isEmpty) {
-          _stories = widget.playbook.stories;
-        } else {
-          final reg = RegExp(_textEditingController.text, caseSensitive: false);
-          _stories = widget.playbook.stories
-              .map(
-                (story) => Story(
-                  story.title,
-                  scenarios: story.title.contains(reg)
-                      ? story.scenarios
-                      : story.scenarios.where((scenario) => scenario.title.contains(reg)).toList(),
-                ),
-              )
-              .where((story) => story.scenarios.isNotEmpty)
-              .toList();
-        }
-      });
+      setState(_filterStories);
     });
   }
 
@@ -95,8 +80,14 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
                           Flexible(
                             child: Text(
                               story.title,
-                              style: Theme.of(context).textTheme.headline6?.copyWith(
-                                    color: Theme.of(context).textTheme.headline3?.color,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  ?.copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .headline3
+                                        ?.color,
                                   ),
                             ),
                           ),
@@ -112,8 +103,9 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
                         clipBehavior: Clip.none,
                         child: Wrap(
                           spacing: 16,
-                          children:
-                              story.scenarios.map((e) => ScenarioContainer(scenario: e)).toList(),
+                          children: story.scenarios
+                              .map((e) => ScenarioContainer(scenario: e))
+                              .toList(),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -132,5 +124,35 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
         ),
       ),
     );
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    setState(() {
+      _playbook = widget.builder();
+      _filterStories();
+    });
+  }
+
+  void _filterStories() {
+    if (_textEditingController.text.isEmpty) {
+      _stories = _playbook.stories;
+    } else {
+      final reg = RegExp(_textEditingController.text, caseSensitive: false);
+      _stories = _playbook.stories
+          .map(
+            (story) => Story(
+              story.title,
+              scenarios: story.title.contains(reg)
+                  ? story.scenarios
+                  : story.scenarios
+                      .where((scenario) => scenario.title.contains(reg))
+                      .toList(),
+            ),
+          )
+          .where((story) => story.scenarios.isNotEmpty)
+          .toList();
+    }
   }
 }
