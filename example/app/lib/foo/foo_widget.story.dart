@@ -5,7 +5,7 @@ import 'package:playbook/playbook_annotations.dart';
 const storyTitle = 'FooWidget';
 
 Scenario foo1() {
-  return Scenario('Hello', child: Container(color: Colors.red));
+  return Scenario('Hello', child: Container(color: Colors.blue));
 }
 
 Scenario foo2() {

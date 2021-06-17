@@ -5,7 +5,7 @@ import 'component/component.dart';
 import 'scenario_container.dart';
 
 class PlaybookGallery extends StatefulWidget {
-  PlaybookGallery({
+  const PlaybookGallery({
     Key? key,
     this.title = '',
     this.theme,
