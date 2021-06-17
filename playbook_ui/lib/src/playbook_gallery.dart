@@ -116,7 +116,11 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
                           spacing: 16,
                           children: story.scenarios
                               .map((e) => ScenarioContainer(scenario: e))
-                              .toList(),
+                              .toList()
+                                ..sort(
+                                  (s1, s2) => s1.scenario.title
+                                      .compareTo(s2.scenario.title),
+                                ),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -166,8 +170,5 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
           .toList();
     }
     _stories.sort((s1, s2) => s1.title.compareTo(s2.title));
-    for (var story in _stories) {
-      story.scenarios..sort((s1, s2) => s1.title.compareTo(s2.title));
-    }
   }
 }
