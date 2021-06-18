@@ -34,15 +34,18 @@ class ScenarioContainer extends StatelessWidget {
                     Positioned(
                       width: size.width,
                       height: size.height,
-                      child: IgnorePointer(
-                        child: Transform.scale(
-                          alignment: Alignment.topLeft,
-                          scale: scenario.scale,
-                          child: Align(
-                            alignment: scenario.alignment,
-                            child: Theme(
-                              data: ThemeProvider.of(context).theme,
-                              child: scenario.child,
+                      child: Focus(
+                        descendantsAreFocusable: false,
+                        child: IgnorePointer(
+                          child: Transform.scale(
+                            alignment: Alignment.topLeft,
+                            scale: scenario.scale,
+                            child: Align(
+                              alignment: scenario.alignment,
+                              child: Theme(
+                                data: ThemeProvider.of(context).theme,
+                                child: scenario.child,
+                              ),
                             ),
                           ),
                         ),
