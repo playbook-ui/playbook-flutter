@@ -25,7 +25,7 @@ class Snapshot extends TestTool {
 
       for (final story in playbook.stories) {
         for (final scenario in story.scenarios) {
-          final scenarioWidget = builder(scenario.child);
+          final scenarioWidget = builder(ScenarioWidget(scenario: scenario));
 
           testWidgets('Snapshot for ${story.title} ${scenario.title}', (tester) async {
             await SnapshotSupport.startDevice(scenarioWidget, tester, device);

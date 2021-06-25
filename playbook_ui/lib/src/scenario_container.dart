@@ -81,10 +81,7 @@ class ScenarioContainer extends StatelessWidget {
               ),
               body: Theme(
                 data: ThemeProvider.of(context).theme,
-                child: Align(
-                  alignment: scenario.alignment,
-                  child: scenario.child,
-                ),
+                child: ScenarioWidget(scenario: scenario),
               ),
             );
           },
