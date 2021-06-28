@@ -71,16 +71,17 @@ class ScenarioContainer extends StatelessWidget {
       ),
       onTap: () {
         FocusScope.of(context).unfocus();
+        final contentTheme = ThemeProvider.of(context).theme;
         Navigator.of(context).push(MaterialPageRoute(
           fullscreenDialog: true,
-          builder: (_) {
+          builder: (context) {
             return DialogScaffold(
               title: Text(
                 scenario.title,
                 style: Theme.of(context).textTheme.bodyText1,
               ),
               body: Theme(
-                data: ThemeProvider.of(context).theme,
+                data: contentTheme,
                 child: ScenarioWidget(scenario: scenario),
               ),
             );
