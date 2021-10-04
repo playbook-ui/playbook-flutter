@@ -8,11 +8,16 @@ import 'snapshot_device.dart';
 import 'snapshot_support.dart';
 import 'test_tool.dart';
 
-class Snapshot extends TestTool {
-  Snapshot({required this.directoryPath, required this.devices});
+class Snapshot implements TestTool {
+  const Snapshot({
+    required this.directoryPath,
+    required this.devices,
+    this.subdirectoryPath,
+  });
 
   final String directoryPath;
   final List<SnapshotDevice> devices;
+  final String? subdirectoryPath;
 
   @override
   Future<void> run(Playbook playbook, PlaybookBuilder builder) async {
@@ -21,7 +26,8 @@ class Snapshot extends TestTool {
     });
 
     for (final device in devices) {
-      final ensuredDirectoryPath = '$directoryPath/${device.name}';
+      final sub = subdirectoryPath != null ? '/$subdirectoryPath' : '';
+      final ensuredDirectoryPath = '$directoryPath/${device.name}$sub';
 
       for (final story in playbook.stories) {
         for (final scenario in story.scenarios) {
