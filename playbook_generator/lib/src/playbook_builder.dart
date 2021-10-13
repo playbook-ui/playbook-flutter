@@ -8,8 +8,7 @@ import 'package:dartx/dartx.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart';
 import 'package:playbook/playbook_annotations.dart';
-import 'package:source_gen/source_gen.dart'
-    show LibraryReader, TypeChecker, defaultFileHeader;
+import 'package:source_gen/source_gen.dart' show LibraryReader, TypeChecker, defaultFileHeader;
 
 import 'constant_reader_utils.dart';
 
@@ -70,9 +69,8 @@ ${storiesLibrary.accept(emitter)}
   List<Code> _createScenarioCodes(LibraryReader storyLibraryReader) {
     final uri = storyLibraryReader.element.librarySource.uri.toString();
 
-    final generatedScenarioCodes = storyLibraryReader
-        .annotatedWith(TypeChecker.fromRuntime(GenerateScenario))
-        .where((e) {
+    final generatedScenarioCodes =
+        storyLibraryReader.annotatedWith(TypeChecker.fromRuntime(GenerateScenario)).where((e) {
       final element = e.element;
       if (!element.isPublic) return false;
       if (element is ClassElement) {
@@ -82,8 +80,7 @@ ${storiesLibrary.accept(emitter)}
             );
       } else if (element is FunctionElement) {
         return element.parameters.isEmpty &&
-            element.returnType.getDisplayString(withNullability: true) ==
-                'Widget';
+            element.returnType.getDisplayString(withNullability: true) == 'Widget';
       } else {
         return false;
       }
@@ -108,8 +105,7 @@ ${a(refer('Scenario', _playbookUrl))}(
         .where((e) => e.isPublic && e.parameters.isEmpty)
         .flatMap<Code>(
       (e) {
-        final returnTypeString =
-            e.returnType.getDisplayString(withNullability: true);
+        final returnTypeString = e.returnType.getDisplayString(withNullability: true);
         final scenarioRefer = refer(e.displayName, uri);
         if (returnTypeString == 'Scenario') {
           return [scenarioRefer([]).code];
@@ -145,8 +141,7 @@ ${a(refer('Scenario', _playbookUrl))}(
   }
 
   Method _createStoriesGetter(List<Method> storyMethods) {
-    final bodyExpression =
-        literalList(storyMethods.map((e) => refer('${e.name}()')));
+    final bodyExpression = literalList(storyMethods.map((e) => refer('${e.name}()')));
     return Method((b) => b
       ..name = 'stories'
       ..type = MethodType.getter

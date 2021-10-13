@@ -28,8 +28,8 @@ class SnapshotSupport {
       return;
     }
 
-    var absoluteSize = Size(scenario.layout.absoluteWidth(device),
-        scenario.layout.absoluteHeight(device));
+    var absoluteSize =
+        Size(scenario.layout.absoluteWidth(device), scenario.layout.absoluteHeight(device));
 
     if (scenario.layout.needsCompressedResizing) {
       final scrollViews = find
@@ -40,8 +40,7 @@ class SnapshotSupport {
       absoluteSize = device.size;
 
       for (final scrollView in scrollViews) {
-        absoluteSize =
-            _extendScrollableSnapshotSize(scrollView, absoluteSize, device);
+        absoluteSize = _extendScrollableSnapshotSize(scrollView, absoluteSize, device);
       }
     }
 

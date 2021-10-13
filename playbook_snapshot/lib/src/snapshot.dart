@@ -33,17 +33,14 @@ class Snapshot implements TestTool {
         for (final scenario in story.scenarios) {
           final scenarioWidget = builder(ScenarioWidget(scenario: scenario));
 
-          testWidgets('Snapshot for ${story.title} ${scenario.title}',
-              (tester) async {
+          testWidgets('Snapshot for ${story.title} ${scenario.title}', (tester) async {
             await SnapshotSupport.startDevice(scenarioWidget, tester, device);
-            await SnapshotSupport.resize(
-                scenarioWidget, scenario, tester, device);
+            await SnapshotSupport.resize(scenarioWidget, scenario, tester, device);
             await SnapshotSupport.precacheAssetImage(tester);
 
             await expectLater(
               find.byWidget(scenario.child),
-              matchesGoldenFile(
-                  '$ensuredDirectoryPath/${story.title}/${scenario.title}.png'),
+              matchesGoldenFile('$ensuredDirectoryPath/${story.title}/${scenario.title}.png'),
             );
           });
         }
