@@ -109,6 +109,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  playbook_snapshot:
+    dependency: "direct dev"
+    description:
+      path: "../../playbook_snapshot"
+      relative: true
+    source: path
+    version: "0.0.1"
   playbook_ui:
     dependency: "direct main"
     description:

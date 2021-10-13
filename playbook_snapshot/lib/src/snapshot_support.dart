@@ -28,8 +28,8 @@ class SnapshotSupport {
       return;
     }
 
-    var absoluteSize =
-        Size(scenario.layout.absoluteWidth(device), scenario.layout.absoluteHeight(device));
+    var absoluteSize = Size(scenario.layout.absoluteWidth(device),
+        scenario.layout.absoluteHeight(device));
 
     if (scenario.layout.needsCompressedResizing) {
       final scrollViews = find
@@ -40,12 +40,27 @@ class SnapshotSupport {
       absoluteSize = device.size;
 
       for (final scrollView in scrollViews) {
-        absoluteSize = _extendScrollableSnapshotSize(scrollView, absoluteSize, device);
+        absoluteSize =
+            _extendScrollableSnapshotSize(scrollView, absoluteSize, device);
       }
     }
 
     await _setSnapshotSize(tester, absoluteSize);
     await tester.pumpAndSettle();
+  }
+
+  // see: https://github.com/flutter/flutter/issues/38997
+  static Future<void> precacheAssetImage(
+    WidgetTester tester,
+  ) async {
+    await tester.runAsync(() async {
+      for (var element in find.byType(Image).evaluate()) {
+        final Image widget = element.widget as Image;
+        final ImageProvider image = widget.image;
+        await precacheImage(image, element);
+        await tester.pumpAndSettle();
+      }
+    });
   }
 
   static Future<void> _setSnapshotSize(WidgetTester tester, Size size) async {

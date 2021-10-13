@@ -20,6 +20,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  playbook_snapshot:
+
 flutter:
   uses-material-design: true
 
@@ -28,3 +30,5 @@ dependency_overrides:
     path: ../../playbook
   playbook_ui: 
     path: ../../playbook_ui
+  playbook_snapshot:
+    path: ../../playbook_snapshot
