@@ -23,7 +23,7 @@ class Snapshot implements TestTool {
   Future<void> run(
     Playbook playbook,
     PlaybookBuilder builder, {
-    Future<void> Function(WidgetTester tester)? setUpWidget,
+    Future<void> Function(WidgetTester tester)? setUpEachTest,
   }) async {
     setUpAll(() async {
       await FontBuilder.loadFonts();
@@ -42,7 +42,7 @@ class Snapshot implements TestTool {
             await SnapshotSupport.resize(scenarioWidget, scenario, tester, device);
             await SnapshotSupport.precacheAssetImage(tester);
 
-            await setUpWidget?.call(tester);
+            await setUpEachTest?.call(tester);
 
             await expectLater(
               find.byWidget(scenario.child),
