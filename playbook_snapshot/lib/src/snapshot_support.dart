@@ -101,17 +101,16 @@ class SnapshotSupport {
     final scrollAxis = controller.position.axis;
     final maxScrollExtent = controller.position.maxScrollExtent;
 
-    if (scrollAxis == Axis.horizontal) {
-      final height = max(originSize.height, extendedSize.height);
-      final width = max(maxScrollExtent + originSize.width, extendedSize.width);
-      return Size(width, height);
-    } else if (scrollAxis == Axis.vertical) {
-      final height = max(maxScrollExtent + originSize.height, extendedSize.height);
-      final width = max(originSize.width, extendedSize.width);
-      return Size(width, height);
+    switch (scrollAxis) {
+      case Axis.horizontal:
+        final height = max(originSize.height, extendedSize.height);
+        final width = max(maxScrollExtent + originSize.width, extendedSize.width);
+        return Size(width, height);
+      case Axis.vertical:
+        final height = max(maxScrollExtent + originSize.height, extendedSize.height);
+        final width = max(originSize.width, extendedSize.width);
+        return Size(width, height);
     }
-
-    return originSize;
   }
 }
 
