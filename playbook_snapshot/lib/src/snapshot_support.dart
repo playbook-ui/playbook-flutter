@@ -28,24 +28,41 @@ class SnapshotSupport {
       return;
     }
 
-    var absoluteSize =
-        Size(scenario.layout.absoluteWidth(device), scenario.layout.absoluteHeight(device));
+    final absoluteSize = Size(
+      scenario.layout.absoluteWidth(device),
+      scenario.layout.absoluteHeight(device),
+    );
 
+    Size snapshotSize;
     if (scenario.layout.needsCompressedResizing) {
-      final scrollViews = find
-          .byWidgetPredicate((widget) => widget is ScrollView)
-          .evaluate()
-          .map((e) => e.widget as ScrollView);
+      // We use scrollController.maxScrollExtent to calculate the snapshot size.
+      // However, maxScrollExtent may report incorrectly.
+      // To solve this, we repeatedly calculate size and update size until we can get a stable value.
+      var lastExtendedSize = device.size;
+      while (true) {
+        final scrollViews = find
+            .byWidgetPredicate((widget) => widget is ScrollView)
+            .evaluate()
+            .map((e) => e.widget as ScrollView);
+        if (scrollViews.isEmpty) break;
 
-      absoluteSize = device.size;
-
-      for (final scrollView in scrollViews) {
-        absoluteSize = _extendScrollableSnapshotSize(scrollView, absoluteSize, device);
+        var extendedSize = device.size;
+        for (final scrollView in scrollViews) {
+          extendedSize = _extendScrollableSnapshotSize(
+            scrollView: scrollView,
+            extendedSize: extendedSize,
+            originSize: lastExtendedSize,
+          );
+        }
+        if (extendedSize <= lastExtendedSize) break;
+        lastExtendedSize = extendedSize;
+        await _setSnapshotSize(tester, lastExtendedSize);
       }
+      snapshotSize = lastExtendedSize;
+    } else {
+      snapshotSize = absoluteSize;
     }
-
-    await _setSnapshotSize(tester, absoluteSize);
-    await tester.pumpAndSettle();
+    await _setSnapshotSize(tester, snapshotSize);
   }
 
   // see: https://github.com/flutter/flutter/issues/38997
@@ -65,32 +82,35 @@ class SnapshotSupport {
   static Future<void> _setSnapshotSize(WidgetTester tester, Size size) async {
     await tester.binding.setSurfaceSize(size);
     tester.binding.window.physicalSizeTestValue = size;
+    await tester.pumpAndSettle();
   }
 
-  static Size _extendScrollableSnapshotSize(
-    ScrollView scrollView,
-    Size absoluteSize,
-    SnapshotDevice device,
-  ) {
+  static Size _extendScrollableSnapshotSize({
+    required ScrollView scrollView,
+    required Size extendedSize,
+    required Size originSize,
+  }) {
     final controller = scrollView.controller;
     if (controller == null) {
-      return device.size;
+      return Size(
+        max(extendedSize.width, originSize.width),
+        max(extendedSize.height, originSize.height),
+      );
     }
 
     final scrollAxis = controller.position.axis;
     final maxScrollExtent = controller.position.maxScrollExtent;
 
-    if (scrollAxis == Axis.horizontal) {
-      final height = max(device.size.height, absoluteSize.height);
-      final width = maxScrollExtent + device.size.width;
-      return Size(width, height);
-    } else if (scrollAxis == Axis.vertical) {
-      final height = maxScrollExtent + device.size.height;
-      final width = max(device.size.width, absoluteSize.width);
-      return Size(width, height);
+    switch (scrollAxis) {
+      case Axis.horizontal:
+        final height = max(originSize.height, extendedSize.height);
+        final width = max(maxScrollExtent + originSize.width, extendedSize.width);
+        return Size(width, height);
+      case Axis.vertical:
+        final height = max(maxScrollExtent + originSize.height, extendedSize.height);
+        final width = max(originSize.width, extendedSize.width);
+        return Size(width, height);
     }
-
-    return absoluteSize;
   }
 }
 
