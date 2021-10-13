@@ -20,7 +20,11 @@ class Snapshot implements TestTool {
   final String? subdirectoryPath;
 
   @override
-  Future<void> run(Playbook playbook, PlaybookBuilder builder) async {
+  Future<void> run(
+    Playbook playbook,
+    PlaybookBuilder builder, {
+    Future<void> Function(WidgetTester tester)? setUpWidget,
+  }) async {
     setUpAll(() async {
       await FontBuilder.loadFonts();
     });
@@ -37,6 +41,8 @@ class Snapshot implements TestTool {
             await SnapshotSupport.startDevice(scenarioWidget, tester, device);
             await SnapshotSupport.resize(scenarioWidget, scenario, tester, device);
             await SnapshotSupport.precacheAssetImage(tester);
+
+            await setUpWidget?.call(tester);
 
             await expectLater(
               find.byWidget(scenario.child),
