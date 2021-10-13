@@ -2,7 +2,6 @@ import 'package:app/generated_playbook.dart';
 import 'package:app/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:playbook_snapshot/playbook_snapshot.dart';
 
@@ -21,10 +20,7 @@ Future<void> main() async {
       (widget) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: DefaultAssetBundle(
-            bundle: rootBundle,
-            child: widget,
-          ),
+          home: widget,
         );
       },
     );
