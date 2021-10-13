@@ -48,6 +48,20 @@ class SnapshotSupport {
     await tester.pumpAndSettle();
   }
 
+  // see: https://github.com/flutter/flutter/issues/38997
+  static Future<void> precacheAssetImage(
+    WidgetTester tester,
+  ) async {
+    await tester.runAsync(() async {
+      for (var element in find.byType(Image).evaluate()) {
+        final Image widget = element.widget as Image;
+        final ImageProvider image = widget.image;
+        await precacheImage(image, element);
+        await tester.pumpAndSettle();
+      }
+    });
+  }
+
   static Future<void> _setSnapshotSize(WidgetTester tester, Size size) async {
     await tester.binding.setSurfaceSize(size);
     tester.binding.window.physicalSizeTestValue = size;

@@ -22,6 +22,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  assets:
+    - assets/flutter.png
+
 dependency_overrides:
   playbook:
     path: ../../playbook

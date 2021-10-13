@@ -28,7 +28,7 @@ Scenario foo2() {
 class Foo3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(color: Colors.amber);
   }
 }
 
@@ -36,7 +36,7 @@ class Foo3 extends StatelessWidget {
 class $Foo4_Bar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(color: Colors.pink);
   }
 }
 

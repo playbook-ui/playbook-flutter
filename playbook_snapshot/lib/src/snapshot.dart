@@ -36,6 +36,7 @@ class Snapshot implements TestTool {
           testWidgets('Snapshot for ${story.title} ${scenario.title}', (tester) async {
             await SnapshotSupport.startDevice(scenarioWidget, tester, device);
             await SnapshotSupport.resize(scenarioWidget, scenario, tester, device);
+            await SnapshotSupport.precacheAssetImage(tester);
 
             await expectLater(
               find.byWidget(scenario.child),

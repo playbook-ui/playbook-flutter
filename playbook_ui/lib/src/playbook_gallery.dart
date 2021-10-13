@@ -77,14 +77,8 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
                           Flexible(
                             child: Text(
                               story.title,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6
-                                  ?.copyWith(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .headline3
-                                        ?.color,
+                              style: Theme.of(context).textTheme.headline6?.copyWith(
+                                    color: Theme.of(context).textTheme.headline3?.color,
                                   ),
                             ),
                           ),
@@ -101,13 +95,11 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
                         child: Wrap(
                           spacing: 16,
                           children: story.scenarios
-                              .map((e) => ScenarioContainer(
-                                  key: ValueKey(e), scenario: e))
+                              .map((e) => ScenarioContainer(key: ValueKey(e), scenario: e))
                               .toList()
-                                ..sort(
-                                  (s1, s2) => s1.scenario.title
-                                      .compareTo(s2.scenario.title),
-                                ),
+                            ..sort(
+                              (s1, s2) => s1.scenario.title.compareTo(s2.scenario.title),
+                            ),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -145,9 +137,7 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
               story.title,
               scenarios: story.title.contains(reg)
                   ? story.scenarios
-                  : story.scenarios
-                      .where((scenario) => scenario.title.contains(reg))
-                      .toList(),
+                  : story.scenarios.where((scenario) => scenario.title.contains(reg)).toList(),
             ),
           )
           .where((story) => story.scenarios.isNotEmpty)
