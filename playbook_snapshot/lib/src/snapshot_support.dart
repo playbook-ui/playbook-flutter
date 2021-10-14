@@ -50,16 +50,16 @@ class SnapshotSupport {
       );
       var resize = 0;
       while (true) {
-        final scrollViews = find
-            .byWidgetPredicate((widget) => widget is ScrollView)
+        final scrollables = find
+            .byWidgetPredicate((widget) => widget is Scrollable)
             .evaluate()
-            .map((e) => e.widget as ScrollView);
-        if (scrollViews.isEmpty) break;
+            .map((e) => e.widget as Scrollable);
+        if (scrollables.isEmpty) break;
 
         var extendedSize = device.size;
-        for (final scrollView in scrollViews) {
+        for (final scrollable in scrollables) {
           extendedSize = _extendScrollableSnapshotSize(
-            scrollView: scrollView,
+            scrollable: scrollable,
             currentExtendedSize: extendedSize,
             originSize: lastExtendedSize,
             resizingTarget: scenario.layout.compressedResizingTarget,
@@ -102,12 +102,12 @@ class SnapshotSupport {
   }
 
   static Size _extendScrollableSnapshotSize({
-    required ScrollView scrollView,
+    required Scrollable scrollable,
     required Size currentExtendedSize,
     required Size originSize,
     required _CompressedResizingTarget resizingTarget,
   }) {
-    final controller = scrollView.controller;
+    final controller = scrollable.controller;
     if (controller == null) {
       return Size(
         resizingTarget.needResizingWidth
