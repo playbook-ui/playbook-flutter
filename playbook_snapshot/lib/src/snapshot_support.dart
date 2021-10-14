@@ -50,8 +50,9 @@ class SnapshotSupport {
         for (final scrollView in scrollViews) {
           extendedSize = _extendScrollableSnapshotSize(
             scrollView: scrollView,
-            extendedSize: extendedSize,
+            currentExtendedSize: extendedSize,
             originSize: lastExtendedSize,
+            resizingTarget: scenario.layout.compressedResizingTarget,
           );
         }
         if (extendedSize <= lastExtendedSize) break;
@@ -87,30 +88,42 @@ class SnapshotSupport {
 
   static Size _extendScrollableSnapshotSize({
     required ScrollView scrollView,
-    required Size extendedSize,
+    required Size currentExtendedSize,
     required Size originSize,
+    required _CompressedResizingTarget resizingTarget,
   }) {
     final controller = scrollView.controller;
     if (controller == null) {
       return Size(
-        max(extendedSize.width, originSize.width),
-        max(extendedSize.height, originSize.height),
+        resizingTarget.needResizingWidth
+            ? max(currentExtendedSize.width, originSize.width)
+            : originSize.width,
+        resizingTarget.needResizingHeight
+            ? max(currentExtendedSize.height, originSize.height)
+            : originSize.height,
       );
     }
 
     final scrollAxis = controller.position.axis;
     final maxScrollExtent = controller.position.maxScrollExtent;
 
+    final Size newExtendedSize;
     switch (scrollAxis) {
       case Axis.horizontal:
-        final height = max(originSize.height, extendedSize.height);
-        final width = max(maxScrollExtent + originSize.width, extendedSize.width);
-        return Size(width, height);
+        final height = max(originSize.height, currentExtendedSize.height);
+        final width = max(maxScrollExtent + originSize.width, currentExtendedSize.width);
+        newExtendedSize = Size(width, height);
+        break;
       case Axis.vertical:
-        final height = max(maxScrollExtent + originSize.height, extendedSize.height);
-        final width = max(originSize.width, extendedSize.width);
-        return Size(width, height);
+        final height = max(maxScrollExtent + originSize.height, currentExtendedSize.height);
+        final width = max(originSize.width, currentExtendedSize.width);
+        newExtendedSize = Size(width, height);
+        break;
     }
+    return Size(
+      resizingTarget.needResizingWidth ? newExtendedSize.width : originSize.width,
+      resizingTarget.needResizingHeight ? newExtendedSize.height : originSize.height,
+    );
   }
 }
 
@@ -121,6 +134,18 @@ extension on ScenarioLayout {
 
   bool get needsCompressedResizing {
     return v is ScenarioLayoutCompressed || h is ScenarioLayoutCompressed;
+  }
+
+  _CompressedResizingTarget get compressedResizingTarget {
+    if (v is ScenarioLayoutCompressed && h is ScenarioLayoutCompressed) {
+      return _CompressedResizingTarget.both;
+    } else if (v is ScenarioLayoutCompressed) {
+      return _CompressedResizingTarget.vertical;
+    } else if (h is ScenarioLayoutCompressed) {
+      return _CompressedResizingTarget.horizontal;
+    } else {
+      throw StateError('No need compressed resizing.');
+    }
   }
 
   double absoluteWidth(SnapshotDevice device) {
@@ -146,4 +171,18 @@ extension on ScenarioLayout {
     }
     return device.size.height;
   }
+}
+
+enum _CompressedResizingTarget {
+  horizontal,
+  vertical,
+  both,
+}
+
+extension on _CompressedResizingTarget {
+  bool get needResizingWidth =>
+      this == _CompressedResizingTarget.both || this == _CompressedResizingTarget.horizontal;
+
+  bool get needResizingHeight =>
+      this == _CompressedResizingTarget.both || this == _CompressedResizingTarget.vertical;
 }
