@@ -71,7 +71,7 @@ class SnapshotSupport {
         resize++;
         if (resize >= _maxTryResizeCount) {
           throw StateError(
-              'Try resizing too many times. Please try to set your scenario to have a fixed size. Current is ${scenario.layout}.');
+              'Try resizing too many times. Please try to set your scenario to have a fixed size.');
         }
       }
       snapshotSize = lastExtendedSize;
