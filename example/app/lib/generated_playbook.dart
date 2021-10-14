@@ -21,19 +21,33 @@ _i1.Story _$foo$foo_widget$Story() => _i1.Story('FooWidget', scenarios: [
       _i1.Scenario(
         'foo3foo3',
         layout: _i2.ScenarioLayout.sizing(
-            _i2.ScenarioLayoutFixed(100.0), _i2.ScenarioLayoutFixed(200.0)),
+          _i2.ScenarioLayoutFixed(
+            100.0,
+          ),
+          _i2.ScenarioLayoutFixed(
+            200.0,
+          ),
+        ),
         scale: 0.3,
         child: _i4.Foo3(),
       ),
       _i1.Scenario(
         'Foo4 Bar',
-        layout: _i2.ScenarioLayout.compressed(),
+        layout: _i2.ScenarioLayout.fixedH(
+          300.0,
+          crossAxisLayout: _i2.ScenarioLayoutFill(),
+        ),
         scale: 0.3,
         child: _i4.$Foo4_Bar(),
       ),
       _i1.Scenario(
         'foo5',
-        layout: _i2.ScenarioLayout.compressed(),
+        layout: _i2.ScenarioLayout.fixedV(
+          500.0,
+          crossAxisLayout: _i2.ScenarioLayoutFixed(
+            200.0,
+          ),
+        ),
         scale: 0.3,
         child: _i4.$foo5(),
       ),

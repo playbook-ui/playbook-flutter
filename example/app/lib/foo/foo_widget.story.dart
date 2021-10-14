@@ -32,7 +32,12 @@ class Foo3 extends StatelessWidget {
   }
 }
 
-@GenerateScenario()
+@GenerateScenario(
+  layout: ScenarioLayout.fixedH(
+    300,
+    crossAxisLayout: ScenarioLayoutFill(),
+  ),
+)
 class $Foo4_Bar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -40,5 +45,10 @@ class $Foo4_Bar extends StatelessWidget {
   }
 }
 
-@GenerateScenario()
+@GenerateScenario(
+  layout: ScenarioLayout.fixedV(
+    500,
+    crossAxisLayout: ScenarioLayoutFixed(200),
+  ),
+)
 Widget $foo5() => Text('Foo 5');
