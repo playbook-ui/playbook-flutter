@@ -7,6 +7,8 @@ import 'package:playbook/playbook.dart';
 import 'snapshot_device.dart';
 
 class SnapshotSupport {
+  static const _maxTryResizeCount = 10;
+
   static Future<void> startDevice(
     Widget target,
     WidgetTester tester,
@@ -39,6 +41,7 @@ class SnapshotSupport {
       // However, maxScrollExtent may report incorrectly.
       // To solve this, we repeatedly calculate size and update size until we can get a stable value.
       var lastExtendedSize = device.size;
+      var resize = 0;
       while (true) {
         final scrollViews = find
             .byWidgetPredicate((widget) => widget is ScrollView)
@@ -58,6 +61,11 @@ class SnapshotSupport {
         if (extendedSize <= lastExtendedSize) break;
         lastExtendedSize = extendedSize;
         await _setSnapshotSize(tester, lastExtendedSize);
+        resize++;
+        if (resize >= _maxTryResizeCount) {
+          throw StateError(
+              'Try resizing too many times. Please try to set your scenario to have a fixed size. Current is ${scenario.layout}.');
+        }
       }
       snapshotSize = lastExtendedSize;
     } else {
