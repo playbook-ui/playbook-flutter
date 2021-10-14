@@ -8,6 +8,7 @@ import 'snapshot_device.dart';
 
 class SnapshotSupport {
   static const _maxTryResizeCount = 10;
+  static const _maxSnapshotSize = 50000;
 
   static Future<void> startDevice(
     Widget target,
@@ -72,6 +73,10 @@ class SnapshotSupport {
         if (resize >= _maxTryResizeCount) {
           throw StateError(
               'Try resizing too many times. Please try to set your scenario to have a fixed size.');
+        }
+        if (extendedSize.width >= _maxSnapshotSize || extendedSize.height >= _maxSnapshotSize) {
+          throw StateError(
+              'Try resizing too large size. Please try to set your scenario to have a fixed size.');
         }
       }
       snapshotSize = lastExtendedSize;
