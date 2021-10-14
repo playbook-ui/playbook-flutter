@@ -40,7 +40,14 @@ class SnapshotSupport {
       // We use scrollController.maxScrollExtent to calculate the snapshot size.
       // However, maxScrollExtent may report incorrectly.
       // To solve this, we repeatedly calculate size and update size until we can get a stable value.
-      var lastExtendedSize = device.size;
+      var lastExtendedSize = Size(
+        scenario.layout.compressedResizingTarget.needResizingWidth
+            ? device.size.width
+            : absoluteSize.width,
+        scenario.layout.compressedResizingTarget.needResizingHeight
+            ? device.size.height
+            : absoluteSize.height,
+      );
       var resize = 0;
       while (true) {
         final scrollViews = find
