@@ -76,7 +76,7 @@ class SnapshotSupport {
         }
         if (extendedSize.width >= _maxSnapshotSize || extendedSize.height >= _maxSnapshotSize) {
           throw StateError(
-              'Try resizing too large size. Please try to set your scenario to have a fixed size.');
+              'Try resizing too large size ${extendedSize}. Please try to set your scenario to have a fixed size.');
         }
       }
       snapshotSize = lastExtendedSize;
@@ -113,7 +113,11 @@ class SnapshotSupport {
     required _CompressedResizingTarget resizingTarget,
   }) {
     final controller = scrollable.controller;
-    if (controller == null) {
+    ScrollPosition? position;
+    try {
+      position = controller?.position;
+    } catch (_) {}
+    if (position == null) {
       return Size(
         resizingTarget.needResizingWidth
             ? max(currentExtendedSize.width, originSize.width)
@@ -124,8 +128,8 @@ class SnapshotSupport {
       );
     }
 
-    final scrollAxis = controller.position.axis;
-    final maxScrollExtent = controller.position.maxScrollExtent;
+    final scrollAxis = position.axis;
+    final maxScrollExtent = position.maxScrollExtent;
 
     final Size newExtendedSize;
     switch (scrollAxis) {
