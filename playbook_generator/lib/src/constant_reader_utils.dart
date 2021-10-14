@@ -21,8 +21,7 @@ String constantReaderToSource(
         .map((e) => constantReaderToSource(ConstantReader(e), allocator))
         .join(', ');
     final namedParameters = revivable.namedArguments.entries
-        .map((e) =>
-            '${e.key}: ${constantReaderToSource(ConstantReader(e.value), allocator)}')
+        .map((e) => '${e.key}: ${constantReaderToSource(ConstantReader(e.value), allocator)}')
         .join(', ');
     return '$constructorRefer(' +
         (positionParameters.isNotEmpty ? '$positionParameters,' : '') +

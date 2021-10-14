@@ -11,7 +11,7 @@ ide:
 scripts:
   pub:get: melos exec -- exec flutter pub get
 
-  format: melos exec -- exec flutter format -n .
+  format: melos exec -- exec flutter format . -l 100
 
   analyze: melos exec -- exec flutter analyze .
 
