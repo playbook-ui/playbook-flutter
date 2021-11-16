@@ -76,4 +76,4 @@ build/
 !**/ios/**/default.perspectivev3
 
 # Playbook
-example/catalog_app/test/screenshots/
+examples/**/test/screenshots/
