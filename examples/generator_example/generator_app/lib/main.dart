@@ -1,1 +1,1 @@
-String? packageName = null;
+String? packageName = 'generator_app';
