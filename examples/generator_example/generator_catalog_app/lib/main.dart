@@ -1,4 +1,4 @@
-import 'package:app/generated_playbook.dart';
+import 'package:generator_app/generated_playbook.dart';
 import 'package:flutter/material.dart';
 import 'package:playbook_ui/playbook_ui.dart';
 

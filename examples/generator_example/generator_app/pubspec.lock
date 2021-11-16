@@ -315,14 +315,14 @@ packages:
   playbook:
     dependency: "direct main"
     description:
-      path: "../../playbook"
+      path: "../../../playbook"
       relative: true
     source: path
     version: "0.0.1"
   playbook_generator:
     dependency: "direct dev"
     description:
-      path: "../../playbook_generator"
+      path: "../../../playbook_generator"
       relative: true
     source: path
     version: "0.0.1"

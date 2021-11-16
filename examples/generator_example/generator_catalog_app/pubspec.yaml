@@ -1,4 +1,4 @@
-name: catalog_app
+name: generator_catalog_app
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
@@ -11,8 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  app:
-    path: ../app
+  generator_app:
+    path: ../generator_app
   playbook_ui:
   playbook:
 
@@ -27,8 +27,8 @@ flutter:
 
 dependency_overrides:
   playbook:
-    path: ../../playbook
+    path: ../../../playbook
   playbook_ui: 
-    path: ../../playbook_ui
+    path: ../../../playbook_ui
   playbook_snapshot:
-    path: ../../playbook_snapshot
+    path: ../../../playbook_snapshot

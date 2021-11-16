@@ -1,5 +1,5 @@
-import 'package:app/generated_playbook.dart';
-import 'package:app/main.dart';
+import 'package:generator_app/generated_playbook.dart';
+import 'package:generator_app/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

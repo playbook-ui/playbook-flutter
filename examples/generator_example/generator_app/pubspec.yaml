@@ -1,4 +1,4 @@
-name: app
+name: generator_app
 description: Sample app
 version: 1.0.0+1
 
@@ -27,6 +27,6 @@ flutter:
 
 dependency_overrides:
   playbook:
-    path: ../../playbook
+    path: ../../../playbook
   playbook_generator:
-    path: ../../playbook_generator
+    path: ../../../playbook_generator

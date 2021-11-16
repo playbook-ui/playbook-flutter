@@ -1,5 +1,6 @@
-import 'package:app/bar/bar.dart';
 import 'package:playbook/playbook.dart';
+
+import 'bar.dart';
 
 const storyTitle = 'BarWidget';
 
