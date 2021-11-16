@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BarWidget extends StatelessWidget {
-  BarWidget({
+  const BarWidget({
     required this.text,
   });
 
