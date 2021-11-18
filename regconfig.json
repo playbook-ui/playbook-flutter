@@ -11,8 +11,6 @@
   "plugins": {
     "reg-keygen-git-hash-plugin": true,
     "reg-notify-github-plugin": {
-      "prComment": true,
-      "prCommentBehavior": "default",
       "clientId": "MzY1NzQ2Njcx1y/ISaxMys/P1k3LKS0pSS3SNzQxtbQ0NTLST07UzSwqy8xLBQA="
     },
     "reg-publish-gcs-plugin": {
