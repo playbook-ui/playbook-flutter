@@ -14,7 +14,7 @@ Future<void> main() async {
     (widget) {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: widget,
+        home: Material(child: widget),
       );
     },
   );
