@@ -8,7 +8,6 @@ executors:
   android_small:
     docker:
       - image: circleci/android:api-30
-    resource_class: small
     working_directory: ~/workspace
 
 jobs:
