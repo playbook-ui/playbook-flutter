@@ -20,6 +20,11 @@ jobs:
           install-yarn: true
       - flutter/install_sdk_and_pub
       - run:
+          name: Set environment paths
+          command: |
+            echo "export PATH=$PATH:$HOME/.pub-cache/bin" >> $BASH_ENV
+            source $BASH_ENV
+      - run:
           name: Install dependencies
           command: |
             dart pub global activate melos
