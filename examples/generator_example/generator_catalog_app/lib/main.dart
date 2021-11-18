@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Playbook Demo',
       theme: ThemeData.light(),
       home: PlaybookGallery(
+        title: 'Sample app',
         playbook: playbook,
       ),
     );
