@@ -5,14 +5,15 @@ orbs:
   node: circleci/node@4.7.0
 
 executors:
-  android_small:
+  android_medium:
     docker:
       - image: circleci/android:api-30
+    resource_class: medium
     working_directory: ~/workspace
 
 jobs:
   vrt:
-    executor: android_small
+    executor: android_medium
     steps:
       - checkout
       - node/install:
