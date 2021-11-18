@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "reg-suit": "^0.11.1"
+  },
+  "devDependencies": {
+    "reg-keygen-git-hash-plugin": "^0.11.1",
+    "reg-notify-github-plugin": "^0.11.1",
+    "reg-publish-gcs-plugin": "^0.11.1"
+  },
+  "scripts": {
+    "regression": "reg-suit run"
+  }
+}

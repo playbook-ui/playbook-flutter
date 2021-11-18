@@ -1,0 +1,22 @@
+{
+  "core": {
+    "workingDir": ".reg",
+    "actualDir": "examples/simple_example/simple_catalog_app/test/screenshots",
+    "thresholdRate": 0,
+    "addIgnore": true,
+    "ximgdiff": {
+      "invocationType": "client"
+    }
+  },
+  "plugins": {
+    "reg-keygen-git-hash-plugin": true,
+    "reg-notify-github-plugin": {
+      "prComment": true,
+      "prCommentBehavior": "default",
+      "clientId": "MzY1NzQ2Njcx1y/ISaxMys/P1k3LKS0pSS3SNzQxtbQ0NTLST07UzSwqy8xLBQA="
+    },
+    "reg-publish-gcs-plugin": {
+      "bucketName": "test-playbook-vrt"
+    }
+  }
+}
