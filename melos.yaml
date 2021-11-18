@@ -40,3 +40,9 @@ scripts:
         - 'playbook_snapshot'
       dir-exists:
         - test
+
+  test:snapshot:simple:
+    run: |
+      melos exec -- exec flutter test --update-goldens
+    select-package:
+      scope: 'simple_catalog_app'

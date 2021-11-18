@@ -1,0 +1,58 @@
+version: 2.1
+
+orbs:
+  flutter: circleci/flutter@1.0.0
+  node: circleci/node@4.7.0
+
+executors:
+  android_medium:
+    docker:
+      - image: circleci/android:api-30
+    resource_class: medium
+    working_directory: ~/workspace
+
+jobs:
+  vrt:
+    executor: android_medium
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: true
+      - flutter/install_sdk:
+          version: "2.5.1"
+      - run:
+          name: Set environment paths
+          command: |
+            echo "export PATH=$PATH:$HOME/.pub-cache/bin" >> $BASH_ENV
+            source $BASH_ENV
+      - run:
+          name: Run melos
+          command: |
+            dart pub global activate melos
+            melos run pub:get
+      - run:
+          name: Run Golden Testing for CatalogApp
+          command: melos run test:snapshot:simple
+      - restore_cache:
+          name: Restoring yarn cache
+          key: v0-yarn-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install dependencies
+          command: |
+            yarn --frozen-lockfile
+      - save_cache:
+          name: Saving yarn cache
+          key: v0-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+      - run:
+          name: Run VRT
+          command: |
+            export GOOGLE_APPLICATION_CREDENTIALS=gcloud-service-key.json
+            echo $GCLOUD_SERVICE_KEY > $GOOGLE_APPLICATION_CREDENTIALS
+            yarn regression
+
+workflows:
+  vrt:
+    jobs:
+      - vrt
