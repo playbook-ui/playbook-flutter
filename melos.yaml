@@ -2,7 +2,7 @@ name: Playbook
 
 packages:
   - playbook*/**
-  - example/**
+  - examples/**
 
 ide:
   intellij: true
