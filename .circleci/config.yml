@@ -1,0 +1,41 @@
+version: 2.1
+
+orbs:
+  flutter: circleci/flutter@1.0.0
+  node: circleci/node@4.7.0
+
+executors:
+  android_small:
+    docker:
+      - image: circleci/android:api-30
+    resource_class: small
+    working_directory: ~/workspace
+
+jobs:
+  vrt:
+    executor: android_small
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: true
+      - flutter/install_sdk_and_pub:
+          version: 2.5.1
+      - run:
+          name: Install dependencies
+          command: |
+            dart pub global activate melos
+            melos run pub:get
+      - run:
+          name: Run Golden Testing for CatalogApp
+          command: melos run test:snapshot:simple
+      # - run:
+      #     name: Run VRT
+      #     command: |
+      #       export GOOGLE_APPLICATION_CREDENTIALS=gcloud-service-key.json
+      #       echo $GCLOUD_SERVICE_KEY > $GOOGLE_APPLICATION_CREDENTIALS
+      #       yarn regression
+
+workflows:
+  vrt:
+    jobs:
+      - vrt
