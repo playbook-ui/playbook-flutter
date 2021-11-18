@@ -17,7 +17,7 @@ class BarWidget extends StatelessWidget {
         children: [
           Icon(Icons.star),
           SizedBox(width: 16),
-          Text(text, style: Theme.of(context).textTheme.headline5)
+          Text(text, style: Theme.of(context).textTheme.headline4)
         ],
       ),
     );
