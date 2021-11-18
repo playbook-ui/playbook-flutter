@@ -25,19 +25,31 @@ jobs:
             echo "export PATH=$PATH:$HOME/.pub-cache/bin" >> $BASH_ENV
             source $BASH_ENV
       - run:
-          name: Install dependencies
+          name: Run melos
           command: |
             dart pub global activate melos
             melos run pub:get
       - run:
           name: Run Golden Testing for CatalogApp
           command: melos run test:snapshot:simple
-      # - run:
-      #     name: Run VRT
-      #     command: |
-      #       export GOOGLE_APPLICATION_CREDENTIALS=gcloud-service-key.json
-      #       echo $GCLOUD_SERVICE_KEY > $GOOGLE_APPLICATION_CREDENTIALS
-      #       yarn regression
+      - restore_cache:
+          name: Restoring yarn cache
+          key: v0-yarn-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install dependencies
+          command: |
+            yarn --frozen-lockfile
+      - save_cache:
+          name: Saving yarn cache
+          key: v0-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+      - run:
+          name: Run VRT
+          command: |
+            export GOOGLE_APPLICATION_CREDENTIALS=gcloud-service-key.json
+            echo $GCLOUD_SERVICE_KEY > $GOOGLE_APPLICATION_CREDENTIALS
+            yarn regression
 
 workflows:
   vrt:
