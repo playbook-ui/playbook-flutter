@@ -1,6 +1,5 @@
 import 'package:playbook/playbook.dart';
-
-import 'bar.dart';
+import 'package:simple_app/bar/bar.dart';
 
 Scenario twoLineText() {
   return Scenario(
