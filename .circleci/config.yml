@@ -18,8 +18,7 @@ jobs:
       - checkout
       - node/install:
           install-yarn: true
-      - flutter/install_sdk_and_pub:
-          version: 2.5.1
+      - flutter/install_sdk_and_pub
       - run:
           name: Install dependencies
           command: |
