@@ -1,8 +1,9 @@
 name: playbook_generator
 description: Playbook Generator Package
 version: 0.0.1
-
-publish_to: 'none'
+repository: https://github.com/playbook-ui/playbook-flutter
+documentation: https://github.com/playbook-ui/playbook-flutter
+issue_tracker: https://github.com/playbook-ui/playbook-flutter/issues
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
