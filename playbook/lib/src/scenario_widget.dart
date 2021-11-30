@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'scenario.dart';
 
 class ScenarioWidget extends StatelessWidget {
-  const ScenarioWidget({required this.scenario});
+  const ScenarioWidget({Key? key, required this.scenario}) : super(key: key);
 
   final Scenario scenario;
 

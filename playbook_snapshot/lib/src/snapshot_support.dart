@@ -76,7 +76,7 @@ class SnapshotSupport {
         }
         if (extendedSize.width >= _maxSnapshotSize || extendedSize.height >= _maxSnapshotSize) {
           throw StateError(
-              'Try resizing too large size ${extendedSize}. Please try to set your scenario to have a fixed size.');
+              'Try resizing too large size $extendedSize. Please try to set your scenario to have a fixed size.');
         }
       }
       snapshotSize = lastExtendedSize;
