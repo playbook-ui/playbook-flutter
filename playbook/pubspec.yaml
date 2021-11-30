@@ -13,13 +13,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # Platform
-  platform: ^3.0.0
-
-  # Utility
-  file: ^6.1.0
-  yaml: ^3.1.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
