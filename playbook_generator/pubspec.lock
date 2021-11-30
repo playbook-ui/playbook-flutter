@@ -198,9 +198,9 @@ packages:
   playbook:
     dependency: "direct main"
     description:
-      path: "../playbook"
-      relative: true
-    source: path
+      name: playbook
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.0.1"
   pub_semver:
     dependency: transitive
@@ -286,3 +286,4 @@ packages:
     version: "3.1.0"
 sdks:
   dart: ">=2.12.0 <3.0.0"
+  flutter: ">=2.0.0"

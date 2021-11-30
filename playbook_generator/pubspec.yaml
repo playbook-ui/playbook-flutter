@@ -9,8 +9,7 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  playbook:
-
+  playbook: ^0.0.1
   analyzer: ^2.0.0
   build: ^2.0.0
   source_gen: ^1.0.0
@@ -22,7 +21,3 @@ dependencies:
 
 dev_dependencies:
   lints: ^1.0.0
-
-dependency_overrides:
-  playbook:
-    path: ../playbook

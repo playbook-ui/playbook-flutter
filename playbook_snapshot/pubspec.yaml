@@ -14,13 +14,9 @@ dependencies:
     sdk: flutter
 
   # Dependency
-  playbook:
+  playbook: ^0.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
-
-dependency_overrides:
-  playbook:
-    path: ../playbook
