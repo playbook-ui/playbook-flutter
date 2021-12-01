@@ -174,8 +174,7 @@ ${a(refer('Scenario', _playbookUrl))}(
         ?.toStringValue();
 
     final librarySource = storyLibraryReader.element.source;
-    assert(storyTitle != null,
-        'Library ${librarySource.source.fullName} need define the story title.');
+    assert(storyTitle != null, 'Library ${librarySource.fullName} need define the story title.');
     return storyTitle!;
   }
 
