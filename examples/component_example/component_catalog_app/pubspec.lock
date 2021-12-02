@@ -325,7 +325,7 @@ packages:
       path: "../../../playbook_generator"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.1+1"
   playbook_snapshot:
     dependency: "direct dev"
     description:
