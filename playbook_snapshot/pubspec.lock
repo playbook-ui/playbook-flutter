@@ -112,10 +112,10 @@ packages:
   playbook:
     dependency: "direct main"
     description:
-      name: playbook
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.1"
+      path: "../playbook"
+      relative: true
+    source: path
+    version: "0.0.1+1"
   sky_engine:
     dependency: transitive
     description: flutter

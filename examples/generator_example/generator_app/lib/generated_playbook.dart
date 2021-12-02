@@ -54,5 +54,5 @@ _i1.Story _$foo$foo_widget$Story() => _i1.Story('FooWidget', scenarios: [
       _i4.foo1(),
       _i4.foo2()
     ]);
-_i1.Story _$bar$bar$Story() => _i1.Story('BarWidget',
-    scenarios: [_i5.twoLineText(), _i5.emptyText(), ..._i5.variousText()]);
+_i1.Story _$bar$bar$Story() =>
+    _i1.Story('BarWidget', scenarios: [_i5.twoLineText(), _i5.emptyText(), ..._i5.variousText()]);
