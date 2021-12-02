@@ -1,4 +1,5 @@
 name: Playbook
+repository: https://github.com/playbook-ui/playbook-flutter
 
 packages:
   - playbook*/**
@@ -8,12 +9,21 @@ ide:
   intellij: true
   vscode: false
 
+command:
+  version:
+    linkToCommits: true
+
 scripts:
   format: melos exec -- exec flutter format . -l 100
 
   analyze: melos exec -- exec flutter analyze .
 
   clean: melos exec -- exec flutter clean
+
+  pub:upgrade:
+    run: |
+      melos exec -- exec flutter pub upgrade
+      melos bootstrap
 
   gen:build_runner:
     run: |
