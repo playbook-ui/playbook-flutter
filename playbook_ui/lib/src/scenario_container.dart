@@ -52,15 +52,16 @@ class ScenarioContainer extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 16),
           Container(
             width: thumbnailSize.width,
             alignment: Alignment.center,
             child: Text(
               scenario.title,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
+          const SizedBox(height: 16),
         ],
       ),
       onTap: () {

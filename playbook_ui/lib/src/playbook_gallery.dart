@@ -68,9 +68,9 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
             SliverAppBar(
               pinned: true,
               expandedHeight: 128,
-              centerTitle: true,
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(widget.title),
+                centerTitle: true,
                 background: GestureDetector(
                   onDoubleTap: () => _scrollController.animateTo(
                     0,

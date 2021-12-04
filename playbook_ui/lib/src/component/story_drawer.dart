@@ -54,8 +54,9 @@ class _StoryDrawerState extends State<StoryDrawer> {
                           story.title,
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1
+                              .subtitle1
                               ?.copyWith(fontWeight: FontWeight.bold),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),
