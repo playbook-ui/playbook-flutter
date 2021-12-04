@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:playbook/playbook.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 import 'component/component.dart';
 import 'scenario_container.dart';
@@ -25,6 +26,7 @@ class PlaybookGallery extends StatefulWidget {
 
 class _PlaybookGalleryState extends State<PlaybookGallery> {
   final _textEditingController = TextEditingController();
+  final _scrollController = AutoScrollController();
   List<Story> _stories = [];
 
   @override
@@ -50,12 +52,18 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
         drawer: StoryDrawer(
           stories: _stories,
           textController: _textEditingController,
-          onStoryPressed: (title) async {},
+          onStoryPressed: (index) {
+            _scrollController.scrollToIndex(
+              index,
+              preferPosition: AutoScrollPosition.begin,
+            );
+          },
         ),
         onDrawerChanged: (opened) {
           if (opened) _unfocus();
         },
         body: CustomScrollView(
+          controller: _scrollController,
           slivers: [
             SliverAppBar(
               pinned: true,
@@ -84,51 +92,55 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   final story = _stories.elementAt(index);
-                  return Column(
+                  return AutoScrollTag(
                     key: ValueKey(story.title),
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          const SizedBox(width: 16),
-                          Icon(
-                            Icons.folder_outlined,
-                            size: 32,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          const SizedBox(width: 8),
-                          Flexible(
-                            child: Text(
-                              story.title,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6
-                                  ?.copyWith(fontWeight: FontWeight.bold),
+                    index: index,
+                    controller: _scrollController,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 16),
+                        Row(
+                          children: [
+                            const SizedBox(width: 16),
+                            Icon(
+                              Icons.folder_outlined,
+                              size: 32,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
-                          ),
-                          const SizedBox(width: 16),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      SingleChildScrollView(
-                        key: PageStorageKey(index),
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        scrollDirection: Axis.horizontal,
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        clipBehavior: Clip.none,
-                        child: Wrap(
-                          spacing: 16,
-                          children: story.scenarios
-                              .map((e) => ScenarioContainer(key: ValueKey(e), scenario: e))
-                              .toList()
-                            ..sort(
-                              (s1, s2) => s1.scenario.title.compareTo(s2.scenario.title),
+                            const SizedBox(width: 8),
+                            Flexible(
+                              child: Text(
+                                story.title,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    ?.copyWith(fontWeight: FontWeight.bold),
+                              ),
                             ),
+                            const SizedBox(width: 16),
+                          ],
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                    ],
+                        const SizedBox(height: 16),
+                        SingleChildScrollView(
+                          key: PageStorageKey(index),
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          scrollDirection: Axis.horizontal,
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          clipBehavior: Clip.none,
+                          child: Wrap(
+                            spacing: 16,
+                            children: story.scenarios
+                                .map((e) => ScenarioContainer(key: ValueKey(e), scenario: e))
+                                .toList()
+                              ..sort(
+                                (s1, s2) => s1.scenario.title.compareTo(s2.scenario.title),
+                              ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                      ],
+                    ),
                   );
                 },
                 childCount: _stories.length,
