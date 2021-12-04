@@ -44,7 +44,11 @@ class ScenarioContainer extends StatelessWidget {
                               alignment: scenario.alignment,
                               child: Theme(
                                 data: ThemeProvider.of(context).theme,
-                                child: scenario.child,
+                                // Because we may have multiple heroes that share the same tag
+                                child: HeroMode(
+                                  enabled: false,
+                                  child: scenario.child,
+                                ),
                               ),
                             ),
                           ),

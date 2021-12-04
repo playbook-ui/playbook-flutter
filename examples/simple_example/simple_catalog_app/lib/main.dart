@@ -3,6 +3,7 @@ import 'package:playbook/playbook.dart';
 import 'package:playbook_ui/playbook_ui.dart';
 import 'package:simple_catalog_app/bar/bar.dart';
 import 'package:simple_catalog_app/foo/foo_widget.dart';
+import 'package:simple_catalog_app/hero/multiple_hero.dart';
 import 'package:simple_catalog_app/image/asset_image.dart';
 
 void main() {
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
             barStory(),
             fooWidgetStory(),
             assetImageStory(),
+            multipleHeroStoryForTest(),
           ],
         ),
       ),
