@@ -10,11 +10,15 @@ class PlaybookGallery extends StatefulWidget {
     Key? key,
     this.title = '',
     this.theme,
+    this.onCustomActionPressed,
+    this.otherCustomActions = const [],
     required this.playbook,
   }) : super(key: key);
 
   final String title;
   final ThemeData? theme;
+  final VoidCallback? onCustomActionPressed;
+  final List<Widget> otherCustomActions;
   final Playbook playbook;
 
   @override
@@ -64,17 +68,22 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
                 flexibleSpace: FlexibleSpaceBar(
                   title: Text(widget.title),
                 ),
+                actions: [
+                  if (widget.onCustomActionPressed != null)
+                    IconButton(
+                      onPressed: widget.onCustomActionPressed,
+                      icon: const Icon(Icons.settings),
+                    ),
+                    ...widget.otherCustomActions,
+                ],
               ),
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.all(16),
                   child: SearchBar(
                     controller: _textEditingController,
                   ),
                 ),
-              ),
-              const SliverToBoxAdapter(
-                child: Divider(),
               ),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
