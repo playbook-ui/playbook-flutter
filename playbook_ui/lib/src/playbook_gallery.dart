@@ -70,6 +70,13 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
               expandedHeight: 128,
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(widget.title),
+                background: GestureDetector(
+                  onDoubleTap: () => _scrollController.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeOutCubic,
+                  ),
+                ),
               ),
               actions: [
                 if (widget.onCustomActionPressed != null)
