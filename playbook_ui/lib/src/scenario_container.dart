@@ -38,13 +38,10 @@ class ScenarioContainer extends StatelessWidget {
                           scale: scenario.scale,
                           child: Align(
                             alignment: scenario.alignment,
-                            child: Theme(
-                              data: ContentThemeProvider.of(context).theme,
+                            child: HeroMode(
                               // Because we may have multiple heroes that share the same tag
-                              child: HeroMode(
-                                enabled: false,
-                                child: scenario.child,
-                              ),
+                              enabled: false,
+                              child: scenario.child,
                             ),
                           ),
                         ),
@@ -68,16 +65,12 @@ class ScenarioContainer extends StatelessWidget {
       ),
       onTap: () {
         FocusScope.of(context).unfocus();
-        final contentTheme = ContentThemeProvider.of(context).theme;
         Navigator.of(context).push(MaterialPageRoute(
           fullscreenDialog: true,
           builder: (context) {
             return DialogScaffold(
               title: Text(scenario.title),
-              body: Theme(
-                data: contentTheme,
-                child: ScenarioWidget(scenario: scenario),
-              ),
+              body: ScenarioWidget(scenario: scenario),
             );
           },
         ));
