@@ -8,7 +8,7 @@ import 'scenario_container.dart';
 class PlaybookGallery extends StatefulWidget {
   const PlaybookGallery({
     Key? key,
-    this.title = '',
+    this.title = 'Playbook',
     this.onCustomActionPressed,
     this.otherCustomActions = const [],
     required this.playbook,
