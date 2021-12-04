@@ -18,45 +18,40 @@ class ScenarioContainer extends StatelessWidget {
     return ScalableButton(
       child: Column(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              boxShadow: [
-                BoxShadow(blurRadius: 6),
-              ],
-            ),
-            child: Card(
-              margin: EdgeInsets.zero,
-              child: SizedBox(
-                width: thumbnailSize.width,
-                height: thumbnailSize.height,
-                child: Stack(
-                  children: [
-                    Positioned(
-                      width: size.width,
-                      height: size.height,
-                      child: Focus(
-                        descendantsAreFocusable: false,
-                        child: IgnorePointer(
-                          child: Transform.scale(
-                            alignment: Alignment.topLeft,
-                            scale: scenario.scale,
-                            child: Align(
-                              alignment: scenario.alignment,
-                              child: Theme(
-                                data: ThemeProvider.of(context).theme,
-                                // Because we may have multiple heroes that share the same tag
-                                child: HeroMode(
-                                  enabled: false,
-                                  child: scenario.child,
-                                ),
+          Card(
+            elevation: 8,
+            clipBehavior: Clip.antiAlias,
+            margin: EdgeInsets.zero,
+            child: SizedBox(
+              width: thumbnailSize.width,
+              height: thumbnailSize.height,
+              child: Stack(
+                children: [
+                  Positioned(
+                    width: size.width,
+                    height: size.height,
+                    child: Focus(
+                      descendantsAreFocusable: false,
+                      child: IgnorePointer(
+                        child: Transform.scale(
+                          alignment: Alignment.topLeft,
+                          scale: scenario.scale,
+                          child: Align(
+                            alignment: scenario.alignment,
+                            child: Theme(
+                              data: ContentThemeProvider.of(context).theme,
+                              // Because we may have multiple heroes that share the same tag
+                              child: HeroMode(
+                                enabled: false,
+                                child: scenario.child,
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -66,24 +61,19 @@ class ScenarioContainer extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               scenario.title,
-              style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                    color: Theme.of(context).textTheme.headline3?.color,
-                  ),
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
         ],
       ),
       onTap: () {
         FocusScope.of(context).unfocus();
-        final contentTheme = ThemeProvider.of(context).theme;
+        final contentTheme = ContentThemeProvider.of(context).theme;
         Navigator.of(context).push(MaterialPageRoute(
           fullscreenDialog: true,
           builder: (context) {
             return DialogScaffold(
-              title: Text(
-                scenario.title,
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
+              title: Text(scenario.title),
               body: Theme(
                 data: contentTheme,
                 child: ScenarioWidget(scenario: scenario),
