@@ -115,7 +115,7 @@ packages:
       path: "../../../playbook_ui"
       relative: true
     source: path
-    version: "0.0.3"
+    version: "0.0.3+1"
   simple_app:
     dependency: "direct main"
     description:

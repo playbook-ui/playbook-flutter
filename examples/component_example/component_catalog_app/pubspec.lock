@@ -332,7 +332,7 @@ packages:
       path: "../../../playbook_ui"
       relative: true
     source: path
-    version: "0.0.3"
+    version: "0.0.3+1"
   pool:
     dependency: transitive
     description:
