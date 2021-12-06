@@ -13,7 +13,7 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-  var _hasText = false;
+  late bool _hasText = widget.controller.text.isNotEmpty;
 
   @override
   void initState() {
