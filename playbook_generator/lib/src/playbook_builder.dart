@@ -4,7 +4,6 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
-import 'package:dartx/dartx.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart';
 import 'package:playbook/playbook_annotations.dart';
@@ -89,7 +88,7 @@ ${storiesLibrary.accept(emitter)}
       final title = annotation.read('title');
       final titleParam = title.isString
           ? title.stringValue
-          : e.element.displayName.removePrefix('\$').replaceAll('_', ' ');
+          : e.element.displayName.replaceFirst('\$', '').replaceAll('_', ' ');
       final scaleParam = annotation.read('scale').doubleValue;
       return Code.scope((a) => '''
 ${a(refer('Scenario', _playbookUrl))}(
@@ -103,7 +102,7 @@ ${a(refer('Scenario', _playbookUrl))}(
     final scenarioCodes = storyLibraryReader.element.topLevelElements
         .whereType<FunctionElement>()
         .where((e) => e.isPublic && e.parameters.isEmpty)
-        .flatMap<Code>(
+        .expand<Code>(
       (e) {
         final returnTypeString = e.returnType.getDisplayString(withNullability: true);
         final scenarioRefer = refer(e.displayName, uri);
@@ -126,7 +125,7 @@ ${a(refer('Scenario', _playbookUrl))}(
   ) {
     final storyRefer = refer('Story', _playbookUrl);
     final name = storyLibraryReader.element.source.uri.pathSegments
-        .drop(1)
+        .skip(1)
         .map((e) => '\$${e.split('.').first}')
         .join();
     final storyFunction = Method((b) => b
@@ -169,13 +168,18 @@ ${a(refer('Scenario', _playbookUrl))}(
   String _findStoryTitle(LibraryReader storyLibraryReader) {
     final storyTitle = storyLibraryReader.element.topLevelElements
         .whereType<VariableElement>()
-        .firstOrNullWhere((e) => e.name == 'storyTitle')
-        ?.computeConstantValue()
+        .firstWhere(
+          (e) => e.name == 'storyTitle',
+          orElse: () => throw StateError(
+              'Library ${storyLibraryReader.element.source.fullName} need define the story title.'),
+        )
+        .computeConstantValue()
         ?.toStringValue();
-
-    final librarySource = storyLibraryReader.element.source;
-    assert(storyTitle != null, 'Library ${librarySource.fullName} need define the story title.');
-    return storyTitle!;
+    if (storyTitle == null) {
+      throw StateError(
+          'Library ${storyLibraryReader.element.source.fullName} storyTitle must be const.');
+    }
+    return storyTitle;
   }
 
   AssetId _output(BuildStep buildStep) {
