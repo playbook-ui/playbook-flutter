@@ -1,3 +1,7 @@
+## 0.0.3+1
+
+ - **FIX**: abandon scroll_to_index, set story to search text directly.
+
 ## 0.0.3
 
  - **FEAT**: update gallery ui.
