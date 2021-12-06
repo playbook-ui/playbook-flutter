@@ -16,7 +16,6 @@ dependencies:
   path: ^1.8.0
   glob: ^2.0.0
   code_builder: ^4.0.0
-  dartx: ^0.8.0
   dart_style: ^2.0.0
 
 dev_dependencies:
