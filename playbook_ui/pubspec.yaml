@@ -16,8 +16,6 @@ dependencies:
   # Dependency
   playbook: ^0.0.2
 
-  scroll_to_index: ^2.0.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

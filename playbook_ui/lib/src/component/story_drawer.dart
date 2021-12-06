@@ -8,12 +8,10 @@ class StoryDrawer extends StatefulWidget {
     Key? key,
     required this.stories,
     required this.textController,
-    required this.onStoryPressed,
   }) : super(key: key);
 
   final List<Story> stories;
   final TextEditingController textController;
-  final ValueChanged<int> onStoryPressed;
 
   @override
   _StoryDrawerState createState() => _StoryDrawerState();
@@ -44,8 +42,8 @@ class _StoryDrawerState extends State<StoryDrawer> {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: TextButton.icon(
                       onPressed: () {
+                        widget.textController.text = story.title;
                         Navigator.of(context).pop();
-                        widget.onStoryPressed(index);
                       },
                       icon: const Icon(Icons.folder_outlined, color: Colors.blue),
                       label: SizedBox(

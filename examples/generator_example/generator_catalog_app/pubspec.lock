@@ -123,13 +123,6 @@ packages:
       relative: true
     source: path
     version: "0.0.3"
-  scroll_to_index:
-    dependency: transitive
-    description:
-      name: scroll_to_index
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.0"
   sky_engine:
     dependency: transitive
     description: flutter
