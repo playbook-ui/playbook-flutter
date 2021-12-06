@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:playbook/playbook.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 import 'component/component.dart';
 import 'scenario_container.dart';
@@ -8,13 +9,15 @@ import 'scenario_container.dart';
 class PlaybookGallery extends StatefulWidget {
   const PlaybookGallery({
     Key? key,
-    this.title = '',
-    this.theme,
+    this.title = 'Playbook',
+    this.onCustomActionPressed,
+    this.otherCustomActions = const [],
     required this.playbook,
   }) : super(key: key);
 
   final String title;
-  final ThemeData? theme;
+  final VoidCallback? onCustomActionPressed;
+  final List<Widget> otherCustomActions;
   final Playbook playbook;
 
   @override
@@ -23,14 +26,15 @@ class PlaybookGallery extends StatefulWidget {
 
 class _PlaybookGalleryState extends State<PlaybookGallery> {
   final _textEditingController = TextEditingController();
+  final _scrollController = AutoScrollController();
   List<Story> _stories = [];
 
   @override
   void initState() {
     super.initState();
-    _updateStories();
+    _updateStoriesFromSearch();
     _textEditingController.addListener(() {
-      setState(_updateStories);
+      setState(_updateStoriesFromSearch);
     });
   }
 
@@ -42,70 +46,109 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = widget.theme ?? Theme.of(context);
-    return ThemeProvider(
-      theme: theme,
+    return GestureDetector(
+      onTap: _unfocus,
       child: Scaffold(
+        drawer: StoryDrawer(
+          stories: _stories,
+          textController: _textEditingController,
+          onStoryPressed: (index) {
+            _scrollController.scrollToIndex(
+              index,
+              preferPosition: AutoScrollPosition.begin,
+            );
+          },
+        ),
+        onDrawerChanged: (opened) {
+          if (opened) _unfocus();
+        },
         body: CustomScrollView(
+          controller: _scrollController,
           slivers: [
             SliverAppBar(
               pinned: true,
-              expandedHeight: 88,
+              expandedHeight: 128,
               flexibleSpace: FlexibleSpaceBar(
-                title: Text(
-                  widget.title,
-                  style: Theme.of(context).textTheme.bodyText1,
+                title: Text(widget.title),
+                centerTitle: true,
+                background: GestureDetector(
+                  onDoubleTap: () => _scrollController.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeOutCubic,
+                  ),
                 ),
               ),
+              actions: [
+                if (widget.onCustomActionPressed != null)
+                  IconButton(
+                    onPressed: widget.onCustomActionPressed,
+                    icon: const Icon(Icons.settings),
+                  ),
+                ...widget.otherCustomActions,
+              ],
             ),
-            SliverPersistentHeader(
-              delegate: SearchHeaderDelegate(
-                controller: _textEditingController,
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: SearchBar(
+                  controller: _textEditingController,
+                ),
               ),
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   final story = _stories.elementAt(index);
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          const SizedBox(width: 20),
-                          const Icon(Icons.folder_outlined, color: Colors.blue),
-                          const SizedBox(width: 8),
-                          Flexible(
-                            child: Text(
-                              story.title,
-                              style: Theme.of(context).textTheme.headline6?.copyWith(
-                                    color: Theme.of(context).textTheme.headline3?.color,
-                                  ),
+                  return AutoScrollTag(
+                    key: ValueKey(story.title),
+                    index: index,
+                    controller: _scrollController,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 16),
+                        Row(
+                          children: [
+                            const SizedBox(width: 16),
+                            Icon(
+                              Icons.folder_outlined,
+                              size: 32,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
-                          ),
-                          const SizedBox(width: 16),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      SingleChildScrollView(
-                        key: PageStorageKey(index),
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        scrollDirection: Axis.horizontal,
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        clipBehavior: Clip.none,
-                        child: Wrap(
-                          spacing: 16,
-                          children: story.scenarios
-                              .map((e) => ScenarioContainer(key: ValueKey(e), scenario: e))
-                              .toList()
-                            ..sort(
-                              (s1, s2) => s1.scenario.title.compareTo(s2.scenario.title),
+                            const SizedBox(width: 8),
+                            Flexible(
+                              child: Text(
+                                story.title,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    ?.copyWith(fontWeight: FontWeight.bold),
+                              ),
                             ),
+                            const SizedBox(width: 16),
+                          ],
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                    ],
+                        const SizedBox(height: 16),
+                        SingleChildScrollView(
+                          key: PageStorageKey(index),
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          scrollDirection: Axis.horizontal,
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          clipBehavior: Clip.none,
+                          child: Wrap(
+                            spacing: 16,
+                            children: story.scenarios
+                                .map((e) => ScenarioContainer(key: ValueKey(e), scenario: e))
+                                .toList()
+                              ..sort(
+                                (s1, s2) => s1.scenario.title.compareTo(s2.scenario.title),
+                              ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                      ],
+                    ),
                   );
                 },
                 childCount: _stories.length,
@@ -125,10 +168,10 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
   @override
   void didUpdateWidget(covariant PlaybookGallery oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _updateStories();
+    _updateStoriesFromSearch();
   }
 
-  void _updateStories() {
+  void _updateStoriesFromSearch() {
     if (_textEditingController.text.isEmpty) {
       _stories = widget.playbook.stories.toList();
     } else {
@@ -146,5 +189,13 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
           .toList();
     }
     _stories.sort((s1, s2) => s1.title.compareTo(s2.title));
+  }
+
+  void _unfocus() {
+    // see: https://github.com/flutter/flutter/issues/54277#issuecomment-640998757
+    final FocusScopeNode currentScope = FocusScope.of(context);
+    if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
+      FocusManager.instance.primaryFocus!.unfocus();
+    }
   }
 }

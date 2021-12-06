@@ -1,4 +1,4 @@
 export 'dialog_scaffold.dart';
 export 'scalable_button.dart';
-export 'search_header_delegate.dart';
-export 'theme_provider.dart';
+export 'search_bar.dart';
+export 'story_drawer.dart';

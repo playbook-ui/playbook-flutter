@@ -116,6 +116,13 @@ packages:
       relative: true
     source: path
     version: "0.0.2"
+  scroll_to_index:
+    dependency: transitive
+    description:
+      name: scroll_to_index
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   simple_app:
     dependency: "direct main"
     description:
