@@ -304,7 +304,7 @@ packages:
       path: "../../../playbook_generator"
       relative: true
     source: path
-    version: "0.0.2"
+    version: "0.0.3"
   pool:
     dependency: transitive
     description:
