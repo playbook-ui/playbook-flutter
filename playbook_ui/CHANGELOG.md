@@ -1,3 +1,7 @@
+## 0.0.3+2
+
+ - **FIX**: search bar initial state.
+
 ## 0.0.3+1
 
  - **FIX**: abandon scroll_to_index, set story to search text directly.
