@@ -107,9 +107,11 @@ Future<void> main() async {
 
 ### PlaybookGenerator
 
-Supports class definition by automatically generating stories and scenarios.
+Supports generating stories and scenarios from `*.story.dart` files.
 
 ```dart
+// some_file.story.dart
+
 const storyTitle = 'Home';
 
 @GenerateScenario(
