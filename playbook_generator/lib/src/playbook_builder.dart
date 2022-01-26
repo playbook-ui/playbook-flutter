@@ -6,7 +6,6 @@ import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart';
-import 'package:playbook/playbook_annotations.dart';
 import 'package:source_gen/source_gen.dart' show LibraryReader, TypeChecker, defaultFileHeader;
 
 import 'constant_reader_utils.dart';
@@ -68,8 +67,11 @@ ${storiesLibrary.accept(emitter)}
   List<Code> _createScenarioCodes(LibraryReader storyLibraryReader) {
     final uri = storyLibraryReader.element.librarySource.uri.toString();
 
+    final generatedScenarioTypeChecker = TypeChecker.fromUrl(
+      'package:playbook/src/generate_scenario.dart#GenerateScenario',
+    );
     final generatedScenarioCodes =
-        storyLibraryReader.annotatedWith(TypeChecker.fromRuntime(GenerateScenario)).where((e) {
+        storyLibraryReader.annotatedWith(generatedScenarioTypeChecker).where((e) {
       final element = e.element;
       if (!element.isPublic) return false;
       if (element is ClassElement) {
