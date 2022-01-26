@@ -10,7 +10,7 @@ environment:
 
 dependencies:
   playbook: ^0.0.2
-  analyzer: ^2.0.0
+  analyzer: ^3.0.0
   build: ^2.0.0
   source_gen: ^1.0.0
   path: ^1.8.0
