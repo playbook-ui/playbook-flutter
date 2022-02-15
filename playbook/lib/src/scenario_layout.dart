@@ -3,7 +3,9 @@ abstract class ScenarioLayoutSizing {
 }
 
 class ScenarioLayoutCompressed extends ScenarioLayoutSizing {
-  const ScenarioLayoutCompressed();
+  const ScenarioLayoutCompressed({this.needsScrollableResizing = true});
+
+  final bool needsScrollableResizing;
 }
 
 class ScenarioLayoutFill extends ScenarioLayoutSizing {
@@ -23,11 +25,13 @@ class ScenarioLayout {
         _h = const ScenarioLayoutFill(),
         _v = const ScenarioLayoutFill();
 
-  const ScenarioLayout.compressed()
-      : _dh = null,
+  const ScenarioLayout.compressed({
+    ScenarioLayoutSizing horizontalLayout = const ScenarioLayoutCompressed(),
+    ScenarioLayoutSizing verticalLayout = const ScenarioLayoutCompressed(),
+  })  : _dh = null,
         _dv = null,
-        _h = const ScenarioLayoutCompressed(),
-        _v = const ScenarioLayoutCompressed();
+        _h = horizontalLayout,
+        _v = verticalLayout;
 
   const ScenarioLayout.fixed(double width, double height)
       : _dh = width,
