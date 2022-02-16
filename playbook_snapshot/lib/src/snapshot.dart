@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:playbook/playbook.dart';
 
@@ -39,6 +40,7 @@ class Snapshot implements TestTool {
           tester.printToConsole('Snapshot for ${story.title} ${scenario.title}');
           stopwatch.reset();
 
+          runApp(Container(key: UniqueKey()));
           final scenarioWidget = builder(ScenarioWidget(scenario: scenario));
           await tester.runAsync(() async {
             await SnapshotSupport.startDevice(scenarioWidget, tester, device);
