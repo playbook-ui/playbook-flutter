@@ -34,6 +34,6 @@ Future<void> main() async {
 
 - **BUILD**: bump deps.
 
-## [0.0.1]
+## 0.0.1
 
 - initial release.
