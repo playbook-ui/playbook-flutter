@@ -1,3 +1,7 @@
+## 0.1.1
+
+- **FIX**: reset app for each test.
+
 ## 0.1.0
 
 - **BREAKING CHANGE**: `TestTool` needs `WidgetTester` instance which is created on `testWidget`. And `testWidgets` only needs to be called once.
