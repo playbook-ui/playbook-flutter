@@ -40,11 +40,13 @@ class Snapshot implements TestTool {
           stopwatch.reset();
 
           final scenarioWidget = builder(ScenarioWidget(scenario: scenario));
-          await SnapshotSupport.startDevice(scenarioWidget, tester, device);
-          await SnapshotSupport.resize(scenarioWidget, scenario, tester, device);
-          await SnapshotSupport.precacheAssetImage(tester);
+          await tester.runAsync(() async {
+            await SnapshotSupport.startDevice(scenarioWidget, tester, device);
+            await SnapshotSupport.resize(scenarioWidget, scenario, tester, device);
+            await SnapshotSupport.precacheAssetImage(tester);
 
-          await setUpEachTest?.call(tester);
+            await setUpEachTest?.call(tester);
+          });
 
           await expectLater(
             find.byWidget(scenario.child),

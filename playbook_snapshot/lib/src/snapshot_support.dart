@@ -90,14 +90,12 @@ class SnapshotSupport {
   static Future<void> precacheAssetImage(
     WidgetTester tester,
   ) async {
-    await tester.runAsync(() async {
-      for (var element in find.byType(Image).evaluate()) {
-        final Image widget = element.widget as Image;
-        final ImageProvider image = widget.image;
-        await precacheImage(image, element);
-        await tester.pumpAndSettle();
-      }
-    });
+    for (var element in find.byType(Image).evaluate()) {
+      final Image widget = element.widget as Image;
+      final ImageProvider image = widget.image;
+      await precacheImage(image, element);
+      await tester.pumpAndSettle();
+    }
   }
 
   static Future<void> _setSnapshotSize(WidgetTester tester, Size size) async {
