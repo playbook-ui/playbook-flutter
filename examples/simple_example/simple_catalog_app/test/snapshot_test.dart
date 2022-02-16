@@ -7,24 +7,27 @@ import 'package:simple_catalog_app/foo/foo_widget.dart';
 import 'package:simple_catalog_app/image/asset_image.dart';
 
 Future<void> main() async {
-  await Playbook(
-    stories: [
-      barStory(),
-      fooWidgetStory(),
-      assetImageStory(),
-    ],
-  ).run(
-    Snapshot(
-      directoryPath: 'screenshots',
-      devices: [
-        SnapshotDevice.iPhone8,
+  testWidgets('Take snapshots', (tester) async {
+    await Playbook(
+      stories: [
+        barStory(),
+        fooWidgetStory(),
+        assetImageStory(),
       ],
-    ),
-    (widget) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Material(child: widget),
-      );
-    },
-  );
+    ).run(
+      Snapshot(
+        directoryPath: 'screenshots',
+        devices: [
+          SnapshotDevice.iPhone8,
+        ],
+      ),
+      tester,
+      (widget) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Material(child: widget),
+        );
+      },
+    );
+  });
 }

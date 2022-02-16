@@ -4,18 +4,21 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:playbook_snapshot/playbook_snapshot.dart';
 
 Future<void> main() async {
-  await playbook.run(
-    Snapshot(
-      directoryPath: 'screenshots',
-      devices: [
-        SnapshotDevice.iPhone8,
-      ],
-    ),
-    (widget) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Material(child: widget),
-      );
-    },
-  );
+  testWidgets('Take snapshots', (tester) async {
+    await playbook.run(
+      Snapshot(
+        directoryPath: 'screenshots',
+        devices: [
+          SnapshotDevice.iPhone8,
+        ],
+      ),
+      tester,
+      (widget) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Material(child: widget),
+        );
+      },
+    );
+  });
 }

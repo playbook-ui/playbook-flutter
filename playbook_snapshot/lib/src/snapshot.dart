@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:playbook/playbook.dart';
 
@@ -22,12 +20,15 @@ class Snapshot implements TestTool {
   @override
   Future<void> run(
     Playbook playbook,
+    WidgetTester tester,
     PlaybookBuilder builder, {
     Future<void> Function(WidgetTester tester)? setUpEachTest,
   }) async {
-    setUpAll(() async {
+    await tester.runAsync(() async {
       await FontBuilder.loadFonts();
+      await tester.pumpAndSettle();
     });
+    final stopwatch = Stopwatch()..start();
 
     for (final device in devices) {
       final sub = subdirectoryPath != null ? '/$subdirectoryPath' : '';
@@ -35,20 +36,23 @@ class Snapshot implements TestTool {
 
       for (final story in playbook.stories) {
         for (final scenario in story.scenarios) {
-          final scenarioWidget = builder(ScenarioWidget(scenario: scenario));
+          tester.printToConsole('Snapshot for ${story.title} ${scenario.title}');
+          stopwatch.reset();
 
-          testWidgets('Snapshot for ${story.title} ${scenario.title}', (tester) async {
+          final scenarioWidget = builder(ScenarioWidget(scenario: scenario));
+          await tester.runAsync(() async {
             await SnapshotSupport.startDevice(scenarioWidget, tester, device);
             await SnapshotSupport.resize(scenarioWidget, scenario, tester, device);
             await SnapshotSupport.precacheAssetImage(tester);
 
             await setUpEachTest?.call(tester);
-
-            await expectLater(
-              find.byWidget(scenario.child),
-              matchesGoldenFile('$ensuredDirectoryPath/${story.title}/${scenario.title}.png'),
-            );
           });
+
+          await expectLater(
+            find.byWidget(scenario.child),
+            matchesGoldenFile('$ensuredDirectoryPath/${story.title}/${scenario.title}.png'),
+          );
+          tester.printToConsole('Snapshot finished in ${stopwatch.elapsedMilliseconds / 1000}s');
         }
       }
     }
