@@ -23,7 +23,7 @@ class PlaybookBuilder implements Builder {
 
   @override
   FutureOr<void> build(BuildStep buildStep) async {
-    final storyAssets = buildStep.findAssets(Glob('lib/**/*.story.dart'));
+    final storyAssets = buildStep.findAssets(Glob('lib/**.story.dart'));
     final storyFunctions = <Method>[];
 
     await for (final input in storyAssets) {
