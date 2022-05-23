@@ -1,3 +1,7 @@
+## 0.1.2
+
+- **FIX**: find by the scenario widget to take snapshots.
+
 ## 0.1.1
 
 - **FIX**: reset app for each test.
