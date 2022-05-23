@@ -51,7 +51,7 @@ class Snapshot implements TestTool {
           });
 
           await expectLater(
-            find.byWidget(scenario.child),
+            find.byWidget(scenarioWidget),
             matchesGoldenFile('$ensuredDirectoryPath/${story.title}/${scenario.title}.png'),
           );
           tester.printToConsole('Snapshot finished in ${stopwatch.elapsedMilliseconds / 1000}s');
