@@ -1,3 +1,7 @@
+## 0.0.4+1
+
+- upgrade dependencies
+
 ## 0.0.4
 
 - **FIX**: fix searching for generate files.
