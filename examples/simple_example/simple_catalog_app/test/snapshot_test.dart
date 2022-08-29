@@ -18,7 +18,11 @@ Future<void> main() async {
       Snapshot(
         directoryPath: 'screenshots',
         devices: [
-          SnapshotDevice.iPhone8,
+          SnapshotDevice(
+            name: 'iPhone8',
+            size: Size(375, 667),
+            platform: TargetPlatform.iOS,
+          ),
         ],
       ),
       tester,

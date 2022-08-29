@@ -1,6 +1,6 @@
-import 'package:generator_app/generated_playbook.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:generator_app/generated_playbook.dart';
 import 'package:playbook_snapshot/playbook_snapshot.dart';
 
 Future<void> main() async {
@@ -9,7 +9,11 @@ Future<void> main() async {
       Snapshot(
         directoryPath: 'screenshots',
         devices: [
-          SnapshotDevice.iPhone8,
+          SnapshotDevice(
+            name: 'iPhone8',
+            size: Size(375, 667),
+            platform: TargetPlatform.iOS,
+          ),
         ],
       ),
       tester,
