@@ -11,10 +11,13 @@ class ScenarioContainer extends StatelessWidget {
 
   final Scenario scenario;
 
+  // TODO(mao): consider a better way to decide this number
+  static const _scale = 0.3;
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final thumbnailSize = size * scenario.scale;
+    final thumbnailSize = size * _scale;
     return ScalableButton(
       child: Column(
         children: [
@@ -35,7 +38,7 @@ class ScenarioContainer extends StatelessWidget {
                       child: IgnorePointer(
                         child: Transform.scale(
                           alignment: Alignment.topLeft,
-                          scale: scenario.scale,
+                          scale: _scale,
                           child: Align(
                             alignment: scenario.alignment,
                             child: HeroMode(
