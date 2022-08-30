@@ -91,12 +91,10 @@ ${storiesLibrary.accept(emitter)}
       final titleParam = title.isString
           ? title.stringValue
           : e.element.displayName.replaceFirst('\$', '').replaceAll('_', ' ');
-      final scaleParam = annotation.read('scale').doubleValue;
       return Code.scope((a) => '''
 ${a(refer('Scenario', _playbookUrl))}(
   '$titleParam',
   layout: ${constantReaderToSource(annotation.read('layout'), a)},
-  scale: $scaleParam,
   child: ${a(refer(e.element.displayName, uri))}(),
 )''');
     });
