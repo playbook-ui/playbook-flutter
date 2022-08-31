@@ -8,12 +8,14 @@ class PlaybookGallery extends StatefulWidget {
   const PlaybookGallery({
     Key? key,
     this.title = 'Playbook',
+    this.textEditingController,
     this.onCustomActionPressed,
     this.otherCustomActions = const [],
     required this.playbook,
   }) : super(key: key);
 
   final String title;
+  final TextEditingController? textEditingController;
   final VoidCallback? onCustomActionPressed;
   final List<Widget> otherCustomActions;
   final Playbook playbook;
@@ -23,13 +25,14 @@ class PlaybookGallery extends StatefulWidget {
 }
 
 class _PlaybookGalleryState extends State<PlaybookGallery> {
-  final _textEditingController = TextEditingController();
+  late final TextEditingController _textEditingController;
   final _scrollController = ScrollController();
   List<Story> _stories = [];
 
   @override
   void initState() {
     super.initState();
+    _textEditingController = widget.textEditingController ?? TextEditingController();
     _updateStoriesFromSearch();
     _textEditingController.addListener(() {
       setState(_updateStoriesFromSearch);
