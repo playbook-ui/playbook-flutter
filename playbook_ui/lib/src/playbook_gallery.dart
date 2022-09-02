@@ -8,12 +8,14 @@ class PlaybookGallery extends StatefulWidget {
   const PlaybookGallery({
     Key? key,
     this.title = 'Playbook',
+    this.searchTextController,
     this.onCustomActionPressed,
     this.otherCustomActions = const [],
     required this.playbook,
   }) : super(key: key);
 
   final String title;
+  final TextEditingController? searchTextController;
   final VoidCallback? onCustomActionPressed;
   final List<Widget> otherCustomActions;
   final Playbook playbook;
@@ -23,7 +25,11 @@ class PlaybookGallery extends StatefulWidget {
 }
 
 class _PlaybookGalleryState extends State<PlaybookGallery> {
-  final _textEditingController = TextEditingController();
+  late final TextEditingController _defaultSearchTextController = TextEditingController()
+    ..addListener(_searchTextListener);
+  TextEditingController get _effectiveSearchTextController =>
+      widget.searchTextController ?? _defaultSearchTextController;
+
   final _scrollController = ScrollController();
   List<Story> _stories = [];
 
@@ -31,14 +37,12 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
   void initState() {
     super.initState();
     _updateStoriesFromSearch();
-    _textEditingController.addListener(() {
-      setState(_updateStoriesFromSearch);
-    });
   }
 
   @override
   void dispose() {
-    _textEditingController.dispose();
+    widget.searchTextController?.removeListener(_searchTextListener);
+    _defaultSearchTextController.dispose();
     super.dispose();
   }
 
@@ -49,7 +53,7 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
       child: Scaffold(
         drawer: StoryDrawer(
           stories: _stories,
-          textController: _textEditingController,
+          textController: _effectiveSearchTextController,
         ),
         onDrawerChanged: (opened) {
           if (opened) _unfocus();
@@ -84,7 +88,7 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: SearchBar(
-                  controller: _textEditingController,
+                  controller: _effectiveSearchTextController,
                 ),
               ),
             ),
@@ -155,14 +159,26 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
   @override
   void didUpdateWidget(covariant PlaybookGallery oldWidget) {
     super.didUpdateWidget(oldWidget);
+    if (widget.searchTextController != oldWidget.searchTextController) {
+      oldWidget.searchTextController?.removeListener(_searchTextListener);
+      widget.searchTextController?.addListener(_searchTextListener);
+
+      if (widget.searchTextController == null) {
+        _defaultSearchTextController.clear();
+      }
+    }
     _updateStoriesFromSearch();
   }
 
+  void _searchTextListener() {
+    setState(_updateStoriesFromSearch);
+  }
+
   void _updateStoriesFromSearch() {
-    if (_textEditingController.text.isEmpty) {
+    if (_effectiveSearchTextController.text.isEmpty) {
       _stories = widget.playbook.stories.toList();
     } else {
-      final reg = RegExp(_textEditingController.text, caseSensitive: false);
+      final reg = RegExp(_effectiveSearchTextController.text, caseSensitive: false);
       _stories = widget.playbook.stories
           .map(
             (story) => Story(
