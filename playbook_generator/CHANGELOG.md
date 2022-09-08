@@ -1,3 +1,7 @@
+## 0.0.5
+
+ - **BREAKING CHANGE**: remove scenario thumbnail scale parameter.
+
 ## 0.0.4+1
 
 - upgrade dependencies

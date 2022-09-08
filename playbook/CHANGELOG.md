@@ -1,3 +1,7 @@
+## 0.0.4
+
+ - **BREAKING CHANGE**: remove scenario thumbnail scale parameter.
+
 ## 0.0.3
 
  - **FEAT**: can be stop resizing `Scrollable`.

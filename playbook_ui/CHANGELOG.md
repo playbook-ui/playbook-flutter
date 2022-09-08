@@ -1,3 +1,8 @@
+## 0.0.4
+
+ - **FEAT**: set scenario thumbnail scale parameter from PlaybookGallery.
+ - **FEAT**: expose searchTextController.
+
 ## 0.0.3+2
 
  - **FIX**: search bar initial state.
