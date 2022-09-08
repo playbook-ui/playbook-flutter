@@ -8,6 +8,7 @@ class PlaybookGallery extends StatefulWidget {
   const PlaybookGallery({
     Key? key,
     this.title = 'Playbook',
+    this.scenarioThumbnailScale = 0.3,
     this.searchTextController,
     this.onCustomActionPressed,
     this.otherCustomActions = const [],
@@ -15,6 +16,7 @@ class PlaybookGallery extends StatefulWidget {
   }) : super(key: key);
 
   final String title;
+  final double scenarioThumbnailScale;
   final TextEditingController? searchTextController;
   final VoidCallback? onCustomActionPressed;
   final List<Widget> otherCustomActions;
@@ -131,7 +133,11 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
                         child: Wrap(
                           spacing: 16,
                           children: story.scenarios
-                              .map((e) => ScenarioContainer(key: ValueKey(e), scenario: e))
+                              .map((e) => ScenarioContainer(
+                                    key: ValueKey(e),
+                                    scenario: e,
+                                    thumbnailScale: widget.scenarioThumbnailScale,
+                                  ))
                               .toList()
                             ..sort(
                               (s1, s2) => s1.scenario.title.compareTo(s2.scenario.title),
