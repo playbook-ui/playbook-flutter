@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:playbook/playbook.dart';
@@ -34,6 +35,7 @@ class Snapshot implements TestTool {
     for (final device in devices) {
       final sub = subdirectoryPath != null ? '/$subdirectoryPath' : '';
       final ensuredDirectoryPath = '$directoryPath/${device.name}$sub';
+      debugDefaultTargetPlatformOverride = device.platform;
 
       for (final story in playbook.stories) {
         for (final scenario in story.scenarios) {
@@ -58,5 +60,7 @@ class Snapshot implements TestTool {
         }
       }
     }
+    // To avoid EXCEPTION CAUGHT
+    debugDefaultTargetPlatformOverride = null;
   }
 }
