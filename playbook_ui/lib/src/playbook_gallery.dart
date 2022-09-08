@@ -164,7 +164,9 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
       widget.searchTextController?.addListener(_searchTextListener);
 
       if (widget.searchTextController == null) {
-        _defaultSearchTextController.clear();
+        // Inherit the value from oldWidget
+        _defaultSearchTextController.value =
+            oldWidget.searchTextController?.value ?? TextEditingValue.empty;
       }
     }
     _updateStoriesFromSearch();
