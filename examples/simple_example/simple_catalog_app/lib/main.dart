@@ -17,6 +17,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _isDark = false;
+  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,7 @@ class _MyAppState extends State<MyApp> {
       theme: _isDark ? ThemeData.dark() : ThemeData.light(),
       home: PlaybookGallery(
         title: 'Sample app',
+        searchTextController: controller,
         onCustomActionPressed: () => setState(() {
           _isDark = !_isDark;
         }),

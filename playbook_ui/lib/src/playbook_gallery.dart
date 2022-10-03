@@ -27,8 +27,7 @@ class PlaybookGallery extends StatefulWidget {
 }
 
 class _PlaybookGalleryState extends State<PlaybookGallery> {
-  late final TextEditingController _defaultSearchTextController = TextEditingController()
-    ..addListener(_searchTextListener);
+  final TextEditingController _defaultSearchTextController = TextEditingController();
   TextEditingController get _effectiveSearchTextController =>
       widget.searchTextController ?? _defaultSearchTextController;
 
@@ -38,6 +37,8 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
   @override
   void initState() {
     super.initState();
+    _defaultSearchTextController.addListener(_searchTextListener);
+    widget.searchTextController?.addListener(_searchTextListener);
     _updateStoriesFromSearch();
   }
 
