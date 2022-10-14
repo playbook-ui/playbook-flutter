@@ -68,7 +68,10 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
               pinned: true,
               expandedHeight: 128,
               flexibleSpace: FlexibleSpaceBar(
-                title: Text(widget.title),
+                title: Text(
+                  widget.title,
+                  style: AppBarTheme.of(context).titleTextStyle,
+                ),
                 centerTitle: true,
                 background: GestureDetector(
                   onDoubleTap: () => _scrollController.animateTo(
