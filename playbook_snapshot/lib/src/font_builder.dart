@@ -30,8 +30,9 @@ class FontBuilder {
         final assetFile = File('${configurations['asset']}');
         final fontData = await assetFile.readAsBytes();
         loader.addFont(Future.value(ByteData.view(fontData.buffer)));
-        await loader.load();
       }
+
+      await loader.load();
     }
   }
 
