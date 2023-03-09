@@ -1,3 +1,7 @@
+## 0.1.4
+
+ - **FIX**: load multiple fonts ([#58](https://github.com/playbook-ui/playbook-flutter/issues/58)).
+
 ## 0.1.3
 
  - **BREAKING CHANGE**: SnapshotDevice change from enum to normal class.
