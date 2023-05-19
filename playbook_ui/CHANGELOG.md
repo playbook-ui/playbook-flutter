@@ -1,3 +1,7 @@
+## 0.0.6
+
+ - **FIX**: Rename SearchBar to SearchBox ([#62](https://github.com/playbook-ui/playbook-flutter/issues/62)).
+
 ## 0.0.5
 
  - **FEAT**: PlaybookGallery now respects AppBarTheme#titleTextStyle ([#56](https://github.com/playbook-ui/playbook-flutter/issues/56)). ([f248d407](https://github.com/playbook-ui/playbook-flutter/commit/f248d407f37c3c95eedc546c29f3d88d8ef308fc))
