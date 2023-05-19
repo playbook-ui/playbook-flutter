@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SearchBar extends StatefulWidget {
-  const SearchBar({
+class SearchBox extends StatefulWidget {
+  const SearchBox({
     Key? key,
     required this.controller,
   }) : super(key: key);
@@ -9,10 +9,10 @@ class SearchBar extends StatefulWidget {
   final TextEditingController controller;
 
   @override
-  State<SearchBar> createState() => _SearchBarState();
+  State<SearchBox> createState() => _SearchBoxState();
 }
 
-class _SearchBarState extends State<SearchBar> {
+class _SearchBoxState extends State<SearchBox> {
   late bool _hasText = widget.controller.text.isNotEmpty;
 
   @override

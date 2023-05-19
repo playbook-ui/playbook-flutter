@@ -93,7 +93,7 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.all(16),
-                child: SearchBar(
+                child: SearchBox(
                   controller: _effectiveSearchTextController,
                 ),
               ),

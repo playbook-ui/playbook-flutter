@@ -28,7 +28,7 @@ class _StoryDrawerState extends State<StoryDrawer> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-              child: SearchBar(
+              child: SearchBox(
                 controller: widget.textController,
               ),
             ),
