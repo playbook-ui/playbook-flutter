@@ -1,3 +1,7 @@
+## 0.0.6+1
+
+ - **CHORE**: fix analyzer version.
+
 ## 0.0.6
 
  - **FEAT**: bump analyzer ([#57](https://github.com/playbook-ui/playbook-flutter/issues/57)). ([e1fe1430](https://github.com/playbook-ui/playbook-flutter/commit/e1fe1430f3d91b8ab129626c3858345c8955b573))
