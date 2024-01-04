@@ -1,3 +1,7 @@
+## 0.2.0
+
+ - **FEAT**: Added support for defining fonts for `playbook_snapshot` in `pubspec.yaml`.
+
 ## 0.1.4
 
  - **FIX**: load multiple fonts ([#58](https://github.com/playbook-ui/playbook-flutter/issues/58)).
