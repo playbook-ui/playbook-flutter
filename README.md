@@ -99,6 +99,30 @@ Future<void> main() async {
 
 <img src="https://user-images.githubusercontent.com/5707132/143840952-7c2c3f5b-25cc-4234-8316-73c9ea266620.png" alt="generate images" width="660">
 
+#### Notes
+
+`Snapshot` (internally `flutter test --update-goldens`) requires you to prepare and load the fonts yourself. By defining the location of the font file in `flutter` or `playbook_snapshot` in `pubspec.yaml` and actually preparing the font file in the directory, the font file will be loaded automatically.
+
+```yaml
+flutter:
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+```
+
+or
+
+```yaml
+playbook_snapshot:
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+```
+
+And then, should be prepared the font file in the directory.
+
 ---
 
 ### PlaybookGenerator

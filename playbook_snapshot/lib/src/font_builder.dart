@@ -16,9 +16,11 @@ class FontBuilder {
   static Future<void> _loadFontFamily() async {
     final yamlString = await File('pubspec.yaml').readAsString();
     final yaml = loadYaml(yamlString) as YamlMap;
-    final fonts = yaml['flutter']['fonts'];
+    final flutterFonts = yaml['flutter']?['fonts'] as YamlList?;
+    final snapshotFonts = yaml['playbook_snapshot']?['fonts'] as YamlList?;
+    final fonts = [...?flutterFonts?.toList(), ...?snapshotFonts?.toList()];
 
-    if (fonts is! YamlList) {
+    if (fonts.isEmpty) {
       return;
     }
 
