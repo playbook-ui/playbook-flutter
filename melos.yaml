@@ -7,14 +7,13 @@ packages:
 
 ide:
   intellij: true
-  vscode: false
 
 command:
   version:
     linkToCommits: true
 
 scripts:
-  format: melos exec -- exec flutter format . -l 100
+  format: melos exec -- exec flutter format .
 
   analyze: melos exec -- exec flutter analyze .
 
@@ -25,32 +24,35 @@ scripts:
       melos exec -- exec flutter pub upgrade
       melos bootstrap
 
+  pub:get:
+    run: melos exec -- exec flutter pub get
+
   gen:build_runner:
     run: |
       melos exec -- exec flutter pub run build_runner build --delete-conflicting-outputs
-    select-package:
-      depends-on: 'build_runner'
+    packageFilters:
+      dependsOn: "build_runner"
 
   test:unit:
     run: |
       melos exec -- exec flutter test
-    select-package:
-      no-depends-on:
-        - 'playbook_snapshot'
-      dir-exists:
+    packageFilters:
+      noDependsOn:
+        - "playbook_snapshot"
+      dirExists:
         - test
 
   test:snapshot:
     run: |
       melos exec -- exec flutter test --update-goldens
-    select-package:
-      depends-on:
-        - 'playbook_snapshot'
-      dir-exists:
+    packageFilters:
+      dependsOn:
+        - "playbook_snapshot"
+      dirExists:
         - test
 
   test:snapshot:simple:
     run: |
       melos exec -- exec flutter test --update-goldens
-    select-package:
-      scope: 'simple_catalog_app'
+    packageFilters:
+      scope: "simple_catalog_app"

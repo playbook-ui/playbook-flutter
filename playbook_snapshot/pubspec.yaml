@@ -6,8 +6,8 @@ documentation: https://github.com/playbook-ui/playbook-flutter
 issue_tracker: https://github.com/playbook-ui/playbook-flutter/issues
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=2.0.0"
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.0.0"
 
 dependencies:
   flutter:
@@ -21,4 +21,4 @@ dependencies:
   yaml: ^3.1.0
 
 dev_dependencies:
-  flutter_lints: ^1.0.0
+  very_good_analysis: ^5.1.0

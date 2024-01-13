@@ -1,5 +1,9 @@
-include: package:flutter_lints/flutter.yaml
+include: package:very_good_analysis/analysis_options.5.1.0.yaml
 
 linter:
   rules:
-    lines_longer_than_80_chars: false
+    sort_pub_dependencies: false
+    flutter_style_todos: false
+    public_member_api_docs: false
+    one_member_abstracts: false
+    always_put_required_named_parameters_first: false
