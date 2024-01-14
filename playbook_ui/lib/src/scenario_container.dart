@@ -60,7 +60,7 @@ class ScenarioContainer extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               scenario.title,
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
           const SizedBox(height: 16),

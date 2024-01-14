@@ -16,9 +16,9 @@ dependencies:
     sdk: flutter
 
   playbook: ^0.0.4
-  platform: ^3.0.0
-  file: ^6.1.0
-  yaml: ^3.1.0
+  platform: ^3.1.4
+  file: ^7.0.0
+  yaml: ^3.1.2
 
 dev_dependencies:
   very_good_analysis: ^5.1.0

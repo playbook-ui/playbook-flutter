@@ -15,7 +15,7 @@ class SnapshotSupport {
     WidgetTester tester,
     SnapshotDevice device,
   ) async {
-    tester.binding.window.devicePixelRatioTestValue = 1;
+    tester.view.devicePixelRatio = 1;
     await _setSnapshotSize(tester, device.size);
     await tester.pumpWidget(target);
     await tester.pumpAndSettle();
@@ -89,7 +89,8 @@ class SnapshotSupport {
           throw StateError(
               'Try resizing too many times. Please try to set your scenario to have a fixed size.');
         }
-        if (extendedSize.width >= _maxSnapshotSize || extendedSize.height >= _maxSnapshotSize) {
+        if (extendedSize.width >= _maxSnapshotSize ||
+            extendedSize.height >= _maxSnapshotSize) {
           throw StateError(
               'Try resizing too large size $extendedSize. Please try to set your scenario to have a fixed size.');
         }
@@ -115,7 +116,7 @@ class SnapshotSupport {
 
   static Future<void> _setSnapshotSize(WidgetTester tester, Size size) async {
     await tester.binding.setSurfaceSize(size);
-    tester.binding.window.physicalSizeTestValue = size;
+    tester.view.physicalSize = size;
     await tester.pumpAndSettle();
   }
 
@@ -147,18 +148,24 @@ class SnapshotSupport {
     switch (scrollAxis) {
       case Axis.horizontal:
         final height = max(originSize.height, currentExtendedSize.height);
-        final width = max(maxScrollExtent + originSize.width, currentExtendedSize.width);
+        final width =
+            max(maxScrollExtent + originSize.width, currentExtendedSize.width);
         newExtendedSize = Size(width, height);
         break;
       case Axis.vertical:
-        final height = max(maxScrollExtent + originSize.height, currentExtendedSize.height);
+        final height = max(
+            maxScrollExtent + originSize.height, currentExtendedSize.height);
         final width = max(originSize.width, currentExtendedSize.width);
         newExtendedSize = Size(width, height);
         break;
     }
     return Size(
-      resizingTarget.needResizingWidth ? newExtendedSize.width : originSize.width,
-      resizingTarget.needResizingHeight ? newExtendedSize.height : originSize.height,
+      resizingTarget.needResizingWidth
+          ? newExtendedSize.width
+          : originSize.width,
+      resizingTarget.needResizingHeight
+          ? newExtendedSize.height
+          : originSize.height,
     );
   }
 }
@@ -177,11 +184,13 @@ extension on ScenarioLayout {
   }
 
   bool get needsCompressedResizing {
-    return _needsCompressedLayoutResizing(v) || _needsCompressedLayoutResizing(h);
+    return _needsCompressedLayoutResizing(v) ||
+        _needsCompressedLayoutResizing(h);
   }
 
   _CompressedResizingTarget get compressedResizingTarget {
-    if (_needsCompressedLayoutResizing(v) && _needsCompressedLayoutResizing(h)) {
+    if (_needsCompressedLayoutResizing(v) &&
+        _needsCompressedLayoutResizing(h)) {
       return _CompressedResizingTarget.both;
     } else if (_needsCompressedLayoutResizing(v)) {
       return _CompressedResizingTarget.vertical;
@@ -223,8 +232,10 @@ enum _CompressedResizingTarget {
 
 extension on _CompressedResizingTarget {
   bool get needResizingWidth =>
-      this == _CompressedResizingTarget.both || this == _CompressedResizingTarget.horizontal;
+      this == _CompressedResizingTarget.both ||
+      this == _CompressedResizingTarget.horizontal;
 
   bool get needResizingHeight =>
-      this == _CompressedResizingTarget.both || this == _CompressedResizingTarget.vertical;
+      this == _CompressedResizingTarget.both ||
+      this == _CompressedResizingTarget.vertical;
 }

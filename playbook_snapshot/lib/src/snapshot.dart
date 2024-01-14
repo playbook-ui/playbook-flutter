@@ -39,14 +39,16 @@ class Snapshot implements TestTool {
 
       for (final story in playbook.stories) {
         for (final scenario in story.scenarios) {
-          tester.printToConsole('Snapshot for ${story.title} ${scenario.title}');
+          tester
+              .printToConsole('Snapshot for ${story.title} ${scenario.title}');
           stopwatch.reset();
 
           runApp(Container(key: UniqueKey()));
           final scenarioWidget = builder(ScenarioWidget(scenario: scenario));
           await tester.runAsync(() async {
             await SnapshotSupport.startDevice(scenarioWidget, tester, device);
-            await SnapshotSupport.resize(scenarioWidget, scenario, tester, device);
+            await SnapshotSupport.resize(
+                scenarioWidget, scenario, tester, device);
             await SnapshotSupport.precacheAssetImage(tester);
 
             await setUpEachTest?.call(tester);
@@ -54,9 +56,11 @@ class Snapshot implements TestTool {
 
           await expectLater(
             find.byWidget(scenarioWidget),
-            matchesGoldenFile('$ensuredDirectoryPath/${story.title}/${scenario.title}.png'),
+            matchesGoldenFile(
+                '$ensuredDirectoryPath/${story.title}/${scenario.title}.png'),
           );
-          tester.printToConsole('Snapshot finished in ${stopwatch.elapsedMilliseconds / 1000}s');
+          tester.printToConsole(
+              'Snapshot finished in ${stopwatch.elapsedMilliseconds / 1000}s');
         }
       }
     }

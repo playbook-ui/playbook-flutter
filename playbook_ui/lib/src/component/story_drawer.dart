@@ -35,7 +35,7 @@ class _StoryDrawerState extends State<StoryDrawer> {
             const Divider(),
             Expanded(
               child: ListView.separated(
-                separatorBuilder: (BuildContext context, int index) => const Divider(),
+                separatorBuilder: (_, __) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final story = widget.stories[index];
                   return Padding(
@@ -45,14 +45,14 @@ class _StoryDrawerState extends State<StoryDrawer> {
                         widget.textController.text = story.title;
                         Navigator.of(context).pop();
                       },
-                      icon: const Icon(Icons.folder_outlined, color: Colors.blue),
+                      icon: const Icon(Icons.folder_outlined),
                       label: SizedBox(
                         width: double.infinity,
                         child: Text(
                           story.title,
                           style: Theme.of(context)
                               .textTheme
-                              .subtitle1
+                              .titleMedium
                               ?.copyWith(fontWeight: FontWeight.bold),
                           overflow: TextOverflow.ellipsis,
                         ),

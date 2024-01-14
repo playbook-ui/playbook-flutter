@@ -38,7 +38,7 @@ class _SearchBoxState extends State<SearchBox> {
       child: TextField(
         controller: widget.controller,
         keyboardType: TextInputType.text,
-        style: theme.textTheme.headline6,
+        style: theme.textTheme.titleLarge,
         decoration: InputDecoration(
           border: InputBorder.none,
           contentPadding: const EdgeInsets.all(16),

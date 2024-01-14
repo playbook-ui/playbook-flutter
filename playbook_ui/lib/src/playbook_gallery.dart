@@ -27,7 +27,8 @@ class PlaybookGallery extends StatefulWidget {
 }
 
 class _PlaybookGalleryState extends State<PlaybookGallery> {
-  final TextEditingController _defaultSearchTextController = TextEditingController();
+  final TextEditingController _defaultSearchTextController =
+      TextEditingController();
   TextEditingController get _effectiveSearchTextController =>
       widget.searchTextController ?? _defaultSearchTextController;
 
@@ -120,7 +121,7 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
                               story.title,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6
+                                  .titleLarge
                                   ?.copyWith(fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -140,11 +141,13 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
                               .map((e) => ScenarioContainer(
                                     key: ValueKey(e),
                                     scenario: e,
-                                    thumbnailScale: widget.scenarioThumbnailScale,
+                                    thumbnailScale:
+                                        widget.scenarioThumbnailScale,
                                   ))
                               .toList()
                             ..sort(
-                              (s1, s2) => s1.scenario.title.compareTo(s2.scenario.title),
+                              (s1, s2) => s1.scenario.title
+                                  .compareTo(s2.scenario.title),
                             ),
                         ),
                       ),
@@ -190,14 +193,19 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
     if (_effectiveSearchTextController.text.isEmpty) {
       _stories = widget.playbook.stories.toList();
     } else {
-      final reg = RegExp(_effectiveSearchTextController.text, caseSensitive: false);
+      final reg = RegExp(
+        _effectiveSearchTextController.text,
+        caseSensitive: false,
+      );
       _stories = widget.playbook.stories
           .map(
             (story) => Story(
               story.title,
               scenarios: story.title.contains(reg)
                   ? story.scenarios
-                  : story.scenarios.where((scenario) => scenario.title.contains(reg)).toList(),
+                  : story.scenarios
+                      .where((scenario) => scenario.title.contains(reg))
+                      .toList(),
             ),
           )
           .where((story) => story.scenarios.isNotEmpty)
