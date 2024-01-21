@@ -12,19 +12,24 @@ String constantReaderToSource(
     return reader.doubleValue.toString();
   } else {
     final revivable = reader.revive();
-    final constructor =
-        '${revivable.source.fragment}${revivable.accessor.isEmpty ? '' : '.${revivable.accessor}'}';
+    final accessor = revivable.accessor.let((it) => it.isEmpty ? '' : '.$it');
+    final constructor = '${revivable.source.fragment}$accessor';
     final url = 'package:${revivable.source.path.replaceFirst('lib/', '')}';
     final constructorRefer = allocator(refer(constructor, url));
-    final positionParameters = revivable.positionalArguments
-        .map((e) => constantReaderToSource(ConstantReader(e), allocator))
+    final positions = revivable.positionalArguments
+        .map(ConstantReader.new)
+        .map((e) => constantReaderToSource(e, allocator))
         .join(', ');
-    final namedParameters = revivable.namedArguments.entries
-        .map((e) => '${e.key}: ${constantReaderToSource(ConstantReader(e.value), allocator)}')
+    final nameds = revivable.namedArguments.entries
+        .map((e) => MapEntry(e.key, ConstantReader(e.value)))
+        .map((e) => '${e.key}: ${constantReaderToSource(e.value, allocator)}')
         .join(', ');
-    return '$constructorRefer(' +
-        (positionParameters.isNotEmpty ? '$positionParameters,' : '') +
-        (namedParameters.isNotEmpty ? '$namedParameters,' : '') +
-        ')';
+    final positionText = positions.let((it) => it.isEmpty ? '' : '$it,');
+    final namedText = nameds.let((it) => it.isEmpty ? '' : '$it,');
+    return '$constructorRefer($positionText$namedText)';
   }
+}
+
+extension<T> on T {
+  V let<V>(V Function(T it) transform) => transform(this);
 }
