@@ -39,7 +39,8 @@ class SnapshotSupport {
     if (scenario.layout.needsCompressedResizing) {
       // We use scrollController.maxScrollExtent to calculate the snapshot size.
       // However, maxScrollExtent may report incorrectly.
-      // To solve this, we repeatedly calculate size and update size until we can get a stable value.
+      // To solve this, we repeatedly calculate size and update size until
+      // we can get a stable value.
       var lastExtendedSize = Size(
         scenario.layout.compressedResizingTarget.needResizingWidth
             ? device.size.width
@@ -86,12 +87,16 @@ class SnapshotSupport {
         resize++;
         if (resize >= _maxTryResizeCount) {
           throw StateError(
-              'Try resizing too many times. Please try to set your scenario to have a fixed size.');
+            // ignore: lines_longer_than_80_chars
+            'Try resizing too many times. Please try to set your scenario to have a fixed size.',
+          );
         }
         if (extendedSize.width >= _maxSnapshotSize ||
             extendedSize.height >= _maxSnapshotSize) {
           throw StateError(
-              'Try resizing too large size $extendedSize. Please try to set your scenario to have a fixed size.');
+            // ignore: lines_longer_than_80_chars
+            'Try resizing too large size $extendedSize. Please try to set your scenario to have a fixed size.',
+          );
         }
       }
       snapshotSize = lastExtendedSize;
@@ -150,13 +155,13 @@ class SnapshotSupport {
         final width =
             max(maxScrollExtent + originSize.width, currentExtendedSize.width);
         newExtendedSize = Size(width, height);
-        break;
       case Axis.vertical:
         final height = max(
-            maxScrollExtent + originSize.height, currentExtendedSize.height);
+          maxScrollExtent + originSize.height,
+          currentExtendedSize.height,
+        );
         final width = max(originSize.width, currentExtendedSize.width);
         newExtendedSize = Size(width, height);
-        break;
     }
     return Size(
       resizingTarget.needResizingWidth

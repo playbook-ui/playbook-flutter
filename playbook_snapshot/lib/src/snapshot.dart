@@ -47,7 +47,11 @@ class Snapshot implements TestTool {
           await tester.runAsync(() async {
             await SnapshotSupport.startDevice(scenarioWidget, tester, device);
             await SnapshotSupport.resize(
-                scenarioWidget, scenario, tester, device);
+              scenarioWidget,
+              scenario,
+              tester,
+              device,
+            );
             await SnapshotSupport.precacheAssetImage(tester);
 
             await setUpEachTest?.call(tester);
@@ -56,10 +60,12 @@ class Snapshot implements TestTool {
           await expectLater(
             find.byWidget(scenarioWidget),
             matchesGoldenFile(
-                '$ensuredDirectoryPath/${story.title}/${scenario.title}.png'),
+              '$ensuredDirectoryPath/${story.title}/${scenario.title}.png',
+            ),
           );
           tester.printToConsole(
-              'Snapshot finished in ${stopwatch.elapsedMilliseconds / 1000}s');
+            'Snapshot finished in ${stopwatch.elapsedMilliseconds / 1000}s',
+          );
         }
       }
     }
