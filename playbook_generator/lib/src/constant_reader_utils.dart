@@ -7,7 +7,7 @@ String constantReaderToSource(
   String Function(Reference) allocator,
 ) {
   if (reader.isString) {
-    return '\'${reader.stringValue}\'';
+    return "'${reader.stringValue}'";
   } else if (reader.isDouble) {
     return reader.doubleValue.toString();
   } else {

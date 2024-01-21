@@ -89,7 +89,7 @@ ${storiesLibrary.accept(emitter)}
       final title = annotation.read('title');
       final titleParam = title.isString
           ? title.stringValue
-          : e.element.displayName.replaceFirst('\$', '').replaceAll('_', ' ');
+          : e.element.displayName.replaceFirst(r'$', '').replaceAll('_', ' ');
       return Code.scope((a) => '''
 ${a(refer('Scenario', _playbookUrl))}(
   '$titleParam',
