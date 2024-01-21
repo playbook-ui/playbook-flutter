@@ -105,7 +105,7 @@ class SnapshotSupport {
   static Future<void> precacheAssetImage(
     WidgetTester tester,
   ) async {
-    for (var element in find.byType(Image).evaluate()) {
+    for (final element in find.byType(Image).evaluate()) {
       final widget = element.widget as Image;
       final image = widget.image;
       await precacheImage(image, element);

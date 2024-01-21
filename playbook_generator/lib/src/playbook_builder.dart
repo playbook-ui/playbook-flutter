@@ -66,7 +66,7 @@ ${storiesLibrary.accept(emitter)}
   List<Code> _createScenarioCodes(LibraryReader storyLibraryReader) {
     final uri = storyLibraryReader.element.librarySource.uri.toString();
 
-    final generatedScenarioTypeChecker = TypeChecker.fromUrl(
+    const generatedScenarioTypeChecker = TypeChecker.fromUrl(
       'package:playbook/src/generate_scenario.dart#GenerateScenario',
     );
     final generatedScenarioCodes =
