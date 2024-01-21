@@ -67,7 +67,7 @@ class ScenarioContainer extends StatelessWidget {
       ),
       onTap: () {
         FocusScope.of(context).unfocus();
-        Navigator.of(context).push(MaterialPageRoute(
+        Navigator.of(context).push(MaterialPageRoute<dynamic>(
           fullscreenDialog: true,
           builder: (context) {
             return DialogScaffold(
