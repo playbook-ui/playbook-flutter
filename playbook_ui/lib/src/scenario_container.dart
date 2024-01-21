@@ -4,10 +4,10 @@ import 'package:playbook_ui/src/component/component.dart';
 
 class ScenarioContainer extends StatelessWidget {
   const ScenarioContainer({
-    Key? key,
+    super.key,
     required this.scenario,
     required this.thumbnailScale,
-  }) : super(key: key);
+  });
 
   final Scenario scenario;
   final double thumbnailScale;

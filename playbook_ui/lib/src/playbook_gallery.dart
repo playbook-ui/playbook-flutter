@@ -5,14 +5,14 @@ import 'package:playbook_ui/src/scenario_container.dart';
 
 class PlaybookGallery extends StatefulWidget {
   const PlaybookGallery({
-    Key? key,
+    super.key,
     this.title = 'Playbook',
     this.scenarioThumbnailScale = 0.3,
     this.searchTextController,
     this.onCustomActionPressed,
     this.otherCustomActions = const [],
     required this.playbook,
-  }) : super(key: key);
+  });
 
   final String title;
   final double scenarioThumbnailScale;

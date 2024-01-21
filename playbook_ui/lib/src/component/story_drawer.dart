@@ -5,10 +5,10 @@ import 'package:playbook_ui/src/component/component.dart';
 
 class StoryDrawer extends StatefulWidget {
   const StoryDrawer({
-    Key? key,
+    super.key,
     required this.stories,
     required this.textController,
-  }) : super(key: key);
+  });
 
   final List<Story> stories;
   final TextEditingController textController;

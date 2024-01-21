@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class SearchBox extends StatefulWidget {
   const SearchBox({
-    Key? key,
+    super.key,
     required this.controller,
-  }) : super(key: key);
+  });
 
   final TextEditingController controller;
 

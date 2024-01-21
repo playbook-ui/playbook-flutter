@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class ScalableButton extends StatefulWidget {
   const ScalableButton({
-    Key? key,
+    super.key,
     required this.child,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final GestureTapCallback onTap;
