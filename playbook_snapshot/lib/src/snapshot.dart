@@ -2,11 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:playbook/playbook.dart';
-
-import 'font_builder.dart';
-import 'snapshot_device.dart';
-import 'snapshot_support.dart';
-import 'test_tool.dart';
+import 'package:playbook_snapshot/src/font_builder.dart';
+import 'package:playbook_snapshot/src/snapshot_device.dart';
+import 'package:playbook_snapshot/src/snapshot_support.dart';
+import 'package:playbook_snapshot/src/test_tool.dart';
 
 class Snapshot implements TestTool {
   const Snapshot({

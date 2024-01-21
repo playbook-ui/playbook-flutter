@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'scenario.dart';
+import 'package:playbook/src/scenario.dart';
 
 class ScenarioWidget extends StatelessWidget {
   const ScenarioWidget({Key? key, required this.scenario}) : super(key: key);

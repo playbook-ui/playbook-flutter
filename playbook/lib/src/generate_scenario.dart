@@ -1,4 +1,4 @@
-import 'scenario_layout.dart';
+import 'package:playbook/src/scenario_layout.dart';
 
 // TODO: alignment
 class GenerateScenario {

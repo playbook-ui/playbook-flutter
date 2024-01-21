@@ -1,4 +1,4 @@
-import 'scenario.dart';
+import 'package:playbook/src/scenario.dart';
 
 class Story {
   const Story(

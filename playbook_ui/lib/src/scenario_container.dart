@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:playbook/playbook.dart';
-
-import 'component/component.dart';
+import 'package:playbook_ui/src/component/component.dart';
 
 class ScenarioContainer extends StatelessWidget {
   const ScenarioContainer({

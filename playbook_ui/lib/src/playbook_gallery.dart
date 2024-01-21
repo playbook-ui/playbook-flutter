@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:playbook/playbook.dart';
-
-import 'component/component.dart';
-import 'scenario_container.dart';
+import 'package:playbook_ui/src/component/component.dart';
+import 'package:playbook_ui/src/scenario_container.dart';
 
 class PlaybookGallery extends StatefulWidget {
   const PlaybookGallery({

@@ -3,8 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:playbook/playbook.dart';
-
-import 'snapshot_device.dart';
+import 'package:playbook_snapshot/src/snapshot_device.dart';
 
 class SnapshotSupport {
   static const _maxTryResizeCount = 10;

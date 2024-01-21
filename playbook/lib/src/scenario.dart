@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'scenario_layout.dart';
+import 'package:playbook/src/scenario_layout.dart';
 
 class Scenario {
   const Scenario(
