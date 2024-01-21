@@ -137,12 +137,13 @@ class PlaybookGalleryState extends State<PlaybookGallery> {
                         child: Wrap(
                           spacing: 16,
                           children: story.scenarios
-                              .map((e) => ScenarioContainer(
-                                    key: ValueKey(e),
-                                    scenario: e,
-                                    thumbnailScale:
-                                        widget.scenarioThumbnailScale,
-                                  ))
+                              .map(
+                                (e) => ScenarioContainer(
+                                  key: ValueKey(e),
+                                  scenario: e,
+                                  thumbnailScale: widget.scenarioThumbnailScale,
+                                ),
+                              )
                               .toList()
                             ..sort(
                               (s1, s2) => s1.scenario.title

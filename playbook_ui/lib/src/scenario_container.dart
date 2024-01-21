@@ -40,7 +40,8 @@ class ScenarioContainer extends StatelessWidget {
                           child: Align(
                             alignment: scenario.alignment,
                             child: HeroMode(
-                              // Because we may have multiple heroes that share the same tag
+                              // Because we may have multiple heroes
+                              // that share the same tag
                               enabled: false,
                               child: scenario.child,
                             ),
@@ -67,15 +68,17 @@ class ScenarioContainer extends StatelessWidget {
       ),
       onTap: () {
         FocusScope.of(context).unfocus();
-        Navigator.of(context).push(MaterialPageRoute<dynamic>(
-          fullscreenDialog: true,
-          builder: (context) {
-            return DialogScaffold(
-              title: Text(scenario.title),
-              body: ScenarioWidget(scenario: scenario),
-            );
-          },
-        ));
+        Navigator.of(context).push(
+          MaterialPageRoute<dynamic>(
+            fullscreenDialog: true,
+            builder: (context) {
+              return DialogScaffold(
+                title: Text(scenario.title),
+                body: ScenarioWidget(scenario: scenario),
+              );
+            },
+          ),
+        );
       },
     );
   }

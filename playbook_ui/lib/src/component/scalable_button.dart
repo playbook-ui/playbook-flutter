@@ -14,7 +14,8 @@ class ScalableButton extends StatefulWidget {
   ScalableButtonState createState() => ScalableButtonState();
 }
 
-class ScalableButtonState extends State<ScalableButton> with SingleTickerProviderStateMixin {
+class ScalableButtonState extends State<ScalableButton>
+    with SingleTickerProviderStateMixin {
   double? _scale;
   AnimationController? _controller;
 
@@ -25,7 +26,6 @@ class ScalableButtonState extends State<ScalableButton> with SingleTickerProvide
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 80),
-      lowerBound: 0,
       upperBound: 0.05,
     )..addListener(() => setState(() {}));
   }
@@ -41,14 +41,14 @@ class ScalableButtonState extends State<ScalableButton> with SingleTickerProvide
     _scale = 1.0 - (_controller?.value ?? 0);
 
     return GestureDetector(
-      child: Transform.scale(
-        scale: _scale ?? 1,
-        child: widget.child,
-      ),
       onTapDown: (_) => _controller?.forward(),
       onTapUp: (_) => _controller?.reverse(),
       onTapCancel: _controller?.reverse,
       onTap: widget.onTap,
+      child: Transform.scale(
+        scale: _scale ?? 1,
+        child: widget.child,
+      ),
     );
   }
 }
