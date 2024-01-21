@@ -11,10 +11,10 @@ class ScalableButton extends StatefulWidget {
   final GestureTapCallback onTap;
 
   @override
-  _ScalableButtonState createState() => _ScalableButtonState();
+  ScalableButtonState createState() => ScalableButtonState();
 }
 
-class _ScalableButtonState extends State<ScalableButton> with SingleTickerProviderStateMixin {
+class ScalableButtonState extends State<ScalableButton> with SingleTickerProviderStateMixin {
   double? _scale;
   AnimationController? _controller;
 

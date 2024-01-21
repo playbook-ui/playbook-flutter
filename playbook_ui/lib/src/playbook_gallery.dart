@@ -22,10 +22,10 @@ class PlaybookGallery extends StatefulWidget {
   final Playbook playbook;
 
   @override
-  _PlaybookGalleryState createState() => _PlaybookGalleryState();
+  PlaybookGalleryState createState() => PlaybookGalleryState();
 }
 
-class _PlaybookGalleryState extends State<PlaybookGallery> {
+class PlaybookGalleryState extends State<PlaybookGallery> {
   final TextEditingController _defaultSearchTextController =
       TextEditingController();
   TextEditingController get _effectiveSearchTextController =>

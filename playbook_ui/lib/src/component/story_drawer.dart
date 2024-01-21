@@ -14,10 +14,10 @@ class StoryDrawer extends StatefulWidget {
   final TextEditingController textController;
 
   @override
-  _StoryDrawerState createState() => _StoryDrawerState();
+  StoryDrawerState createState() => StoryDrawerState();
 }
 
-class _StoryDrawerState extends State<StoryDrawer> {
+class StoryDrawerState extends State<StoryDrawer> {
   final expandedIndex = <int>{};
 
   @override
