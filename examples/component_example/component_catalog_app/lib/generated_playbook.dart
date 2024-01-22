@@ -56,6 +56,16 @@ _i1.Story _$foo$foo_widget$Story() => _i1.Story(
           ),
           child: _i4.$foo5(),
         ),
+        _i1.Scenario.builder(
+          'foo6',
+          layout: _i2.ScenarioLayout.fixedV(
+            500.0,
+            crossAxisLayout: _i2.ScenarioLayoutFixed(
+              200.0,
+            ),
+          ),
+          builder: _i4.$foo6,
+        ),
         _i4.foo1(),
         _i4.foo2(),
       ],
