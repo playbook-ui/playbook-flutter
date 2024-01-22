@@ -76,6 +76,8 @@ ${storiesLibrary.accept(emitter)}
         .annotatedWith(generatedScenarioTypeChecker)
         .where((e) {
       const w = 'Widget';
+      const bc = 'BuildContext';
+
       final element = e.element;
       if (!element.isPublic) return false;
       if (element is ClassElement) {
@@ -84,7 +86,10 @@ ${storiesLibrary.accept(emitter)}
               (s) => s.getDisplayString(withNullability: true) == w,
             );
       } else if (element is FunctionElement) {
-        return element.parameters.isEmpty &&
+        final firstParam = element.parameters.firstOrNull?.type
+            .getDisplayString(withNullability: false);
+        return element.parameters.length <= 1 &&
+            (firstParam == null || firstParam == bc) &&
             element.returnType.getDisplayString(withNullability: true) == w;
       } else {
         return false;
@@ -92,18 +97,31 @@ ${storiesLibrary.accept(emitter)}
     }).map(
       (e) {
         final annotation = e.annotation;
+        final element = e.element;
         final title = annotation.read('title');
         final titleParam = title.isString
             ? title.stringValue
-            : e.element.displayName.replaceFirst(r'$', '').replaceAll('_', ' ');
-        return Code.scope(
-          (a) => '''
-${a(refer('Scenario', _playbookUrl))}(
+            : element.displayName.replaceFirst(r'$', '').replaceAll('_', ' ');
+        return Code.scope((a) {
+          final layout = constantReaderToSource(annotation.read('layout'), a);
+          final builder = a(refer(element.displayName, uri));
+          final String scenarioName;
+          final String childBuilder;
+
+          if (element is FunctionElement && element.parameters.isNotEmpty) {
+            scenarioName = 'Scenario.builder';
+            childBuilder = 'builder: $builder';
+          } else {
+            scenarioName = 'Scenario';
+            childBuilder = 'child: $builder()';
+          }
+          return '''
+${a(refer(scenarioName, _playbookUrl))}(
   '$titleParam',
-  layout: ${constantReaderToSource(annotation.read('layout'), a)},
-  child: ${a(refer(e.element.displayName, uri))}(),
-)''',
-        );
+  layout: $layout,
+  $childBuilder,
+)''';
+        });
       },
     );
 
