@@ -24,10 +24,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  fonts:
-    - family: Roboto
-      fonts:
-        - asset: fonts/Roboto-Regular.ttf
 
 dependency_overrides:
   playbook:
@@ -38,3 +34,9 @@ dependency_overrides:
     path: ../../../playbook_snapshot
   playbook_generator:
     path: ../../../playbook_generator
+
+playbook_snapshot:
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
