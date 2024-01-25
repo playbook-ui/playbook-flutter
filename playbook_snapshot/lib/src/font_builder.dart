@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:yaml/yaml.dart';
 
 class FontBuilder {
@@ -12,13 +10,11 @@ class FontBuilder {
     await _loadFontFamily();
   }
 
-  static Future<void> _loadFontManifest() async {
-    final fontManifest = await rootBundle.loadStructuredData(
-      'FontManifest.json',
-      (string) => Future.value(json.decode(string) as List<dynamic>),
-    );
-
-    for (final manifest in fontManifest) {
+  static Future<void> _loadFontAssets(
+    List<dynamic> fonts,
+    Future<ByteData> Function(String asset) loadData,
+  ) async {
+    for (final manifest in fonts) {
       final font = manifest as Map<String, dynamic>?;
       final fonts = font?['fonts'] as List<dynamic>? ?? [];
       final fontFamily = font?['family'] as String? ?? '';
@@ -26,31 +22,32 @@ class FontBuilder {
       final fontLoader = FontLoader(fontFamily);
       for (final font in fonts) {
         final asset = (font as Map<String, dynamic>)['asset'] as String;
-        fontLoader.addFont(rootBundle.load(asset));
+        fontLoader.addFont(loadData(asset));
       }
       await fontLoader.load();
     }
   }
 
+  static Future<void> _loadFontManifest() async {
+    final fonts = await rootBundle.loadStructuredData(
+      'FontManifest.json',
+      (string) => Future.value(json.decode(string) as List<dynamic>),
+    );
+
+    await _loadFontAssets(fonts, rootBundle.load);
+  }
+
   static Future<void> _loadFontFamily() async {
     final yamlString = File('pubspec.yaml').readAsStringSync();
-    final yaml = loadYaml(yamlString) as YamlMap?;
-    final playbookSnapshot = yaml?['playbook_snapshot'] as YamlMap?;
-    final snapshotFonts = playbookSnapshot?['fonts'] as YamlList? ?? [];
+    final yaml = loadYaml(yamlString);
+    final pubspec = json.decode(json.encode(yaml)) as Map<String, dynamic>?;
+    final playbook = pubspec?['playbook_snapshot'] as Map<String, dynamic>?;
+    final fonts = playbook?['fonts'] as List<dynamic>? ?? [];
 
-    for (final manifest in snapshotFonts) {
-      final font = manifest as YamlMap?;
-      final fonts = font?['fonts'] as YamlList? ?? [];
-      final fontFamily = font?['family'] as String? ?? '';
-
-      final fontLoader = FontLoader(fontFamily);
-      for (final font in fonts) {
-        final asset = (font as YamlMap)['asset'] as String;
-        final assetData = File(asset).readAsBytesSync();
-        fontLoader.addFont(Future.value(ByteData.view(assetData.buffer)));
-      }
-
-      await fontLoader.load();
+    Future<ByteData> load(String asset) async {
+      return File(asset).readAsBytesSync().buffer.asByteData();
     }
+
+    await _loadFontAssets(fonts, load);
   }
 }
