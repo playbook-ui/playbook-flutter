@@ -1,64 +1,56 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
-import 'package:file/local.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:platform/platform.dart';
 import 'package:yaml/yaml.dart';
 
 class FontBuilder {
   static Future<void> loadFonts() async {
+    await _loadFontManifest();
     await _loadFontFamily();
-    await _loadMaterialIcons();
+  }
+
+  static Future<void> _loadFontManifest() async {
+    final fontManifest = await rootBundle.loadStructuredData(
+      'FontManifest.json',
+      (string) => Future.value(json.decode(string) as List<dynamic>),
+    );
+
+    for (final manifest in fontManifest) {
+      final font = manifest as Map<String, dynamic>?;
+      final fonts = font?['fonts'] as List<dynamic>? ?? [];
+      final fontFamily = font?['family'] as String? ?? '';
+
+      final fontLoader = FontLoader(fontFamily);
+      for (final font in fonts) {
+        final asset = (font as Map<String, dynamic>)['asset'] as String;
+        fontLoader.addFont(rootBundle.load(asset));
+      }
+      await fontLoader.load();
+    }
   }
 
   static Future<void> _loadFontFamily() async {
-    final yamlString = await File('pubspec.yaml').readAsString();
-    final yaml = loadYaml(yamlString) as YamlMap;
-    final flutter = yaml['flutter'] as YamlMap?;
-    final playbookSnapshot = yaml['playbook_snapshot'] as YamlMap?;
-    final flutterFonts = flutter?['fonts'] as YamlList?;
-    final snapshotFonts = playbookSnapshot?['fonts'] as YamlList?;
-    final fonts = [...?flutterFonts, ...?snapshotFonts];
+    final yamlString = File('pubspec.yaml').readAsStringSync();
+    final yaml = loadYaml(yamlString) as YamlMap?;
+    final playbookSnapshot = yaml?['playbook_snapshot'] as YamlMap?;
+    final snapshotFonts = playbookSnapshot?['fonts'] as YamlList? ?? [];
 
-    if (fonts.isEmpty) {
-      return;
-    }
+    for (final manifest in snapshotFonts) {
+      final font = manifest as YamlMap?;
+      final fonts = font?['fonts'] as YamlList? ?? [];
+      final fontFamily = font?['family'] as String? ?? '';
 
-    for (final font in fonts) {
-      final fontFamily = font as YamlMap;
-      final loader = FontLoader(fontFamily['family'].toString());
-      final fontList = (font['fonts'] as YamlList?)?.map((e) => e as YamlMap);
-
-      for (final configurations in [...?fontList]) {
-        final assetFile = File('${configurations['asset']}');
-        final fontData = await assetFile.readAsBytes();
-        loader.addFont(Future.value(ByteData.view(fontData.buffer)));
+      final fontLoader = FontLoader(fontFamily);
+      for (final font in fonts) {
+        final asset = (font as YamlMap)['asset'] as String;
+        final assetData = File(asset).readAsBytesSync();
+        fontLoader.addFont(Future.value(ByteData.view(assetData.buffer)));
       }
 
-      await loader.load();
+      await fontLoader.load();
     }
-  }
-
-  static Future<void> _loadMaterialIcons() async {
-    const fs = LocalFileSystem();
-    const platform = LocalPlatform();
-
-    final flutterRoot = fs.directory(platform.environment['FLUTTER_ROOT']);
-
-    final iconFont = flutterRoot.childFile(
-      fs.path.join(
-        'bin',
-        'cache',
-        'artifacts',
-        'material_fonts',
-        'MaterialIcons-Regular.otf',
-      ),
-    );
-
-    final bytes = Future.value(iconFont.readAsBytesSync().buffer.asByteData());
-
-    await (FontLoader('MaterialIcons')..addFont(bytes)).load();
   }
 }
