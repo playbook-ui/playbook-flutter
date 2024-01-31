@@ -51,16 +51,31 @@ class SnapshotSupport {
       );
       var resize = 0;
       while (true) {
-        final scrollables = find
-            .byWidgetPredicate((widget) => widget is Scrollable)
-            .evaluate()
-            .map((e) => e.widget as Scrollable);
+        final scrollables =
+            find.byType(Scrollable).evaluate().map((e) => e.widget);
         if (scrollables.isEmpty) break;
 
+        // To obtain the ScrollPosition,
+        // search for ScrollableStates in the innermost widget of Scrollables,
+        // regardless of whether Scrollables have a ScrollController or not.
+        final scrollableStates = scrollables
+            .map(
+              (scrollable) => find
+                  .descendant(
+                    of: find.byWidget(scrollable),
+                    matching: find.byWidgetPredicate((widget) => true),
+                  )
+                  .last
+                  .evaluate()
+                  .map((element) => Scrollable.maybeOf(element))
+                  .firstWhere((element) => element != null, orElse: () => null),
+            )
+            .where((element) => element != null);
+
         var extendedSize = device.size;
-        for (final scrollable in scrollables) {
+        for (final scrollableState in scrollableStates) {
           extendedSize = _extendScrollableSnapshotSize(
-            scrollable: scrollable,
+            scrollableState: scrollableState!,
             currentExtendedSize: extendedSize,
             originSize: lastExtendedSize,
             resizingTarget: scenario.layout.compressedResizingTarget,
@@ -105,15 +120,14 @@ class SnapshotSupport {
   }
 
   static Size _extendScrollableSnapshotSize({
-    required Scrollable scrollable,
+    required ScrollableState scrollableState,
     required Size currentExtendedSize,
     required Size originSize,
     required _CompressedResizingTarget resizingTarget,
   }) {
-    final controller = scrollable.controller;
     ScrollPosition? position;
     try {
-      position = controller?.position;
+      position = scrollableState.position;
     } catch (_) {}
     if (position == null) {
       return Size(
