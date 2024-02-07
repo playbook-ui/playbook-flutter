@@ -1,3 +1,7 @@
+## 0.2.1
+
+ - **FIX**: Support `Scrollables` have no `ScrollController`.
+
 ## 0.2.0
 
  - **FEAT**: Added support for defining fonts for `playbook_snapshot` in `pubspec.yaml`.
