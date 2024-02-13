@@ -1,3 +1,7 @@
+## 0.1.0+1
+
+ - **CHORE**: fix playbook version.
+
 ## 0.1.0
 
  - **BREAKING CHANGE**: upgrade sdk and flutter.

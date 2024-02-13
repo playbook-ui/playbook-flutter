@@ -1,3 +1,7 @@
+## 0.3.0+1
+
+ - **CHORE**: fix playbook version.
+
 ## 0.3.0
 
  - **FEAT**: can load assets that are included in dependencies.
