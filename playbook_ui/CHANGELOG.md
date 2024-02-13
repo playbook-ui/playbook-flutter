@@ -1,3 +1,7 @@
+## 0.1.0
+
+ - **BREAKING CHANGE**: upgrade sdk and flutter.
+
 ## 0.0.6
 
  - **FIX**: Rename SearchBar to SearchBox ([#62](https://github.com/playbook-ui/playbook-flutter/issues/62)).

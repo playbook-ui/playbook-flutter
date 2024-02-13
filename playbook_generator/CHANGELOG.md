@@ -1,3 +1,8 @@
+## 0.1.0
+
+ - **FEAT**: generate `Scenario` with the function that has `BuildContext`.
+ - **BREAKING CHANGE**: upgrade sdk with some dependencies.
+
 ## 0.0.6+1
 
  - **CHORE**: fix analyzer version.

@@ -101,7 +101,7 @@ Future<void> main() async {
 
 #### Notes
 
-`Snapshot` (internally `flutter test --update-goldens`) requires you to prepare and load the fonts yourself. By defining the location of the font file in `flutter` or `playbook_snapshot` in `pubspec.yaml` and actually preparing the font file in the directory, the font file will be loaded automatically.
+`Snapshot` (internally `flutter test --update-goldens`) requires you to prepare and load the fonts yourself. By defining the location of the font file in `flutter` or `playbook_snapshot` in `pubspec.yaml` and preparing the font file in the directory, the font file will be loaded automatically.
 
 ```yaml
 flutter:

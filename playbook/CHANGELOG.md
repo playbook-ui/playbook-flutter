@@ -1,3 +1,8 @@
+## 0.1.0
+
+ - **FEAT**: `Scenario` is supported to build with `WidgetBuilder`.
+ - **BREAKING CHANGE**: upgrade sdk and flutter.
+
 ## 0.0.4
 
  - **BREAKING CHANGE**: remove scenario thumbnail scale parameter.

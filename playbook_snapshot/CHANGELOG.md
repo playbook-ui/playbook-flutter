@@ -1,3 +1,8 @@
+## 0.3.0
+
+ - **FEAT**: can load assets that are included in dependencies.
+ - **BREAKING CHANGE**: upgrade sdk and flutter.
+
 ## 0.2.1
 
  - **FIX**: Support `Scrollables` have no `ScrollController`.
