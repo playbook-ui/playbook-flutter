@@ -67,7 +67,7 @@ class SnapshotSupport {
                   )
                   .last
                   .evaluate()
-                  .map((element) => Scrollable.maybeOf(element))
+                  .map(Scrollable.maybeOf)
                   .firstWhere((element) => element != null, orElse: () => null),
             )
             .where((element) => element != null);
