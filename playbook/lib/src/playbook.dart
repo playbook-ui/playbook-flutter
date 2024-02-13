@@ -1,5 +1,5 @@
-import 'scenario.dart';
-import 'story.dart';
+import 'package:playbook/src/scenario.dart';
+import 'package:playbook/src/story.dart';
 
 class Playbook {
   const Playbook({

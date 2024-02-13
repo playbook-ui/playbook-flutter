@@ -51,3 +51,11 @@ class $Foo4_Bar extends StatelessWidget {
   ),
 )
 Widget $foo5() => Text('Foo 5');
+
+@GenerateScenario(
+  layout: ScenarioLayout.fixedV(
+    500,
+    crossAxisLayout: ScenarioLayoutFixed(200),
+  ),
+)
+Widget $foo6(BuildContext context) => Text('Foo 6 has context');

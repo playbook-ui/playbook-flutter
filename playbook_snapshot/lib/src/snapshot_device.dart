@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/rendering.dart';
 
 class SnapshotDevice {
   const SnapshotDevice({

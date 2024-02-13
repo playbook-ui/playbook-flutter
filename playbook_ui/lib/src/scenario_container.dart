@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:playbook/playbook.dart';
-
-import 'component/component.dart';
+import 'package:playbook_ui/src/component/component.dart';
 
 class ScenarioContainer extends StatelessWidget {
   const ScenarioContainer({
-    Key? key,
+    super.key,
     required this.scenario,
     required this.thumbnailScale,
-  }) : super(key: key);
+  });
 
   final Scenario scenario;
   final double thumbnailScale;
@@ -41,7 +40,8 @@ class ScenarioContainer extends StatelessWidget {
                           child: Align(
                             alignment: scenario.alignment,
                             child: HeroMode(
-                              // Because we may have multiple heroes that share the same tag
+                              // Because we may have multiple heroes
+                              // that share the same tag
                               enabled: false,
                               child: scenario.child,
                             ),
@@ -60,7 +60,7 @@ class ScenarioContainer extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               scenario.title,
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
           const SizedBox(height: 16),
@@ -68,15 +68,17 @@ class ScenarioContainer extends StatelessWidget {
       ),
       onTap: () {
         FocusScope.of(context).unfocus();
-        Navigator.of(context).push(MaterialPageRoute(
-          fullscreenDialog: true,
-          builder: (context) {
-            return DialogScaffold(
-              title: Text(scenario.title),
-              body: ScenarioWidget(scenario: scenario),
-            );
-          },
-        ));
+        Navigator.of(context).push(
+          MaterialPageRoute<dynamic>(
+            fullscreenDialog: true,
+            builder: (context) {
+              return DialogScaffold(
+                title: Text(scenario.title),
+                body: ScenarioWidget(scenario: scenario),
+              );
+            },
+          ),
+        );
       },
     );
   }

@@ -2,11 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:playbook/playbook.dart';
-
-import 'font_builder.dart';
-import 'snapshot_device.dart';
-import 'snapshot_support.dart';
-import 'test_tool.dart';
+import 'package:playbook_snapshot/src/font_builder.dart';
+import 'package:playbook_snapshot/src/snapshot_device.dart';
+import 'package:playbook_snapshot/src/snapshot_support.dart';
+import 'package:playbook_snapshot/src/test_tool.dart';
 
 class Snapshot implements TestTool {
   const Snapshot({
@@ -39,14 +38,20 @@ class Snapshot implements TestTool {
 
       for (final story in playbook.stories) {
         for (final scenario in story.scenarios) {
-          tester.printToConsole('Snapshot for ${story.title} ${scenario.title}');
+          tester
+              .printToConsole('Snapshot for ${story.title} ${scenario.title}');
           stopwatch.reset();
 
           runApp(Container(key: UniqueKey()));
           final scenarioWidget = builder(ScenarioWidget(scenario: scenario));
           await tester.runAsync(() async {
             await SnapshotSupport.startDevice(scenarioWidget, tester, device);
-            await SnapshotSupport.resize(scenarioWidget, scenario, tester, device);
+            await SnapshotSupport.resize(
+              scenarioWidget,
+              scenario,
+              tester,
+              device,
+            );
             await SnapshotSupport.precacheAssetImage(tester);
 
             await setUpEachTest?.call(tester);
@@ -54,9 +59,13 @@ class Snapshot implements TestTool {
 
           await expectLater(
             find.byWidget(scenarioWidget),
-            matchesGoldenFile('$ensuredDirectoryPath/${story.title}/${scenario.title}.png'),
+            matchesGoldenFile(
+              '$ensuredDirectoryPath/${story.title}/${scenario.title}.png',
+            ),
           );
-          tester.printToConsole('Snapshot finished in ${stopwatch.elapsedMilliseconds / 1000}s');
+          tester.printToConsole(
+            'Snapshot finished in ${stopwatch.elapsedMilliseconds / 1000}s',
+          );
         }
       }
     }

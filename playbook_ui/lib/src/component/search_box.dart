@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class SearchBox extends StatefulWidget {
   const SearchBox({
-    Key? key,
+    super.key,
     required this.controller,
-  }) : super(key: key);
+  });
 
   final TextEditingController controller;
 
@@ -38,7 +38,7 @@ class _SearchBoxState extends State<SearchBox> {
       child: TextField(
         controller: widget.controller,
         keyboardType: TextInputType.text,
-        style: theme.textTheme.headline6,
+        style: theme.textTheme.titleLarge,
         decoration: InputDecoration(
           border: InputBorder.none,
           contentPadding: const EdgeInsets.all(16),

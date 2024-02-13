@@ -6,16 +6,16 @@ documentation: https://github.com/playbook-ui/playbook-flutter
 issue_tracker: https://github.com/playbook-ui/playbook-flutter/issues
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  analyzer: '>=4.6.0 <7.0.0'
-  build: ^2.0.0
-  source_gen: ^1.0.0
-  path: ^1.8.0
-  glob: ^2.0.0
-  code_builder: ^4.0.0
-  dart_style: ^2.0.0
+  analyzer: ^6.2.0
+  build: ^2.4.1
+  source_gen: ^1.5.0
+  path: ^1.8.3
+  glob: ^2.1.2
+  code_builder: ^4.9.0
+  dart_style: ^2.3.4
 
 dev_dependencies:
-  lints: ^1.0.0
+  very_good_analysis: ^5.1.0

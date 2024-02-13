@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:playbook/playbook.dart';
-
-import 'component/component.dart';
-import 'scenario_container.dart';
+import 'package:playbook_ui/src/component/component.dart';
+import 'package:playbook_ui/src/scenario_container.dart';
 
 class PlaybookGallery extends StatefulWidget {
   const PlaybookGallery({
-    Key? key,
+    super.key,
     this.title = 'Playbook',
     this.scenarioThumbnailScale = 0.3,
     this.searchTextController,
     this.onCustomActionPressed,
     this.otherCustomActions = const [],
     required this.playbook,
-  }) : super(key: key);
+  });
 
   final String title;
   final double scenarioThumbnailScale;
@@ -23,11 +22,12 @@ class PlaybookGallery extends StatefulWidget {
   final Playbook playbook;
 
   @override
-  _PlaybookGalleryState createState() => _PlaybookGalleryState();
+  PlaybookGalleryState createState() => PlaybookGalleryState();
 }
 
-class _PlaybookGalleryState extends State<PlaybookGallery> {
-  final TextEditingController _defaultSearchTextController = TextEditingController();
+class PlaybookGalleryState extends State<PlaybookGallery> {
+  final TextEditingController _defaultSearchTextController =
+      TextEditingController();
   TextEditingController get _effectiveSearchTextController =>
       widget.searchTextController ?? _defaultSearchTextController;
 
@@ -120,7 +120,7 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
                               story.title,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6
+                                  .titleLarge
                                   ?.copyWith(fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -137,14 +137,17 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
                         child: Wrap(
                           spacing: 16,
                           children: story.scenarios
-                              .map((e) => ScenarioContainer(
-                                    key: ValueKey(e),
-                                    scenario: e,
-                                    thumbnailScale: widget.scenarioThumbnailScale,
-                                  ))
+                              .map(
+                                (e) => ScenarioContainer(
+                                  key: ValueKey(e),
+                                  scenario: e,
+                                  thumbnailScale: widget.scenarioThumbnailScale,
+                                ),
+                              )
                               .toList()
                             ..sort(
-                              (s1, s2) => s1.scenario.title.compareTo(s2.scenario.title),
+                              (s1, s2) => s1.scenario.title
+                                  .compareTo(s2.scenario.title),
                             ),
                         ),
                       ),
@@ -190,14 +193,19 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
     if (_effectiveSearchTextController.text.isEmpty) {
       _stories = widget.playbook.stories.toList();
     } else {
-      final reg = RegExp(_effectiveSearchTextController.text, caseSensitive: false);
+      final reg = RegExp(
+        _effectiveSearchTextController.text,
+        caseSensitive: false,
+      );
       _stories = widget.playbook.stories
           .map(
             (story) => Story(
               story.title,
               scenarios: story.title.contains(reg)
                   ? story.scenarios
-                  : story.scenarios.where((scenario) => scenario.title.contains(reg)).toList(),
+                  : story.scenarios
+                      .where((scenario) => scenario.title.contains(reg))
+                      .toList(),
             ),
           )
           .where((story) => story.scenarios.isNotEmpty)
@@ -208,7 +216,7 @@ class _PlaybookGalleryState extends State<PlaybookGallery> {
 
   void _unfocus() {
     // see: https://github.com/flutter/flutter/issues/54277#issuecomment-640998757
-    final FocusScopeNode currentScope = FocusScope.of(context);
+    final currentScope = FocusScope.of(context);
     if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
       FocusManager.instance.primaryFocus!.unfocus();
     }

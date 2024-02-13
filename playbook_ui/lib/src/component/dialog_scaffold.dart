@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class DialogScaffold extends StatelessWidget {
   const DialogScaffold({
-    Key? key,
+    super.key,
     this.body,
     this.title,
-  }) : super(key: key);
+  });
 
   final Widget? body;
   final Widget? title;

@@ -16,6 +16,9 @@ Future<void> main() async {
       (widget) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'Roboto',
+          ),
           home: Material(child: widget),
         );
       },

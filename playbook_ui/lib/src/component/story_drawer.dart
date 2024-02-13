@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:playbook/playbook.dart';
 
-import 'component.dart';
+import 'package:playbook_ui/src/component/component.dart';
 
 class StoryDrawer extends StatefulWidget {
   const StoryDrawer({
-    Key? key,
+    super.key,
     required this.stories,
     required this.textController,
-  }) : super(key: key);
+  });
 
   final List<Story> stories;
   final TextEditingController textController;
 
   @override
-  _StoryDrawerState createState() => _StoryDrawerState();
+  StoryDrawerState createState() => StoryDrawerState();
 }
 
-class _StoryDrawerState extends State<StoryDrawer> {
+class StoryDrawerState extends State<StoryDrawer> {
   final expandedIndex = <int>{};
 
   @override
@@ -35,7 +35,7 @@ class _StoryDrawerState extends State<StoryDrawer> {
             const Divider(),
             Expanded(
               child: ListView.separated(
-                separatorBuilder: (BuildContext context, int index) => const Divider(),
+                separatorBuilder: (_, __) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final story = widget.stories[index];
                   return Padding(
@@ -45,14 +45,14 @@ class _StoryDrawerState extends State<StoryDrawer> {
                         widget.textController.text = story.title;
                         Navigator.of(context).pop();
                       },
-                      icon: const Icon(Icons.folder_outlined, color: Colors.blue),
+                      icon: const Icon(Icons.folder_outlined),
                       label: SizedBox(
                         width: double.infinity,
                         child: Text(
                           story.title,
                           style: Theme.of(context)
                               .textTheme
-                              .subtitle1
+                              .titleMedium
                               ?.copyWith(fontWeight: FontWeight.bold),
                           overflow: TextOverflow.ellipsis,
                         ),
