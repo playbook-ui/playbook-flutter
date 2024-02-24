@@ -85,7 +85,7 @@ Future<void> main() async {
   ).run(
     Snapshot(
       directoryPath: 'screenshots',
-      devices: [SnapshotDevice.iPhone8],
+      devices: [SnapshotDevice.iPhoneSE2nd],
     ),
     (widget) {
       return MaterialApp(
