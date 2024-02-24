@@ -59,3 +59,10 @@ Widget $foo5() => Text('Foo 5');
   ),
 )
 Widget $foo6(BuildContext context) => Text('Foo 6 has context');
+
+@GenerateScenario(
+  title: 'Device pixel ratio',
+  layout: ScenarioLayout.fixed(300, 300),
+)
+Widget devicePixelRatio(BuildContext context) =>
+    Text('Device pixel ratio is ${MediaQuery.of(context).devicePixelRatio}');
