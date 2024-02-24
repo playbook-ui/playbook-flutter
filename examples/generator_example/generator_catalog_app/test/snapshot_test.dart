@@ -13,9 +13,13 @@ Future<void> main() async {
         ],
       ),
       tester,
-      (widget) {
+      (widget, device) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'Roboto',
+            platform: device.platform,
+          ),
           home: Material(child: widget),
         );
       },
