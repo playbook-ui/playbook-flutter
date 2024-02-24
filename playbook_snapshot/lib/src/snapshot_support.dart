@@ -14,7 +14,7 @@ class SnapshotSupport {
     WidgetTester tester,
     SnapshotDevice device,
   ) async {
-    tester.view.devicePixelRatio = 1;
+    tester.view.devicePixelRatio = device.pixelRatio;
     await _setSnapshotSize(tester, device.size);
     await tester.pumpWidget(target);
     await tester.pumpAndSettle();

@@ -41,4 +41,4 @@ playbook_snapshot:
   fonts:
     - family: Roboto
       fonts:
-        - asset: assets/fonts/Roboto-Regular.ttf
+        - asset: fonts/Roboto-Regular.ttf

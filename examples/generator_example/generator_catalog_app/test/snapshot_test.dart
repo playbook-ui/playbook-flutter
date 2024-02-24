@@ -9,13 +9,17 @@ Future<void> main() async {
       Snapshot(
         directoryPath: 'screenshots',
         devices: [
-          SnapshotDevice.iPhone8,
+          SnapshotDevice.iPhoneSE2nd,
         ],
       ),
       tester,
-      (widget) {
+      (widget, device) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'Roboto',
+            platform: device.platform,
+          ),
           home: Material(child: widget),
         );
       },

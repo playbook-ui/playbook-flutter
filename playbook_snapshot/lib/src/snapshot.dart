@@ -43,7 +43,19 @@ class Snapshot implements TestTool {
           stopwatch.reset();
 
           runApp(Container(key: UniqueKey()));
-          final scenarioWidget = builder(ScenarioWidget(scenario: scenario));
+          final scenarioWidget = Builder(
+            builder: (context) {
+              return MediaQuery(
+                data: MediaQuery.of(context).copyWith(
+                  padding: device.safeAreaInsets,
+                  viewPadding: device.safeAreaInsets,
+                  devicePixelRatio: device.pixelRatio,
+                  textScaler: device.textScaler,
+                ),
+                child: builder(ScenarioWidget(scenario: scenario), device),
+              );
+            },
+          );
           await tester.runAsync(() async {
             await SnapshotSupport.startDevice(scenarioWidget, tester, device);
             await SnapshotSupport.resize(

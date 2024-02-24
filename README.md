@@ -76,24 +76,30 @@ Scenarios can be tested by the instance of types conform to `TestTool` class.
 
 ```dart
 Future<void> main() async {
-  await Playbook(
-    stories: [
-      barStory(),
-      fooWidgetStory(),
-      assetImageStory(),
-    ],
-  ).run(
-    Snapshot(
-      directoryPath: 'screenshots',
-      devices: [SnapshotDevice.iPhone8],
-    ),
-    (widget) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: widget,
-      );
-    },
-  );
+  testWidgets('Take snapshots', (tester) async {
+    await Playbook(
+      stories: [
+        barStory(),
+        fooWidgetStory(),
+        assetImageStory(),
+      ],
+    ).run(
+      Snapshot(
+        directoryPath: 'screenshots',
+        devices: [SnapshotDevice.iPhoneSE2nd],
+      ),
+      (widget, device) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'Roboto',
+            platform: device.platform,
+          ),
+          home: widget,
+        );
+      },
+    );
+  });
 }
 ```
 
@@ -152,6 +158,13 @@ Widget $LandmarkList() => Scaffold(
   layout: ScenarioLayout.fixed(100, 100),
 )
 Widget containerRed() => Container(color: Colors.red);
+
+@GenerateScenario(
+  title: 'Device pixel ratio',
+  layout: ScenarioLayout.fixed(300, 300),
+)
+Widget devicePixelRatio(BuildContext context) =>
+    Text('Device pixel ratio is ${MediaQuery.of(context).devicePixelRatio}');
 ```
 
 You can reference the playbook instance.
@@ -194,8 +207,8 @@ The generated snapshot images can be used for more advanced visual regression te
 
 ## Requirements
 
-- Dart 2.12.0+
-- flutter 2.0.0+
+- Dart 3.0.0+
+- flutter 3.0.0+
 
 ---
 
