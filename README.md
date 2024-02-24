@@ -76,24 +76,30 @@ Scenarios can be tested by the instance of types conform to `TestTool` class.
 
 ```dart
 Future<void> main() async {
-  await Playbook(
-    stories: [
-      barStory(),
-      fooWidgetStory(),
-      assetImageStory(),
-    ],
-  ).run(
-    Snapshot(
-      directoryPath: 'screenshots',
-      devices: [SnapshotDevice.iPhoneSE2nd],
-    ),
-    (widget) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: widget,
-      );
-    },
-  );
+  testWidgets('Take snapshots', (tester) async {
+    await Playbook(
+      stories: [
+        barStory(),
+        fooWidgetStory(),
+        assetImageStory(),
+      ],
+    ).run(
+      Snapshot(
+        directoryPath: 'screenshots',
+        devices: [SnapshotDevice.iPhoneSE2nd],
+      ),
+      (widget, device) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'Roboto',
+            platform: device.platform,
+          ),
+          home: widget,
+        );
+      },
+    );
+  });
 }
 ```
 
