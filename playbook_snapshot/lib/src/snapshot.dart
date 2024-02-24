@@ -47,8 +47,8 @@ class Snapshot implements TestTool {
             builder: (context) {
               return MediaQuery(
                 data: MediaQuery.of(context).copyWith(
-                  padding: device.safeArea,
-                  viewPadding: device.safeArea,
+                  padding: device.safeAreaInsets,
+                  viewPadding: device.safeAreaInsets,
                   devicePixelRatio: device.pixelRatio,
                   textScaler: device.textScaler,
                 ),

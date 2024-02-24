@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-class SafeArea {
-  const SafeArea({
+class SafeAreaInsets {
+  const SafeAreaInsets({
     this.portrait = EdgeInsets.zero,
     this.landscape = EdgeInsets.zero,
   });
@@ -19,17 +19,17 @@ class SnapshotDevice {
   const SnapshotDevice({
     required this.name,
     required Size size,
-    SafeArea safeArea = const SafeArea(),
+    SafeAreaInsets safeAreaInsets = const SafeAreaInsets(),
     this.textScaler,
     this.pixelRatio = 1,
     this.orientation = Orientation.portrait,
     required this.platform,
   })  : _size = size,
-        _safeArea = safeArea;
+        _safeAreaInsets = safeAreaInsets;
 
   final String name;
   final Size _size;
-  final SafeArea _safeArea;
+  final SafeAreaInsets _safeAreaInsets;
   final TextScaler? textScaler;
   final double pixelRatio;
   final Orientation orientation;
@@ -42,16 +42,16 @@ class SnapshotDevice {
     };
   }
 
-  EdgeInsets get safeArea {
+  EdgeInsets get safeAreaInsets {
     return switch (orientation) {
-      Orientation.portrait => _safeArea.portrait,
-      Orientation.landscape => _safeArea.landscape,
+      Orientation.portrait => _safeAreaInsets.portrait,
+      Orientation.landscape => _safeAreaInsets.landscape,
     };
   }
 
-  SnapshotDevice removeSafeArea() {
+  SnapshotDevice removeSafeAreaInsets() {
     return copyWith(
-      safeArea: const SafeArea(),
+      safeAreaInsets: const SafeAreaInsets(),
     );
   }
 
@@ -70,14 +70,14 @@ class SnapshotDevice {
   SnapshotDevice copyWith({
     String? name,
     Size? size,
-    SafeArea? safeArea,
+    SafeAreaInsets? safeAreaInsets,
     Orientation? orientation,
     TargetPlatform? platform,
   }) {
     return SnapshotDevice(
       name: name ?? this.name,
       size: size ?? _size,
-      safeArea: safeArea ?? _safeArea,
+      safeAreaInsets: safeAreaInsets ?? _safeAreaInsets,
       orientation: orientation ?? this.orientation,
       platform: platform ?? this.platform,
     );
@@ -93,7 +93,7 @@ class SnapshotDevice {
   static const iPhoneSE1st = SnapshotDevice(
     name: 'iPhoneSE1st',
     size: Size(320, 568),
-    safeArea: SafeArea(
+    safeAreaInsets: SafeAreaInsets(
       portrait: EdgeInsets.fromLTRB(0, 20, 0, 0),
       landscape: EdgeInsets.fromLTRB(0, 20, 0, 0),
     ),
@@ -110,7 +110,7 @@ class SnapshotDevice {
   static const iPhoneSE2nd = SnapshotDevice(
     name: 'iPhoneSE2nd',
     size: Size(375, 667),
-    safeArea: SafeArea(
+    safeAreaInsets: SafeAreaInsets(
       portrait: EdgeInsets.fromLTRB(0, 20, 0, 0),
     ),
     platform: TargetPlatform.iOS,
@@ -119,7 +119,7 @@ class SnapshotDevice {
   static const iPhone11 = SnapshotDevice(
     name: 'iPhone11',
     size: Size(414, 896),
-    safeArea: SafeArea(
+    safeAreaInsets: SafeAreaInsets(
       portrait: EdgeInsets.fromLTRB(0, 48, 0, 34),
       landscape: EdgeInsets.fromLTRB(48, 0, 48, 21),
     ),
@@ -129,7 +129,7 @@ class SnapshotDevice {
   static const iPhone15 = SnapshotDevice(
     name: 'iPhone15',
     size: Size(393, 852),
-    safeArea: SafeArea(
+    safeAreaInsets: SafeAreaInsets(
       portrait: EdgeInsets.fromLTRB(0, 59, 0, 34),
       landscape: EdgeInsets.fromLTRB(59, 0, 59, 21),
     ),
@@ -139,7 +139,7 @@ class SnapshotDevice {
   static const pixel4 = SnapshotDevice(
     name: 'pixel4',
     size: Size(411, 869),
-    safeArea: SafeArea(
+    safeAreaInsets: SafeAreaInsets(
       portrait: EdgeInsets.fromLTRB(0, 24, 0, 0),
       landscape: EdgeInsets.fromLTRB(0, 24, 0, 0),
     ),
@@ -149,7 +149,7 @@ class SnapshotDevice {
   static const pixel6 = SnapshotDevice(
     name: 'pixel6',
     size: Size(411, 914),
-    safeArea: SafeArea(
+    safeAreaInsets: SafeAreaInsets(
       portrait: EdgeInsets.fromLTRB(0, 24, 0, 0),
       landscape: EdgeInsets.fromLTRB(0, 24, 0, 0),
     ),
@@ -159,7 +159,7 @@ class SnapshotDevice {
   static const xperia = SnapshotDevice(
     name: 'xperia',
     size: Size(360, 640),
-    safeArea: SafeArea(
+    safeAreaInsets: SafeAreaInsets(
       portrait: EdgeInsets.fromLTRB(0, 24, 0, 0),
       landscape: EdgeInsets.fromLTRB(0, 24, 0, 0),
     ),
