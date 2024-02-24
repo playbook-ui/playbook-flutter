@@ -49,12 +49,6 @@ class SnapshotDevice {
     };
   }
 
-  SnapshotDevice removeSafeAreaInsets() {
-    return copyWith(
-      safeAreaInsets: const SafeAreaInsets(),
-    );
-  }
-
   SnapshotDevice call(SnapshotDeviceOrientation orientation) {
     return copyWith(
       orientation: orientation,
