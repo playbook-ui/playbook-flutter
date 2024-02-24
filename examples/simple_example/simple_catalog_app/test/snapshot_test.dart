@@ -20,7 +20,7 @@ Future<void> main() async {
       Snapshot(
         directoryPath: 'screenshots',
         devices: [
-          SnapshotDevice.iPhone8,
+          SnapshotDevice.iPhoneSE2nd,
         ],
       ),
       tester,
