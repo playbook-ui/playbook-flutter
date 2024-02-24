@@ -10,7 +10,7 @@ class SafeAreaInsets {
   final EdgeInsets landscape;
 }
 
-enum Orientation {
+enum SnapshotDeviceOrientation {
   portrait,
   landscape,
 }
@@ -22,7 +22,7 @@ class SnapshotDevice {
     SafeAreaInsets safeAreaInsets = const SafeAreaInsets(),
     this.textScaler,
     this.pixelRatio = 1,
-    this.orientation = Orientation.portrait,
+    this.orientation = SnapshotDeviceOrientation.portrait,
     required this.platform,
   })  : _size = size,
         _safeAreaInsets = safeAreaInsets;
@@ -32,20 +32,20 @@ class SnapshotDevice {
   final SafeAreaInsets _safeAreaInsets;
   final TextScaler? textScaler;
   final double pixelRatio;
-  final Orientation orientation;
+  final SnapshotDeviceOrientation orientation;
   final TargetPlatform platform;
 
   Size get size {
     return switch (orientation) {
-      Orientation.portrait => _size,
-      Orientation.landscape => _size.flipped,
+      SnapshotDeviceOrientation.portrait => _size,
+      SnapshotDeviceOrientation.landscape => _size.flipped,
     };
   }
 
   EdgeInsets get safeAreaInsets {
     return switch (orientation) {
-      Orientation.portrait => _safeAreaInsets.portrait,
-      Orientation.landscape => _safeAreaInsets.landscape,
+      SnapshotDeviceOrientation.portrait => _safeAreaInsets.portrait,
+      SnapshotDeviceOrientation.landscape => _safeAreaInsets.landscape,
     };
   }
 
@@ -55,15 +55,9 @@ class SnapshotDevice {
     );
   }
 
-  SnapshotDevice toPortrait() {
+  SnapshotDevice call(SnapshotDeviceOrientation orientation) {
     return copyWith(
-      orientation: Orientation.portrait,
-    );
-  }
-
-  SnapshotDevice toLandscape() {
-    return copyWith(
-      orientation: Orientation.landscape,
+      orientation: orientation,
     );
   }
 
@@ -71,7 +65,7 @@ class SnapshotDevice {
     String? name,
     Size? size,
     SafeAreaInsets? safeAreaInsets,
-    Orientation? orientation,
+    SnapshotDeviceOrientation? orientation,
     TargetPlatform? platform,
   }) {
     return SnapshotDevice(
