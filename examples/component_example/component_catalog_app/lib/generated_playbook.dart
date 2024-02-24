@@ -4,6 +4,7 @@
 import 'package:component_catalog_app/bar/bar.story.dart' as _i5;
 import 'package:component_catalog_app/foo/foo_widget.story.dart' as _i4;
 import 'package:component_catalog_app/image/asset_image.story.dart' as _i3;
+import 'package:component_catalog_app/page/page.story.dart' as _i6;
 import 'package:playbook/playbook.dart' as _i1;
 import 'package:playbook/src/scenario_layout.dart' as _i2;
 
@@ -12,6 +13,7 @@ List<_i1.Story> get stories => [
       _$image$asset_image$Story(),
       _$foo$foo_widget$Story(),
       _$bar$bar$Story(),
+      _$page$page$Story(),
     ];
 _i1.Story _$image$asset_image$Story() => _i1.Story(
       'AssetImage',
@@ -94,5 +96,15 @@ _i1.Story _$bar$bar$Story() => _i1.Story(
         _i5.twoLineText(),
         _i5.emptyText(),
         ..._i5.variousText(),
+      ],
+    );
+_i1.Story _$page$page$Story() => _i1.Story(
+      'HomePage',
+      scenarios: [
+        _i1.Scenario(
+          'myPage',
+          layout: _i2.ScenarioLayout.compressed(),
+          child: _i6.myPage(),
+        )
       ],
     );
