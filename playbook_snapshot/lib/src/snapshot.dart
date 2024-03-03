@@ -1,19 +1,26 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:playbook/playbook.dart';
 import 'package:playbook_snapshot/src/font_builder.dart';
+import 'package:playbook_snapshot/src/snapshot_base.dart';
 import 'package:playbook_snapshot/src/snapshot_device.dart';
 import 'package:playbook_snapshot/src/snapshot_support.dart';
 import 'package:playbook_snapshot/src/test_tool.dart';
 
 class Snapshot implements TestTool {
   const Snapshot({
+    this.canvasColor = Colors.white,
+    this.checkeredColor = Colors.black12,
+    this.useMaterial = true,
     required this.directoryPath,
     required this.devices,
     this.subdirectoryPath,
   });
 
+  final Color? canvasColor;
+  final Color? checkeredColor;
+  final bool useMaterial;
   final String directoryPath;
   final List<SnapshotDevice> devices;
   final String? subdirectoryPath;
@@ -43,7 +50,17 @@ class Snapshot implements TestTool {
           stopwatch.reset();
 
           runApp(Container(key: UniqueKey()));
-          final scenarioWidget = Builder(
+          final snapshotWidget = builder(
+            SnapshotBase(
+              canvasColor: canvasColor,
+              checkeredColor: checkeredColor,
+              useMaterial: useMaterial,
+              child: ScenarioWidget(scenario: scenario),
+            ),
+            device,
+          );
+
+          final target = Builder(
             builder: (context) {
               return MediaQuery(
                 data: MediaQuery.of(context).copyWith(
@@ -52,14 +69,14 @@ class Snapshot implements TestTool {
                   devicePixelRatio: device.pixelRatio,
                   textScaler: device.textScaler,
                 ),
-                child: builder(ScenarioWidget(scenario: scenario), device),
+                child: snapshotWidget,
               );
             },
           );
           await tester.runAsync(() async {
-            await SnapshotSupport.startDevice(scenarioWidget, tester, device);
+            await SnapshotSupport.startDevice(target, tester, device);
             await SnapshotSupport.resize(
-              scenarioWidget,
+              target,
               scenario,
               tester,
               device,
@@ -70,7 +87,7 @@ class Snapshot implements TestTool {
           });
 
           await expectLater(
-            find.byWidget(scenarioWidget),
+            find.byWidget(target),
             matchesGoldenFile(
               '$ensuredDirectoryPath/${story.title}/${scenario.title}.png',
             ),
