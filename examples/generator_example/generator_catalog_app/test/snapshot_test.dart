@@ -20,7 +20,7 @@ Future<void> main() async {
             fontFamily: 'Roboto',
             platform: device.platform,
           ),
-          home: Material(child: widget),
+          home: widget,
         );
       },
     );
