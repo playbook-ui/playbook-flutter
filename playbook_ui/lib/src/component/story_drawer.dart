@@ -28,8 +28,14 @@ class StoryDrawerState extends State<StoryDrawer> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-              child: SearchBox(
-                controller: widget.textController,
+              child: Material(
+                shape: const StadiumBorder(),
+                color:
+                    Theme.of(context).colorScheme.onSurface.withOpacity(0.06),
+                clipBehavior: Clip.antiAlias,
+                child: SearchBox(
+                  controller: widget.textController,
+                ),
               ),
             ),
             const Divider(),

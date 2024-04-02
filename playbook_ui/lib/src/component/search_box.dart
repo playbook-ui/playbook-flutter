@@ -29,36 +29,28 @@ class _SearchBoxState extends State<SearchBox> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final iconColor = theme.colorScheme.onSurface.withOpacity(0.48);
-    return Material(
-      shape: const StadiumBorder(),
-      color: theme.colorScheme.onSurface.withOpacity(0.06),
-      clipBehavior: Clip.antiAlias,
-      child: TextField(
-        controller: widget.controller,
-        keyboardType: TextInputType.text,
-        style: theme.textTheme.titleLarge,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.all(16),
-          prefixIcon: Icon(
-            Icons.search,
-            size: 32,
-            color: iconColor,
-          ),
-          suffixIcon: _hasText
-              ? IconButton(
-                  onPressed: () => widget.controller.clear(),
-                  icon: Icon(
-                    Icons.cancel,
-                    size: 24,
-                    color: iconColor,
-                  ),
-                )
-              : null,
-          hintText: 'Search',
+    final iconColor = Theme.of(context).colorScheme.onSurface.withOpacity(0.48);
+    return TextField(
+      controller: widget.controller,
+      keyboardType: TextInputType.text,
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        prefixIcon: Icon(
+          Icons.search,
+          size: 32,
+          color: iconColor,
         ),
+        suffixIcon: _hasText
+            ? IconButton(
+                onPressed: () => widget.controller.clear(),
+                icon: Icon(
+                  Icons.cancel,
+                  size: 24,
+                  color: iconColor,
+                ),
+              )
+            : null,
+        hintText: 'Search',
       ),
     );
   }

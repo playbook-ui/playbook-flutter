@@ -51,120 +51,86 @@ class PlaybookGalleryState extends State<PlaybookGallery> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _unfocus,
-      child: Scaffold(
-        drawer: StoryDrawer(
-          stories: _stories,
-          textController: _effectiveSearchTextController,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: SearchBox(
+          controller: _effectiveSearchTextController,
         ),
-        onDrawerChanged: (opened) {
-          if (opened) _unfocus();
-        },
-        body: CustomScrollView(
-          controller: _scrollController,
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              expandedHeight: 128,
-              flexibleSpace: FlexibleSpaceBar(
-                title: Text(
-                  widget.title,
-                  style: AppBarTheme.of(context).titleTextStyle,
-                ),
-                centerTitle: true,
-                background: GestureDetector(
-                  onDoubleTap: () => _scrollController.animateTo(
-                    0,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeOutCubic,
-                  ),
-                ),
-              ),
-              actions: [
-                if (widget.onCustomActionPressed != null)
-                  IconButton(
-                    onPressed: widget.onCustomActionPressed,
-                    icon: const Icon(Icons.settings),
-                  ),
-                ...widget.otherCustomActions,
-              ],
+        actions: [
+          if (widget.onCustomActionPressed != null)
+            IconButton(
+              onPressed: widget.onCustomActionPressed,
+              icon: const Icon(Icons.settings),
             ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: SearchBox(
-                  controller: _effectiveSearchTextController,
-                ),
+          ...widget.otherCustomActions,
+        ],
+      ),
+      drawer: StoryDrawer(
+        stories: _stories,
+        textController: _effectiveSearchTextController,
+      ),
+      onDrawerChanged: (opened) {
+        if (opened) _unfocus();
+      },
+      body: ListView.builder(
+        controller: _scrollController,
+        itemCount: _stories.length,
+        itemBuilder: (context, index) {
+          final story = _stories.elementAt(index);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  const SizedBox(width: 16),
+                  Icon(
+                    Icons.folder_outlined,
+                    size: 32,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: Text(
+                      story.title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                ],
               ),
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final story = _stories.elementAt(index);
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          const SizedBox(width: 16),
-                          Icon(
-                            Icons.folder_outlined,
-                            size: 32,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          const SizedBox(width: 8),
-                          Flexible(
-                            child: Text(
-                              story.title,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge
-                                  ?.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      SingleChildScrollView(
-                        key: PageStorageKey(index),
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        scrollDirection: Axis.horizontal,
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        clipBehavior: Clip.none,
-                        child: Wrap(
-                          spacing: 16,
-                          children: story.scenarios
-                              .map(
-                                (e) => ScenarioContainer(
-                                  key: ValueKey(e),
-                                  scenario: e,
-                                  thumbnailScale: widget.scenarioThumbnailScale,
-                                ),
-                              )
-                              .toList()
-                            ..sort(
-                              (s1, s2) => s1.scenario.title
-                                  .compareTo(s2.scenario.title),
-                            ),
+              const SizedBox(height: 16),
+              SingleChildScrollView(
+                key: PageStorageKey(index),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                scrollDirection: Axis.horizontal,
+                physics: const AlwaysScrollableScrollPhysics(),
+                clipBehavior: Clip.none,
+                child: Wrap(
+                  spacing: 16,
+                  children: story.scenarios
+                      .map(
+                        (e) => ScenarioContainer(
+                          key: ValueKey(e),
+                          scenario: e,
+                          thumbnailScale: widget.scenarioThumbnailScale,
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                    ],
-                  );
-                },
-                childCount: _stories.length,
+                      )
+                      .toList()
+                    ..sort(
+                      (s1, s2) =>
+                          s1.scenario.title.compareTo(s2.scenario.title),
+                    ),
+                ),
               ),
-            ),
-            SliverPadding(
-              padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).padding.bottom,
-              ),
-            ),
-          ],
-        ),
+              const SizedBox(height: 8),
+            ],
+          );
+        },
       ),
     );
   }
