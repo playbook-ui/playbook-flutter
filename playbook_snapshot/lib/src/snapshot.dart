@@ -51,11 +51,12 @@ class Snapshot implements TestTool {
 
           runApp(Container(key: UniqueKey()));
           final snapshotWidget = builder(
-            SnapshotBase(
+            ScenarioWidget(
               canvasColor: canvasColor,
               checkeredColor: checkeredColor,
+              checkeredRectSize: checkeredRectSize,
               useMaterial: useMaterial,
-              child: ScenarioWidget(scenario: scenario),
+              scenario: scenario,
             ),
             device,
           );

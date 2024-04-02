@@ -7,10 +7,14 @@ class ScenarioContainer extends StatelessWidget {
     super.key,
     required this.scenario,
     required this.thumbnailScale,
+    this.canvasColor,
+    this.checkeredColor,
   });
 
   final Scenario scenario;
   final double thumbnailScale;
+  final Color? canvasColor;
+  final Color? checkeredColor;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +78,12 @@ class ScenarioContainer extends StatelessWidget {
             builder: (context) {
               return DialogScaffold(
                 title: Text(scenario.title),
-                body: ScenarioWidget(scenario: scenario),
+                body: ScenarioWidget(
+                  canvasColor: canvasColor,
+                  checkeredColor: checkeredColor,
+                  useMaterial: false,
+                  scenario: scenario,
+                ),
               );
             },
           ),
