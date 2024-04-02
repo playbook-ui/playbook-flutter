@@ -7,6 +7,8 @@ class PlaybookGallery extends StatefulWidget {
   const PlaybookGallery({
     super.key,
     this.title = 'Playbook',
+    this.canvasColor = Colors.white,
+    this.checkeredColor = Colors.black12,
     this.scenarioThumbnailScale = 0.3,
     this.searchTextController,
     this.onCustomActionPressed,
@@ -15,6 +17,8 @@ class PlaybookGallery extends StatefulWidget {
   });
 
   final String title;
+  final Color? canvasColor;
+  final Color? checkeredColor;
   final double scenarioThumbnailScale;
   final TextEditingController? searchTextController;
   final VoidCallback? onCustomActionPressed;
@@ -118,6 +122,8 @@ class PlaybookGalleryState extends State<PlaybookGallery> {
                           key: ValueKey(e),
                           scenario: e,
                           thumbnailScale: widget.scenarioThumbnailScale,
+                          canvasColor: widget.canvasColor,
+                          checkeredColor: widget.checkeredColor,
                         ),
                       )
                       .toList()
