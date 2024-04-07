@@ -175,30 +175,20 @@ class SnapshotSupport {
 }
 
 extension on ScenarioLayout {
-  ScenarioLayoutCompressed? _compressedLayout(ScenarioLayoutSizing layout) {
-    return layout is ScenarioLayoutCompressed ? layout : null;
-  }
-
-  bool _needsCompressedLayoutResizing(ScenarioLayoutSizing layout) {
-    return _compressedLayout(layout)?.needsScrollableResizing ?? false;
-  }
-
   bool get needsResizing {
     return !(v is ScenarioLayoutFill && h is ScenarioLayoutFill);
   }
 
   bool get needsCompressedResizing {
-    return _needsCompressedLayoutResizing(v) ||
-        _needsCompressedLayoutResizing(h);
+    return v is ScenarioLayoutCompressed || h is ScenarioLayoutCompressed;
   }
 
   _CompressedResizingTarget get compressedResizingTarget {
-    if (_needsCompressedLayoutResizing(v) &&
-        _needsCompressedLayoutResizing(h)) {
+    if (v is ScenarioLayoutCompressed && h is ScenarioLayoutCompressed) {
       return _CompressedResizingTarget.both;
-    } else if (_needsCompressedLayoutResizing(v)) {
+    } else if (v is ScenarioLayoutCompressed) {
       return _CompressedResizingTarget.vertical;
-    } else if (_needsCompressedLayoutResizing(h)) {
+    } else if (h is ScenarioLayoutCompressed) {
       return _CompressedResizingTarget.horizontal;
     } else {
       throw StateError('No need compressed resizing.');
@@ -210,8 +200,9 @@ extension on ScenarioLayout {
       case ScenarioLayoutFixed:
         return (h as ScenarioLayoutFixed).value;
       case ScenarioLayoutFill:
-      case ScenarioLayoutCompressed:
         return device.size.width;
+      case ScenarioLayoutCompressed:
+        return 0;
     }
     return device.size.width;
   }
@@ -221,8 +212,9 @@ extension on ScenarioLayout {
       case ScenarioLayoutFixed:
         return (v as ScenarioLayoutFixed).value;
       case ScenarioLayoutFill:
+        return device.size.width;
       case ScenarioLayoutCompressed:
-        return device.size.height;
+        return 0;
     }
     return device.size.height;
   }
