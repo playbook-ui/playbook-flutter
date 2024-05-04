@@ -1,27 +1,27 @@
 ## 0.3.0+1
 
- - **CHORE**: fix playbook version.
+- **CHORE**: fix playbook version.
 
 ## 0.3.0
 
- - **FEAT**: can load assets that are included in dependencies.
- - **BREAKING CHANGE**: upgrade sdk and flutter.
+- **FEAT**: can load assets that are included in dependencies.
+- **BREAKING CHANGE**: upgrade sdk and flutter.
 
 ## 0.2.1
 
- - **FIX**: Support `Scrollables` have no `ScrollController`.
+- **FIX**: Support `Scrollables` have no `ScrollController`.
 
 ## 0.2.0
 
- - **FEAT**: Added support for defining fonts for `playbook_snapshot` in `pubspec.yaml`.
+- **FEAT**: Added support for defining fonts for `playbook_snapshot` in `pubspec.yaml`.
 
 ## 0.1.4
 
- - **FIX**: load multiple fonts ([#58](https://github.com/playbook-ui/playbook-flutter/issues/58)).
+- **FIX**: load multiple fonts ([#58](https://github.com/playbook-ui/playbook-flutter/issues/58)).
 
 ## 0.1.3
 
- - **BREAKING CHANGE**: SnapshotDevice change from enum to normal class.
+- **BREAKING CHANGE**: SnapshotDevice change from enum to normal class.
 
 ## 0.1.2
 

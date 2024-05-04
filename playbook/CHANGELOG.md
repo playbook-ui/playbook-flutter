@@ -1,19 +1,19 @@
 ## 0.1.0
 
- - **FEAT**: `Scenario` is supported to build with `WidgetBuilder`.
- - **BREAKING CHANGE**: upgrade sdk and flutter.
+- **FEAT**: `Scenario` is supported to build with `WidgetBuilder`.
+- **BREAKING CHANGE**: upgrade sdk and flutter.
 
 ## 0.0.4
 
- - **BREAKING CHANGE**: remove scenario thumbnail scale parameter.
+- **BREAKING CHANGE**: remove scenario thumbnail scale parameter.
 
 ## 0.0.3
 
- - **FEAT**: can be stop resizing `Scrollable`.
+- **FEAT**: can be stop resizing `Scrollable`.
 
 ## 0.0.2
 
- - **BUILD**: bump deps.
+- **BUILD**: bump deps.
 
 ## [0.0.1+1]
 

@@ -105,6 +105,30 @@ Future<void> main() async {
 
 <img src="https://user-images.githubusercontent.com/5707132/143840952-7c2c3f5b-25cc-4234-8316-73c9ea266620.png" alt="generate images" width="660">
 
+#### Configuration
+
+`pubspec.yaml` can be configured to define the location of the font file and snapshot output directory path.
+
+```yaml
+playbook_snapshot:
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+  # default is /snapshots
+  snapshot_dir: iOS
+  # default is empty
+  sub_dir: service
+```
+
+With the above settings, snapshots will be saved in the following directory.
+
+```
+/test/iOS/${DeviceName}/service/${StoryTitle}/${ScenarioTitle}.png
+```
+
+If you want to change path dynamically, you can use `snapshotDir` and `subDir` arguments in the `Snapshot`.
+
 #### Notes
 
 `Snapshot` (internally `flutter test --update-goldens`) requires you to prepare and load the fonts yourself. By defining the location of the font file in `flutter` or `playbook_snapshot` in `pubspec.yaml` and preparing the font file in the directory, the font file will be loaded automatically.
@@ -133,10 +157,10 @@ And then, should be prepared the font file in the directory.
 
 ### PlaybookGenerator
 
-Supports generating stories and scenarios from `*.story.dart` files.
+Supports generating stories and scenarios from any `.dart` files.
 
 ```dart
-// some_file.story.dart
+// some_story.dart
 
 const storyTitle = 'Home';
 
@@ -187,6 +211,18 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+```
+
+Can set glob for find assets and output file name in `build.yaml`. Default input value is `lib/**.dart` and output value is `generated_playbook.dart`.
+
+```yaml
+targets:
+$default:
+  builders:
+    playbook_generator:stories:
+      options:
+        input: lib/**.dart
+        output: generated_playbook.dart
 ```
 
 ---

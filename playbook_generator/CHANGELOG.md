@@ -1,19 +1,19 @@
 ## 0.1.0
 
- - **FEAT**: generate `Scenario` with the function that has `BuildContext`.
- - **BREAKING CHANGE**: upgrade sdk with some dependencies.
+- **FEAT**: generate `Scenario` with the function that has `BuildContext`.
+- **BREAKING CHANGE**: upgrade sdk with some dependencies.
 
 ## 0.0.6+1
 
- - **CHORE**: fix analyzer version.
+- **CHORE**: fix analyzer version.
 
 ## 0.0.6
 
- - **FEAT**: bump analyzer ([#57](https://github.com/playbook-ui/playbook-flutter/issues/57)). ([e1fe1430](https://github.com/playbook-ui/playbook-flutter/commit/e1fe1430f3d91b8ab129626c3858345c8955b573))
+- **FEAT**: bump analyzer ([#57](https://github.com/playbook-ui/playbook-flutter/issues/57)). ([e1fe1430](https://github.com/playbook-ui/playbook-flutter/commit/e1fe1430f3d91b8ab129626c3858345c8955b573))
 
 ## 0.0.5
 
- - **BREAKING CHANGE**: remove scenario thumbnail scale parameter.
+- **BREAKING CHANGE**: remove scenario thumbnail scale parameter.
 
 ## 0.0.4+1
 
