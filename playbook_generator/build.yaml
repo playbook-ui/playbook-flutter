@@ -2,6 +2,6 @@ builders:
   stories:
     import: "package:playbook_generator/playbook_generator.dart"
     builder_factories: ["playbookBuilder"]
-    build_extensions: {"$lib$": [".dart"]}
+    build_extensions: { "$lib$": [".dart"] }
     auto_apply: dependents
     build_to: source

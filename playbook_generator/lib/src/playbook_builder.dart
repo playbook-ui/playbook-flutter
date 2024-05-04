@@ -11,19 +11,24 @@ import 'package:source_gen/source_gen.dart'
     show LibraryReader, TypeChecker, defaultFileHeader;
 
 class PlaybookBuilder implements Builder {
-  static const _outputName = 'generated_playbook.dart';
+  const PlaybookBuilder(this._config);
+
   static const _playbookUrl = 'package:playbook/playbook.dart';
+  static const _defaultInput = 'lib/**.dart';
+  static const _defaultOutput = 'generated_playbook.dart';
+
+  final Map<String, dynamic> _config;
+  String get _input => _config['input'] as String? ?? _defaultInput;
+  String get _output => _config['output'] as String? ?? _defaultOutput;
 
   @override
-  Map<String, List<String>> get buildExtensions {
-    return const {
-      r'$lib$': [_outputName],
-    };
-  }
+  Map<String, List<String>> get buildExtensions => {
+        r'$lib$': [_output],
+      };
 
   @override
   FutureOr<void> build(BuildStep buildStep) async {
-    final storyAssets = buildStep.findAssets(Glob('lib/**.story.dart'));
+    final storyAssets = buildStep.findAssets(Glob(_input));
     final storyFunctions = <Method>[];
 
     await for (final input in storyAssets) {
@@ -63,7 +68,7 @@ $defaultFileHeader
 ${storiesLibrary.accept(emitter)}
 ''',
     );
-    await buildStep.writeAsString(_output(buildStep), content);
+    await buildStep.writeAsString(_outputAssetId(buildStep), content);
   }
 
   List<Code> _createScenarioCodes(LibraryReader storyLibraryReader) {
@@ -215,10 +220,10 @@ ${a(refer(scenarioName, _playbookUrl))}(
     return storyTitle;
   }
 
-  AssetId _output(BuildStep buildStep) {
+  AssetId _outputAssetId(BuildStep buildStep) {
     return AssetId(
       buildStep.inputId.package,
-      join('lib', _outputName),
+      join('lib', _output),
     );
   }
 }
