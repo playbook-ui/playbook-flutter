@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:playbook/playbook.dart';
 import 'package:playbook_snapshot/src/font_builder.dart';
-import 'package:playbook_snapshot/src/snapshot_base.dart';
+import 'package:playbook_snapshot/src/pubspec_reader.dart';
 import 'package:playbook_snapshot/src/snapshot_device.dart';
 import 'package:playbook_snapshot/src/snapshot_support.dart';
 import 'package:playbook_snapshot/src/test_tool.dart';
@@ -12,17 +12,29 @@ class Snapshot implements TestTool {
   const Snapshot({
     this.canvasColor = Colors.white,
     this.checkeredColor = Colors.black12,
+    this.checkeredRectSize,
     this.useMaterial = true,
-    required this.directoryPath,
+    @Deprecated(
+      'Write a snapshot_dir in playbook_snapshot in pubspec.yaml instead.',
+    )
+    this.directoryPath = _snapshotDir,
     required this.devices,
+    @Deprecated(
+      'Write a sub_dir in playbook_snapshot in pubspec.yaml instead.',
+    )
     this.subdirectoryPath,
   });
 
+  static const _snapshotDir = 'snapshots';
+
   final Color? canvasColor;
   final Color? checkeredColor;
+  final double? checkeredRectSize;
   final bool useMaterial;
+  // ignore: deprecated_consistency
   final String directoryPath;
   final List<SnapshotDevice> devices;
+  // ignore: deprecated_consistency
   final String? subdirectoryPath;
 
   @override
@@ -38,9 +50,13 @@ class Snapshot implements TestTool {
     });
     final stopwatch = Stopwatch()..start();
 
+    final spec = PubspecReader.read('playbook_snapshot');
+    final dir = spec?['snapshot_dir'] as String? ?? directoryPath;
+    final subDir = spec?['sub_dir'] as String? ?? subdirectoryPath;
+    final sub = subDir != null ? '/$subDir' : '';
+
     for (final device in devices) {
-      final sub = subdirectoryPath != null ? '/$subdirectoryPath' : '';
-      final ensuredDirectoryPath = '$directoryPath/${device.name}$sub';
+      final ensuredDirectoryPath = '$dir/${device.name}$sub';
       debugDefaultTargetPlatformOverride = device.platform;
 
       for (final story in playbook.stories) {
