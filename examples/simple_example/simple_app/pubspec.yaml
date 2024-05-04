@@ -11,11 +11,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  cupertino_icons: ^1.0.6
   playbook:
+  playbook_ui:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  playbook_snapshot:
 
 flutter:
   uses-material-design: true
@@ -23,6 +26,9 @@ flutter:
   assets:
     - assets/flutter.png
 
-dependency_overrides:
-  playbook:
-    path: ../../../playbook
+playbook_snapshot:
+  snapshot_dir: screenshots
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
