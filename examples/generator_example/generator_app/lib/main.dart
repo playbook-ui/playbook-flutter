@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'bar/bar.dart';
 
-String? packageName = 'generator_app';
-
 void main() {
   runApp(const MyApp());
 }
