@@ -14,13 +14,15 @@ class Snapshot implements TestTool {
     this.checkeredColor = Colors.black12,
     this.checkeredRectSize,
     this.useMaterial = true,
+    this.snapshotDir,
+    this.subDir,
     @Deprecated(
-      'Write a snapshot_dir in playbook_snapshot in pubspec.yaml instead.',
+      '''Write a snapshot_dir in playbook_snapshot in pubspec.yaml or use snapshotDir instead.''',
     )
-    this.directoryPath = _snapshotDir,
+    this.directoryPath,
     required this.devices,
     @Deprecated(
-      'Write a sub_dir in playbook_snapshot in pubspec.yaml instead.',
+      '''Write a sub_dir in playbook_snapshot in pubspec.yaml or use subDir instead.''',
     )
     this.subdirectoryPath,
   });
@@ -31,9 +33,11 @@ class Snapshot implements TestTool {
   final Color? checkeredColor;
   final double? checkeredRectSize;
   final bool useMaterial;
-  // ignore: deprecated_consistency
-  final String directoryPath;
+  final String? snapshotDir;
+  final String? subDir;
   final List<SnapshotDevice> devices;
+  // ignore: deprecated_consistency
+  final String? directoryPath;
   // ignore: deprecated_consistency
   final String? subdirectoryPath;
 
@@ -51,12 +55,16 @@ class Snapshot implements TestTool {
     final stopwatch = Stopwatch()..start();
 
     final spec = PubspecReader.read('playbook_snapshot');
-    final dir = spec?['snapshot_dir'] as String? ?? directoryPath;
-    final subDir = spec?['sub_dir'] as String? ?? subdirectoryPath;
-    final sub = subDir != null ? '/$subDir' : '';
+    final dirPath = snapshotDir ??
+        spec?['snapshot_dir'] as String? ??
+        directoryPath ??
+        _snapshotDir;
+    final subDirPath =
+        subDir ?? spec?['sub_dir'] as String? ?? subdirectoryPath;
+    final subPath = subDirPath != null ? '/$subDirPath' : '';
 
     for (final device in devices) {
-      final ensuredDirectoryPath = '$dir/${device.name}$sub';
+      final ensuredDirectoryPath = '$dirPath/${device.name}$subPath';
       debugDefaultTargetPlatformOverride = device.platform;
 
       for (final story in playbook.stories) {
