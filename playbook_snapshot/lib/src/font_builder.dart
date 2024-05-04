@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:yaml/yaml.dart';
+import 'package:playbook_snapshot/src/pubspec_reader.dart';
 
 class FontBuilder {
   static Future<void> loadFonts() async {
@@ -38,10 +38,7 @@ class FontBuilder {
   }
 
   static Future<void> _loadFontFamily() async {
-    final yamlString = File('pubspec.yaml').readAsStringSync();
-    final yaml = loadYaml(yamlString);
-    final pubspec = json.decode(json.encode(yaml)) as Map<String, dynamic>?;
-    final playbook = pubspec?['playbook_snapshot'] as Map<String, dynamic>?;
+    final playbook = PubspecReader.read('playbook_snapshot');
     final fonts = playbook?['fonts'] as List<dynamic>? ?? [];
 
     Future<ByteData> load(String asset) async {
