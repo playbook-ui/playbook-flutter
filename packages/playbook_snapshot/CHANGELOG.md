@@ -1,3 +1,9 @@
+## 1.0.0
+
+- **FEAT**: `ScenarioWidget` shows `Checkered` background. If you don't want to show the background, set `checkeredColor` to `null`.
+- **FEAT**: can change whether to use `Material` widgets as a base when taking snapshots.
+- **FIX**: deprecate `directoryPath` and `snapshotDir`, use `snapshotDir` and `subDir` instead.
+
 ## 0.3.0+1
 
 - **CHORE**: fix playbook version.

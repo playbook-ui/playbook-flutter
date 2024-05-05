@@ -1,10 +1,10 @@
 # melos_managed_dependency_overrides: playbook,playbook_generator,playbook_ui,playbook_snapshot
 dependency_overrides:
   playbook:
-    path: ../../../playbook
+    path: ../../packages/playbook
   playbook_generator:
-    path: ../../../playbook_generator
+    path: ../../packages/playbook_generator
   playbook_snapshot:
-    path: ../../../playbook_snapshot
+    path: ../../packages/playbook_snapshot
   playbook_ui:
-    path: ../../../playbook_ui
+    path: ../../packages/playbook_ui
