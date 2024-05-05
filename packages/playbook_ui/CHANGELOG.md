@@ -1,7 +1,3 @@
-## 1.0.0
-
-- **FEAT**: `ScenarioWidget` shows `Checkered` background. If you don't want to show the background, set `checkeredColor` to `null`.
-
 ## 0.1.0+1
 
 - **CHORE**: fix playbook version.
