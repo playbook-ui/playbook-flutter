@@ -12,47 +12,51 @@ command:
   version:
     linkToCommits: true
 
+  bootstrap:
+    hooks:
+      post:
+        run: |
+          melos gen
+
 scripts:
-  format: melos exec -- exec flutter format .
+  format: melos exec -- flutter format .
 
-  analyze: melos exec -- exec flutter analyze .
+  analyze: melos exec -- flutter analyze .
 
-  clean: melos exec -- exec flutter clean
+  clean: melos exec -- flutter clean
 
-  pub:upgrade:
+  upgrade:
     run: |
-      melos exec -- exec flutter pub upgrade
+      melos exec -- flutter pub upgrade
       melos bootstrap
 
-  pub:get:
-    run: melos exec -- exec flutter pub get
+  get:
+    run: melos exec -- flutter pub get
 
-  gen:build_runner:
-    run: |
-      melos exec -- exec flutter pub run build_runner build --delete-conflicting-outputs
-    packageFilters:
-      dependsOn: "build_runner"
+  gen:
+    run: melos gen:all --no-select
 
-  test:unit:
+  gen:all:
     run: |
-      melos exec -- exec flutter test
+      melos exec -- flutter pub run build_runner build --delete-conflicting-outputs
     packageFilters:
-      noDependsOn:
-        - "playbook_snapshot"
-      dirExists:
-        - test
+      dependsOn: build_runner
+
+  test:
+    run: melos test:snapshot --no-select
 
   test:snapshot:
     run: |
-      melos exec -- exec flutter test --update-goldens
+      melos exec -- flutter test --update-goldens
     packageFilters:
       dependsOn:
-        - "playbook_snapshot"
+        - playbook_snapshot
       dirExists:
         - test
 
-  test:snapshot:simple:
+  test:all:
     run: |
-      melos exec -- exec flutter test --update-goldens
+      melos exec -- flutter test --update-goldens
     packageFilters:
-      scope: "simple_catalog_app"
+      dirExists:
+        - test
