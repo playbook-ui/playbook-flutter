@@ -65,7 +65,7 @@ Those that are displayed on the top screen are not actually doing layout, but ra
 
 | Browser | Detail |
 | ------- | ------ |
-|<img src="https://user-images.githubusercontent.com/5707132/143968108-230c2114-3c96-48fa-af1b-17f64b27d9a8.png" width="150">|<img src="https://user-images.githubusercontent.com/5707132/143968151-1775647a-1743-4083-b769-dece364f9d91.png" width="150">|
+|<img src="https://github.com/playbook-ui/playbook-flutter/assets/5707132/96f142d0-0829-44eb-a837-0f195768b14a" width="150">|<img src="https://github.com/playbook-ui/playbook-flutter/assets/5707132/e5f98d67-f0ed-4af7-a630-567a71f20bfa" width="150">|
 
 ---
 
