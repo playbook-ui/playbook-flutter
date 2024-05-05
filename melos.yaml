@@ -12,6 +12,12 @@ command:
   version:
     linkToCommits: true
 
+  bootstrap:
+    hooks:
+      post:
+        run: |
+          melos gen
+
 scripts:
   format: melos exec -- flutter format .
 
