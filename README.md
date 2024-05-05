@@ -82,10 +82,11 @@ Future<void> main() async {
         barStory(),
         fooWidgetStory(),
         assetImageStory(),
+        homePageStory(),
+        scrollableStory(),
       ],
     ).run(
       Snapshot(
-        directoryPath: 'screenshots',
         devices: [SnapshotDevice.iPhoneSE2nd],
       ),
       (widget, device) {
@@ -103,7 +104,7 @@ Future<void> main() async {
 }
 ```
 
-<img src="https://user-images.githubusercontent.com/5707132/143840952-7c2c3f5b-25cc-4234-8316-73c9ea266620.png" alt="generate images" width="660">
+<img src="https://github.com/playbook-ui/playbook-flutter/assets/5707132/baddc8eb-864c-435c-bec4-c3fc2141d73b" alt="generate images" width="660">
 
 #### Configuration
 
