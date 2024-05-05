@@ -217,12 +217,12 @@ Can set glob for find assets and output file name in `build.yaml`. Default input
 
 ```yaml
 targets:
-$default:
-  builders:
-    playbook_generator:stories:
-      options:
-        input: lib/**.dart
-        output: generated_playbook.dart
+  $default:
+    builders:
+      playbook_generator:stories:
+        options:
+          input: lib/**.dart
+          output: generated_playbook.dart
 ```
 
 ---
