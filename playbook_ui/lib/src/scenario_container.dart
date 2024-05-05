@@ -47,7 +47,12 @@ class ScenarioContainer extends StatelessWidget {
                               // Because we may have multiple heroes
                               // that share the same tag
                               enabled: false,
-                              child: scenario.child,
+                              child: ScenarioWidget(
+                                canvasColor: canvasColor,
+                                checkeredColor: checkeredColor,
+                                useMaterial: false,
+                                scenario: scenario,
+                              ),
                             ),
                           ),
                         ),

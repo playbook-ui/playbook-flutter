@@ -24,6 +24,7 @@ class ScenarioWidget extends StatelessWidget {
       child: scenario.child,
     );
 
+    final color = checkeredColor != null ? canvasColor : null;
     final content = checkeredColor != null
         ? Checkered(
             rectSize: checkeredRectSize ?? 5,
@@ -34,11 +35,11 @@ class ScenarioWidget extends StatelessWidget {
 
     return useMaterial
         ? Material(
-            color: canvasColor,
+            color: color,
             child: content,
           )
         : Container(
-            color: canvasColor,
+            color: color,
             child: content,
           );
   }
