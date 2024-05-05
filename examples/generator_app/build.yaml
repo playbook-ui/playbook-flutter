@@ -1,0 +1,7 @@
+targets:
+  $default:
+    builders:
+      playbook_generator:stories:
+        options:
+          input: lib/**.story.dart
+          output: generated_playbook.dart

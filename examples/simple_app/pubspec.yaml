@@ -1,0 +1,34 @@
+name: simple_app
+description: Sample app
+version: 1.0.0+1
+
+publish_to: "none"
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  playbook:
+  playbook_ui:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  playbook_snapshot:
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/flutter.png
+
+playbook_snapshot:
+  snapshot_dir: screenshots
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf

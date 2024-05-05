@@ -2,7 +2,7 @@ name: Playbook
 repository: https://github.com/playbook-ui/playbook-flutter
 
 packages:
-  - playbook**
+  - packages/**
   - examples/**
 
 ide:
