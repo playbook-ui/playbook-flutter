@@ -1,0 +1,33 @@
+name: Review
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.19.6
+          cache: true
+
+      - name: Setup pub
+        run: make setup/pub
+
+      - name: Dart Analyzer
+        uses: invertase/github-action-dart-analyzer@v3
+        with:
+          fatal-infos: true
+          working-directory: ./packages
+
+      - name: Test
+        run: melos test
