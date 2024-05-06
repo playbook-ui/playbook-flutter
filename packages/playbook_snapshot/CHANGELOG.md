@@ -1,3 +1,11 @@
+## 1.0.0
+
+- **BREAKING CHANGE**: an instance of `SnapshotDevice` is passed when `playbook` is run.
+- **FEAT**: `SnapshotDevice` now supports `textScaler`, `pixelRatio` and `safeAreaInsets`. If you don't want the `SafeArea`, set `SafeAreaInsets()` to `safeAreaInsets`.
+- **FEAT**: `ScenarioWidget` shows `Checkered` background. If you don't want to show the background, set `null` to `checkeredColor`.
+- **FEAT**: can change whether to use `Material` widgets as a base when taking snapshots.
+- **FIX**: deprecate `directoryPath` and `snapshotDir`, use `snapshotDir` and `subDir` instead.
+
 ## 0.3.0+1
 
 - **CHORE**: fix playbook version.

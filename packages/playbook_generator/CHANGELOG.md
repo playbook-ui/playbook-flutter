@@ -1,3 +1,8 @@
+## 1.0.0
+
+- **BREAKING CHANGE**: remove `needsScrollableResizing` from `ScenarioLayoutCompressed`. Use `ScenarioLayoutFill` instead.
+- **FEAT**: can be set to find assets glob and output file name.
+
 ## 0.1.0
 
 - **FEAT**: generate `Scenario` with the function that has `BuildContext`.

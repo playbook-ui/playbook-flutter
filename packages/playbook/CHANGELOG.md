@@ -1,3 +1,7 @@
+## 1.0.0
+
+- **BREAKING CHANGE**: remove `needsScrollableResizing` from `ScenarioLayoutCompressed`. Use `ScenarioLayoutFill` instead.
+
 ## 0.1.0
 
 - **FEAT**: `Scenario` is supported to build with `WidgetBuilder`.
