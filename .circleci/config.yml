@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  flutter: circleci/flutter@2.0.2
+  flutter: circleci/flutter@2.0.4
   node: circleci/node@4.7.0
 
 executors:
