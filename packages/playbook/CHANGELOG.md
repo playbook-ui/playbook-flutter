@@ -1,3 +1,7 @@
+## 1.0.1
+
+- **FIX**: can set `ScenarioLayoutSizing` to `ScenarioLayout`.
+
 ## 1.0.0
 
 - **BREAKING CHANGE**: remove `needsScrollableResizing` from `ScenarioLayoutCompressed`. Use `ScenarioLayoutFill` instead.
