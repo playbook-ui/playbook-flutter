@@ -17,17 +17,21 @@ class ScenarioLayoutFixed extends ScenarioLayoutSizing {
 }
 
 class ScenarioLayout {
-  const ScenarioLayout.fill()
-      : _dh = null,
+  const ScenarioLayout.fill({
+    ScenarioLayoutSizing horizontalLayout = const ScenarioLayoutFill(),
+    ScenarioLayoutSizing verticalLayout = const ScenarioLayoutFill(),
+  })  : _dh = null,
         _dv = null,
-        _h = const ScenarioLayoutFill(),
-        _v = const ScenarioLayoutFill();
+        _h = horizontalLayout,
+        _v = verticalLayout;
 
-  const ScenarioLayout.compressed()
-      : _dh = null,
+  const ScenarioLayout.compressed({
+    ScenarioLayoutSizing horizontalLayout = const ScenarioLayoutCompressed(),
+    ScenarioLayoutSizing verticalLayout = const ScenarioLayoutCompressed(),
+  })  : _dh = null,
         _dv = null,
-        _h = const ScenarioLayoutCompressed(),
-        _v = const ScenarioLayoutCompressed();
+        _h = horizontalLayout,
+        _v = verticalLayout;
 
   const ScenarioLayout.fixed(double width, double height)
       : _dh = width,
