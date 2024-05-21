@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:playbook/src/scenario.dart';
 
+typedef ScenarioWidgetBuilder = Widget Function(
+  BuildContext context,
+  Widget child,
+);
+
 class ScenarioWidget extends StatelessWidget {
   const ScenarioWidget({
     super.key,
@@ -8,6 +13,7 @@ class ScenarioWidget extends StatelessWidget {
     this.canvasColor,
     this.checkeredColor,
     this.checkeredRectSize,
+    this.builder,
     required this.useMaterial,
   });
 
@@ -16,12 +22,13 @@ class ScenarioWidget extends StatelessWidget {
   final double? checkeredRectSize;
   final bool useMaterial;
   final Scenario scenario;
+  final ScenarioWidgetBuilder? builder;
 
   @override
   Widget build(BuildContext context) {
     final child = Align(
       alignment: scenario.alignment,
-      child: scenario.child,
+      child: builder?.call(context, scenario.child) ?? scenario.child,
     );
 
     final color = checkeredColor != null ? canvasColor : null;

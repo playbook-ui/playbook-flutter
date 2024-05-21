@@ -14,6 +14,7 @@ class PlaybookGallery extends StatefulWidget {
     this.onCustomActionPressed,
     this.otherCustomActions = const [],
     required this.playbook,
+    this.scenarioWidgetBuilder,
   });
 
   final String title;
@@ -24,6 +25,7 @@ class PlaybookGallery extends StatefulWidget {
   final VoidCallback? onCustomActionPressed;
   final List<Widget> otherCustomActions;
   final Playbook playbook;
+  final ScenarioWidgetBuilder? scenarioWidgetBuilder;
 
   @override
   PlaybookGalleryState createState() => PlaybookGalleryState();
@@ -124,6 +126,7 @@ class PlaybookGalleryState extends State<PlaybookGallery> {
                           thumbnailScale: widget.scenarioThumbnailScale,
                           canvasColor: widget.canvasColor,
                           checkeredColor: widget.checkeredColor,
+                          widgetBuilder: widget.scenarioWidgetBuilder,
                         ),
                       )
                       .toList()
