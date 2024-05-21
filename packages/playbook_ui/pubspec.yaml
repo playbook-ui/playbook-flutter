@@ -1,6 +1,6 @@
 name: playbook_ui
 description: Playbook UI package.
-version: 1.0.0
+version: 1.1.0
 repository: https://github.com/playbook-ui/playbook-flutter
 documentation: https://github.com/playbook-ui/playbook-flutter
 issue_tracker: https://github.com/playbook-ui/playbook-flutter/issues
@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  playbook: ^1.0.0
+  playbook: ^1.1.0
 
 dev_dependencies:
   flutter_test:

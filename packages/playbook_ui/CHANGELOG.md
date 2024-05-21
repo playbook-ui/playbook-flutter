@@ -1,3 +1,7 @@
+## 1.1.0
+
+- **FEAT**: can set `ScenarioWidgetBuilder` to `ScenarioWidget`.
+
 ## 1.0.0
 
 - **FEAT**: `ScenarioWidget` shows `Checkered` background. If you don't want to show the background, set `checkeredColor` to `null`.

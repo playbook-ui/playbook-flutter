@@ -1,3 +1,7 @@
+## 1.1.0
+
+- **FEAT**: can set `ScenarioWidgetBuilder` to `ScenarioWidget`.
+
 ## 1.0.1
 
 - **FIX**: can set `ScenarioLayoutSizing` to `ScenarioLayout`.
