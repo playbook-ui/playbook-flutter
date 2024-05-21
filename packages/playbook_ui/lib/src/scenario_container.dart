@@ -9,12 +9,14 @@ class ScenarioContainer extends StatelessWidget {
     required this.thumbnailScale,
     this.canvasColor,
     this.checkeredColor,
+    this.widgetBuilder,
   });
 
   final Scenario scenario;
   final double thumbnailScale;
   final Color? canvasColor;
   final Color? checkeredColor;
+  final ScenarioWidgetBuilder? widgetBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +54,7 @@ class ScenarioContainer extends StatelessWidget {
                                 checkeredColor: checkeredColor,
                                 useMaterial: false,
                                 scenario: scenario,
+                                builder: widgetBuilder,
                               ),
                             ),
                           ),
@@ -88,6 +91,7 @@ class ScenarioContainer extends StatelessWidget {
                   checkeredColor: checkeredColor,
                   useMaterial: false,
                   scenario: scenario,
+                  builder: widgetBuilder,
                 ),
               );
             },
