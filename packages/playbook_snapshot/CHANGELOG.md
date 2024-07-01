@@ -1,3 +1,7 @@
+## 1.0.1
+
+- **FIX**: Device size for vertical layout fill.
+
 ## 1.0.0
 
 - **BREAKING CHANGE**: an instance of `SnapshotDevice` is passed when `playbook` is run.

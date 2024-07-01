@@ -1,6 +1,6 @@
 name: playbook_snapshot
 description: Playbook Snapshot package.
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/playbook-ui/playbook-flutter
 documentation: https://github.com/playbook-ui/playbook-flutter
 issue_tracker: https://github.com/playbook-ui/playbook-flutter/issues
