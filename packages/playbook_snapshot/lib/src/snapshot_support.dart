@@ -212,7 +212,7 @@ extension on ScenarioLayout {
       case ScenarioLayoutFixed:
         return (v as ScenarioLayoutFixed).value;
       case ScenarioLayoutFill:
-        return device.size.width;
+        return device.size.height;
       case ScenarioLayoutCompressed:
         return 0;
     }
