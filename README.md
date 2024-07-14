@@ -238,7 +238,7 @@ The generated snapshot images can be used for more advanced visual regression te
 
 #### [reg-viz/reg-suit](https://github.com/reg-viz/reg-suit)
 
-<img src="https://raw.githubusercontent.com/playbook-ui/playbook-ios/master/assets/reg-report.png" alt="reg-suit" width="600">
+<img src="https://github.com/playbook-ui/playbook-ios/blob/master/assets/reg_report.png" alt="reg-suit" width="600">
 
 ---
 
