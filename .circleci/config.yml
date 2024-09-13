@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   flutter: circleci/flutter@2.0.4
-  node: circleci/node@4.9.0
+  node: circleci/node@6.1.0
 
 executors:
   android_medium:
