@@ -46,6 +46,7 @@ class Snapshot implements TestTool {
     Playbook playbook,
     WidgetTester tester,
     PlaybookBuilder builder, {
+    ScenarioWidgetBuilder? scenarioWidgetBuilder,
     Future<void> Function(WidgetTester tester)? setUpEachTest,
   }) async {
     await tester.runAsync(() async {
@@ -80,6 +81,7 @@ class Snapshot implements TestTool {
               checkeredColor: checkeredColor,
               checkeredRectSize: checkeredRectSize,
               useMaterial: useMaterial,
+              builder: scenarioWidgetBuilder,
               scenario: scenario,
             ),
             device,
