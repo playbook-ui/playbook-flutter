@@ -44,9 +44,9 @@
   integrity sha512-Orxzlfb9c67A15cq2JQEyVc7wEsmFBmHjZWZYQMUyJ1qivXyMwdyNOs9odi79hze+2zqdTtu1E19IM/FtqZ10g==
 
 "@google-cloud/storage@^7.0.0":
-  version "7.12.1"
-  resolved "https://registry.yarnpkg.com/@google-cloud/storage/-/storage-7.12.1.tgz#7963bdc3b5266e4698047f6158a043d53231ec9c"
-  integrity sha512-Z3ZzOnF3YKLuvpkvF+TjQ6lztxcAyTILp+FjKonmVpEwPa9vFvxpZjubLR4sB6bf19i/8HL2AXRjA0YFgHFRmQ==
+  version "7.13.0"
+  resolved "https://registry.yarnpkg.com/@google-cloud/storage/-/storage-7.13.0.tgz#b59a495861fe7c48f78c1b482b9404f07aa60e66"
+  integrity sha512-Y0rYdwM5ZPW3jw/T26sMxxfPrVQTKm9vGrZG8PRyGuUmUJ8a2xNuQ9W/NNA1prxqv2i54DSydV8SJqxF2oCVgA==
   dependencies:
     "@google-cloud/paginator" "^5.0.0"
     "@google-cloud/projectify" "^4.0.0"
