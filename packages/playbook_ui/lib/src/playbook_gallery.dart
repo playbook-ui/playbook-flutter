@@ -75,6 +75,9 @@ class PlaybookGalleryState extends State<PlaybookGallery> {
               body: ScenarioWidget(
                 useMaterial: false,
                 scenario: scenario,
+                canvasColor: widget.canvasColor,
+                checkeredColor: widget.checkeredColor,
+                builder: widget.scenarioWidgetBuilder,
               ),
             ),
           ),
