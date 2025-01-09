@@ -1,3 +1,7 @@
+## 1.0.2
+
+- **FIX**: can use scenarioWidgetBuilder when snapshot #93
+
 ## 1.0.1
 
 - **FIX**: Device size for vertical layout fill.

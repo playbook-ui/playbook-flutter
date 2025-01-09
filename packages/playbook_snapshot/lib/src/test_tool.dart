@@ -10,6 +10,7 @@ abstract class TestTool {
     Playbook playbook,
     WidgetTester tester,
     PlaybookBuilder builder, {
+    ScenarioWidgetBuilder? scenarioWidgetBuilder,
     Future<void> Function(WidgetTester tester)? setUpEachTest,
   });
 }
@@ -19,12 +20,14 @@ extension PlaybookExt on Playbook {
     TestTool test,
     WidgetTester tester,
     PlaybookBuilder builder, {
+    ScenarioWidgetBuilder? scenarioWidgetBuilder,
     Future<void> Function(WidgetTester tester)? setUpEachTest,
   }) async {
     await test.run(
       this,
       tester,
       builder,
+      scenarioWidgetBuilder: scenarioWidgetBuilder,
       setUpEachTest: setUpEachTest,
     );
   }
