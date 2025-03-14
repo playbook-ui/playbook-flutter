@@ -2,8 +2,8 @@ name: playbook
 description: playbook
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.6.0 <4.0.0"
 
 dev_dependencies:
   melos: ^6.0.0
-  very_good_analysis: ^5.1.0
+  very_good_analysis: ^7.0.0
