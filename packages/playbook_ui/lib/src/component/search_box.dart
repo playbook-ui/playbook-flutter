@@ -29,7 +29,8 @@ class _SearchBoxState extends State<SearchBox> {
 
   @override
   Widget build(BuildContext context) {
-    final iconColor = Theme.of(context).colorScheme.onSurface.withOpacity(0.48);
+    final iconColor =
+        Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.48);
     return TextField(
       controller: widget.controller,
       keyboardType: TextInputType.text,

@@ -1,6 +1,8 @@
 include: package:very_good_analysis/analysis_options.7.0.0.yaml
 
 analyzer:
+  errors:
+    document_ignores: ignore
   exclude:
     - '**/generated_playbook.dart'
 
@@ -11,3 +13,4 @@ linter:
     public_member_api_docs: false
     one_member_abstracts: false
     always_put_required_named_parameters_first: false
+    avoid_catches_without_on_clauses: false

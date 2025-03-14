@@ -1,12 +1,14 @@
-import 'package:generator_app/generated_playbook.dart';
 import 'package:flutter/material.dart';
+import 'package:generator_app/generated_playbook.dart';
 import 'package:playbook_ui/playbook_ui.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   State<MyApp> createState() => _MyAppState();
 }

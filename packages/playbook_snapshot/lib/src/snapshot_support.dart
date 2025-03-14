@@ -197,11 +197,11 @@ extension on ScenarioLayout {
 
   double absoluteWidth(SnapshotDevice device) {
     switch (h.runtimeType) {
-      case ScenarioLayoutFixed:
+      case ScenarioLayoutFixed _:
         return (h as ScenarioLayoutFixed).value;
-      case ScenarioLayoutFill:
+      case ScenarioLayoutFill _:
         return device.size.width;
-      case ScenarioLayoutCompressed:
+      case ScenarioLayoutCompressed _:
         return 0;
     }
     return device.size.width;
@@ -209,11 +209,11 @@ extension on ScenarioLayout {
 
   double absoluteHeight(SnapshotDevice device) {
     switch (v.runtimeType) {
-      case ScenarioLayoutFixed:
+      case ScenarioLayoutFixed _:
         return (v as ScenarioLayoutFixed).value;
-      case ScenarioLayoutFill:
+      case ScenarioLayoutFill _:
         return device.size.height;
-      case ScenarioLayoutCompressed:
+      case ScenarioLayoutCompressed _:
         return 0;
     }
     return device.size.height;

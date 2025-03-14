@@ -8,10 +8,12 @@ import 'package:simple_app/page/page.story.dart';
 import 'package:simple_app/scrollable/scrollable.story.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
