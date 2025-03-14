@@ -61,7 +61,9 @@ class PlaybookBuilder implements Builder {
       orderDirectives: true,
       useNullSafetySyntax: true,
     );
-    final content = DartFormatter().format(
+    final content = DartFormatter(
+      languageVersion: DartFormatter.latestLanguageVersion,
+    ).format(
       '''
 $defaultFileHeader
 
