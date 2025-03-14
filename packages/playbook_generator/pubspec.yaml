@@ -6,7 +6,7 @@ documentation: https://github.com/playbook-ui/playbook-flutter
 issue_tracker: https://github.com/playbook-ui/playbook-flutter/issues
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.6.0 <4.0.0"
 
 dependencies:
   analyzer: ^7.3.0
