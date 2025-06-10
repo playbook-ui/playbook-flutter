@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
@@ -87,17 +87,19 @@ ${storiesLibrary.accept(emitter)}
 
       final element = e.element;
       if (!element.isPublic) return false;
-      if (element is ClassElement) {
-        return (element.unnamedConstructor?.isDefaultConstructor ?? false) &&
-            element.allSupertypes.any(
+      if (element is ClassFragment) {
+        final elm = (element as ClassFragment).element;
+        return (elm.unnamedConstructor2?.isDefaultConstructor ?? false) &&
+            elm.allSupertypes.any(
               (s) => s.getDisplayString() == w,
             );
-      } else if (element is FunctionElement) {
-        final firstParam =
-            element.parameters.firstOrNull?.type.getDisplayString();
-        return element.parameters.length <= 1 &&
-            (firstParam == null || firstParam == bc) &&
-            element.returnType.getDisplayString() == w;
+      } else if (element is TopLevelFunctionFragment) {
+        final elm = (element as TopLevelFunctionFragment).element;
+        final parameters = elm.formalParameters;
+        final firstParam = parameters.firstOrNull?.type.getDisplayString();
+        return parameters.length <= 1 &&
+            (firstParam?.contains(bc) ?? true) &&
+            elm.returnType.getDisplayString() == w;
       } else {
         return false;
       }
@@ -115,7 +117,10 @@ ${storiesLibrary.accept(emitter)}
           final String scenarioName;
           final String childBuilder;
 
-          if (element is FunctionElement && element.parameters.isNotEmpty) {
+          if (element is TopLevelFunctionFragment &&
+              (element as TopLevelFunctionFragment)
+                  .formalParameters
+                  .isNotEmpty) {
             scenarioName = 'Scenario.builder';
             childBuilder = 'builder: $builder';
           } else {
@@ -133,8 +138,9 @@ ${a(refer(scenarioName, _playbookUrl))}(
     );
 
     final scenarioCodes = storyLibraryReader.element.topLevelElements
-        .whereType<FunctionElement>()
-        .where((e) => e.isPublic && e.parameters.isEmpty)
+        .whereType<TopLevelFunctionFragment>()
+        .map((e) => e.element)
+        .where((e) => e.isPublic && e.formalParameters.isEmpty)
         .expand<Code>(
       (e) {
         final returnTypeString = e.returnType.getDisplayString();
@@ -206,9 +212,10 @@ ${a(refer(scenarioName, _playbookUrl))}(
   String _findStoryTitle(LibraryReader storyLibraryReader) {
     late final fullName = storyLibraryReader.element.source.fullName;
     final storyTitle = storyLibraryReader.element.topLevelElements
-        .whereType<VariableElement>()
+        .whereType<VariableFragment>()
+        .map((e) => e.element)
         .firstWhere(
-          (e) => e.name == 'storyTitle',
+          (e) => e.displayName == 'storyTitle',
           orElse: () => throw StateError(
             'Library $fullName need define the story title.',
           ),
