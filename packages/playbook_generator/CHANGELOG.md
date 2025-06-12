@@ -1,3 +1,7 @@
+## 1.1.0
+
+- upgrade analyzer to greater than 7.4.5.
+
 ## 1.0.0
 
 - **BREAKING CHANGE**: remove `needsScrollableResizing` from `ScenarioLayoutCompressed`. Use `ScenarioLayoutFill` instead.
