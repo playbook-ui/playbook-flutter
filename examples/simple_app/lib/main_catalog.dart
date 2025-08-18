@@ -24,24 +24,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Playbook Demo',
-      theme: _isDark ? ThemeData.dark() : ThemeData.light(),
-      home: PlaybookGallery(
-        title: 'Sample app',
-        searchTextController: controller,
-        onCustomActionPressed: () => setState(() {
-          _isDark = !_isDark;
-        }),
-        playbook: Playbook(
-          stories: [
-            barStory(),
-            fooWidgetStory(),
-            assetImageStory(),
-            homePageStory(),
-            scrollableStory(),
-          ],
-        ),
+    return PlaybookGallery(
+      title: 'Sample app',
+      searchTextController: controller,
+      onCustomActionPressed: () => setState(() {
+        _isDark = !_isDark;
+      }),
+      lightTheme: _isDark ? ThemeData.dark() : ThemeData.light(),
+      playbook: Playbook(
+        stories: [
+          barStory(),
+          fooWidgetStory(),
+          assetImageStory(),
+          homePageStory(),
+          scrollableStory(),
+        ],
       ),
     );
   }
