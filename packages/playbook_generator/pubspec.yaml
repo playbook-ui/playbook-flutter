@@ -8,8 +8,6 @@ issue_tracker: https://github.com/playbook-ui/playbook-flutter/issues
 environment:
   sdk: ^3.8.0
 
-resolution: workspace
-
 dependencies:
   analyzer: ^8.0.0
   build: ^4.0.0

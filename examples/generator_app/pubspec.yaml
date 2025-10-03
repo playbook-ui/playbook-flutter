@@ -8,8 +8,6 @@ environment:
   sdk: ^3.8.0
   flutter: ">=3.32.0"
 
-resolution: workspace
-
 dependencies:
   flutter:
     sdk: flutter

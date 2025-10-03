@@ -1,0 +1,8 @@
+# melos_managed_dependency_overrides: playbook,playbook_snapshot,playbook_ui
+dependency_overrides:
+  playbook:
+    path: ../../packages/playbook
+  playbook_snapshot:
+    path: ../../packages/playbook_snapshot
+  playbook_ui:
+    path: ../../packages/playbook_ui
