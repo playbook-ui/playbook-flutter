@@ -43,7 +43,7 @@ class StoryDrawerState extends State<StoryDrawer> {
             const Divider(),
             Expanded(
               child: ListView.separated(
-                separatorBuilder: (_, __) => const Divider(),
+                separatorBuilder: (_, _) => const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   final story = widget.stories[index];
                   return Padding(
