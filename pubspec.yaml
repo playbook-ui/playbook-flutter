@@ -1,9 +1,53 @@
-name: playbook
+name: workspace
 description: playbook
 
 environment:
   sdk: ^3.8.0
 
+workspace:
+  - packages/playbook
+  - packages/playbook_generator
+  - packages/playbook_ui
+  - packages/playbook_snapshot
+  - examples/generator_app
+  - examples/simple_app
+
 dev_dependencies:
-  melos: ^6.0.0
+  melos: ^7.0.0
   very_good_analysis: ^9.0.0
+
+melos:
+  scripts:
+    format: melos exec -- flutter format .
+
+    analyze: melos exec -- flutter analyze .
+
+    clean: melos exec -- flutter clean
+
+    gen:
+      run: melos gen:all --no-select
+
+    gen:all:
+      run: |
+        melos exec -- dart run build_runner build --delete-conflicting-outputs
+      packageFilters:
+        dependsOn: build_runner
+
+    test:
+      run: melos test:snapshot --no-select
+
+    test:snapshot:
+      run: |
+        melos exec -- flutter test --update-goldens
+      packageFilters:
+        dependsOn:
+          - playbook_snapshot
+        dirExists:
+          - test
+
+    test:all:
+      run: |
+        melos exec -- flutter test --update-goldens
+      packageFilters:
+        dirExists:
+          - test
