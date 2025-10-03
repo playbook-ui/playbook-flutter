@@ -1,3 +1,9 @@
+## 1.2.0
+
+### Improvements
+
+- Updated SDK constraint to `^3.8.0`
+
 ## 1.1.0
 
 - **FEAT**: can set `ScenarioWidgetBuilder` to `ScenarioWidget`.

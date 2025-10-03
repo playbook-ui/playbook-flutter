@@ -1,3 +1,19 @@
+## 1.2.0
+
+### Dependencies
+
+- **analyzer**: Updated from `^7.4.5` to `^8.0.0`
+- **build**: Updated from `^2.4.1` to `^4.0.0`
+- **source_gen**: Updated from `^2.0.0` to `^4.0.0`
+
+### Improvements
+
+- Migrated to analyzer 8.x API:
+  - Changed import from `element2.dart` to `element.dart`
+  - Updated element access patterns (`ClassFragment` → `ClassElement`, `TopLevelFunctionFragment` → `ExecutableElement`)
+  - Replaced deprecated APIs (`librarySource.uri` → `uri`, `topLevelElements` → specific getters like `topLevelFunctions` and `topLevelVariables`)
+- Updated SDK constraint to `^3.8.0`
+
 ## 1.1.0
 
 - upgrade analyzer to greater than 7.4.5.
