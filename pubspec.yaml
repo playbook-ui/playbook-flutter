@@ -18,27 +18,27 @@ dev_dependencies:
 
 melos:
   scripts:
-    format: melos exec -- flutter format .
+    format: dart run melos exec -- flutter format .
 
-    analyze: melos exec -- flutter analyze .
+    analyze: dart run melos exec -- flutter analyze .
 
-    clean: melos exec -- flutter clean
+    clean: dart run melos exec -- flutter clean
 
     gen:
-      run: melos gen:all --no-select
+      run: dart run melos gen:all --no-select
 
     gen:all:
       run: |
-        melos exec -- dart run build_runner build --delete-conflicting-outputs
+        dart run melos exec -- dart run build_runner build --delete-conflicting-outputs
       packageFilters:
         dependsOn: build_runner
 
     test:
-      run: melos test:snapshot --no-select
+      run: dart run melos test:snapshot --no-select
 
     test:snapshot:
       run: |
-        melos exec -- flutter test --update-goldens
+        dart run melos exec -- flutter test --update-goldens
       packageFilters:
         dependsOn:
           - playbook_snapshot
@@ -47,7 +47,7 @@ melos:
 
     test:all:
       run: |
-        melos exec -- flutter test --update-goldens
+        dart run melos exec -- flutter test --update-goldens
       packageFilters:
         dirExists:
           - test
