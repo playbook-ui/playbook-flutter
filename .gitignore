@@ -35,7 +35,6 @@ build/
 # Libraries should not include pubspec.lock, per https://dart.dev/guides/libraries/private-files#pubspeclock.
 pubspec.lock
 pubspec_overrides.yaml
-!examples/**/pubspec_overrides.yaml
 
 # Android related
 **/android/**/gradle-wrapper.jar
