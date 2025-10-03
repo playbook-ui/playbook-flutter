@@ -6,4 +6,3 @@ gen:
 setup/pub:
 	dart pub global activate melos
 	dart pub get
-	melos bootstrap

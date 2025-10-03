@@ -195,29 +195,17 @@ extension on ScenarioLayout {
     }
   }
 
-  double absoluteWidth(SnapshotDevice device) {
-    switch (h.runtimeType) {
-      case ScenarioLayoutFixed _:
-        return (h as ScenarioLayoutFixed).value;
-      case ScenarioLayoutFill _:
-        return device.size.width;
-      case ScenarioLayoutCompressed _:
-        return 0;
-    }
-    return device.size.width;
-  }
+  double absoluteWidth(SnapshotDevice device) => switch (h) {
+    ScenarioLayoutFixed(:final value) => value,
+    ScenarioLayoutFill() => device.size.width,
+    ScenarioLayoutCompressed() => 0,
+  };
 
-  double absoluteHeight(SnapshotDevice device) {
-    switch (v.runtimeType) {
-      case ScenarioLayoutFixed _:
-        return (v as ScenarioLayoutFixed).value;
-      case ScenarioLayoutFill _:
-        return device.size.height;
-      case ScenarioLayoutCompressed _:
-        return 0;
-    }
-    return device.size.height;
-  }
+  double absoluteHeight(SnapshotDevice device) => switch (v) {
+    ScenarioLayoutFixed(:final value) => value,
+    ScenarioLayoutFill() => device.size.height,
+    ScenarioLayoutCompressed() => 0,
+  };
 }
 
 enum _CompressedResizingTarget {
