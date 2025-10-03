@@ -1,3 +1,9 @@
+## 1.2.0
+
+### Improvements
+
+- Updated SDK constraint to `^3.8.0`
+
 ## 1.0.2
 
 - **FIX**: can use scenarioWidgetBuilder when snapshot #93
