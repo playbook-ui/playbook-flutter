@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
@@ -74,7 +74,7 @@ ${storiesLibrary.accept(emitter)}
   }
 
   List<Code> _createScenarioCodes(LibraryReader storyLibraryReader) {
-    final uri = storyLibraryReader.element.librarySource.uri.toString();
+    final uri = storyLibraryReader.element.uri.toString();
 
     const generatedScenarioTypeChecker = TypeChecker.fromUrl(
       'package:playbook/src/generate_scenario.dart#GenerateScenario',
@@ -87,19 +87,17 @@ ${storiesLibrary.accept(emitter)}
 
       final element = e.element;
       if (!element.isPublic) return false;
-      if (element is ClassFragment) {
-        final elm = (element as ClassFragment).element;
-        return (elm.unnamedConstructor2?.isDefaultConstructor ?? false) &&
-            elm.allSupertypes.any(
+      if (element is ClassElement) {
+        return (element.unnamedConstructor?.isDefaultConstructor ?? false) &&
+            element.allSupertypes.any(
               (s) => s.getDisplayString() == w,
             );
-      } else if (element is TopLevelFunctionFragment) {
-        final elm = (element as TopLevelFunctionFragment).element;
-        final parameters = elm.formalParameters;
+      } else if (element is ExecutableElement) {
+        final parameters = element.formalParameters;
         final firstParam = parameters.firstOrNull?.type.getDisplayString();
         return parameters.length <= 1 &&
             (firstParam?.contains(bc) ?? true) &&
-            elm.returnType.getDisplayString() == w;
+            element.returnType.getDisplayString() == w;
       } else {
         return false;
       }
@@ -117,10 +115,8 @@ ${storiesLibrary.accept(emitter)}
           final String scenarioName;
           final String childBuilder;
 
-          if (element is TopLevelFunctionFragment &&
-              (element as TopLevelFunctionFragment)
-                  .formalParameters
-                  .isNotEmpty) {
+          if (element is ExecutableElement &&
+              element.formalParameters.isNotEmpty) {
             scenarioName = 'Scenario.builder';
             childBuilder = 'builder: $builder';
           } else {
@@ -137,9 +133,7 @@ ${a(refer(scenarioName, _playbookUrl))}(
       },
     );
 
-    final scenarioCodes = storyLibraryReader.element.topLevelElements
-        .whereType<TopLevelFunctionFragment>()
-        .map((e) => e.element)
+    final scenarioCodes = storyLibraryReader.element.topLevelFunctions
         .where((e) => e.isPublic && e.formalParameters.isEmpty)
         .expand<Code>(
       (e) {
@@ -150,7 +144,7 @@ ${a(refer(scenarioName, _playbookUrl))}(
         } else if (returnTypeString == 'List<Scenario>') {
           return [Code.scope((a) => '...${a(scenarioRefer)}()')];
         } else {
-          return [];
+          return <Code>[];
         }
       },
     );
@@ -163,7 +157,7 @@ ${a(refer(scenarioName, _playbookUrl))}(
     LibraryReader storyLibraryReader,
   ) {
     final storyRefer = refer('Story', _playbookUrl);
-    final name = storyLibraryReader.element.source.uri.pathSegments
+    final name = storyLibraryReader.element.uri.pathSegments
         .skip(1)
         .map((e) => '\$${e.split('.').first}')
         .join();
@@ -210,10 +204,8 @@ ${a(refer(scenarioName, _playbookUrl))}(
   }
 
   String _findStoryTitle(LibraryReader storyLibraryReader) {
-    late final fullName = storyLibraryReader.element.source.fullName;
-    final storyTitle = storyLibraryReader.element.topLevelElements
-        .whereType<VariableFragment>()
-        .map((e) => e.element)
+    late final fullName = storyLibraryReader.element.uri.toString();
+    final storyTitle = storyLibraryReader.element.topLevelVariables
         .firstWhere(
           (e) => e.displayName == 'storyTitle',
           orElse: () => throw StateError(
