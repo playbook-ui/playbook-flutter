@@ -30,4 +30,4 @@ jobs:
           working-directory: ./packages
 
       - name: Test
-        run: dart run melos test
+        run: dart pub global run melos test
