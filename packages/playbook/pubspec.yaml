@@ -6,8 +6,10 @@ documentation: https://github.com/playbook-ui/playbook-flutter
 issue_tracker: https://github.com/playbook-ui/playbook-flutter/issues
 
 environment:
-  sdk: ^3.8.0
-  flutter: ">=3.32.0"
+  sdk: ^3.9.0
+  flutter: ">=3.35.0"
+
+resolution: workspace
 
 dependencies:
   flutter:
@@ -16,7 +18,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  very_good_analysis: ^9.0.0
+  very_good_analysis: ^10.0.0
 
 flutter:
   uses-material-design: true

@@ -78,9 +78,9 @@ class ScenarioContainer extends StatelessWidget {
           const SizedBox(height: 16),
         ],
       ),
-      onTap: () {
+      onTap: () async {
         FocusScope.of(context).unfocus();
-        Navigator.of(context).push(
+        await Navigator.of(context).push(
           MaterialPageRoute<dynamic>(
             fullscreenDialog: true,
             builder: (context) {

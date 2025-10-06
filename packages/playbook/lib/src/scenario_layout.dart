@@ -1,4 +1,4 @@
-abstract class ScenarioLayoutSizing {
+sealed class ScenarioLayoutSizing {
   const ScenarioLayoutSizing();
 }
 
