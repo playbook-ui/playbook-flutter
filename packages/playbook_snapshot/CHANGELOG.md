@@ -1,3 +1,24 @@
+## 1.3.0
+
+### Improvements
+
+- Updated SDK constraint to `^3.9.0`
+- Updated Flutter constraint to `>=3.35.0`
+- Updated analysis options to use `very_good_analysis/analysis_options.10.0.0.yaml`
+- Refactored snapshot support code to use pattern matching instead of runtimeType switch
+
+### Dependencies
+
+- Updated `very_good_analysis` from `^9.0.0` to `^10.0.0`
+
+### Infrastructure
+
+- Migrated from Melos workspace to Dart workspace configuration
+- Migrated from `subosito/flutter-action` to `jdx/mise-action` in review workflow
+- Added `.mise.toml` for Flutter 3.35.5 version management
+- Removed `melos.yaml` and `pubspec_overrides.yaml` files
+- Added `resolution: workspace` to package pubspec
+
 ## 1.2.0
 
 ### Improvements

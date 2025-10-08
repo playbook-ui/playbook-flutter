@@ -244,8 +244,8 @@ The generated snapshot images can be used for more advanced visual regression te
 
 ## Requirements
 
-- Dart 3.0.0+
-- flutter 3.0.0+
+- Dart 3.9.0+
+- Flutter 3.35.0+
 
 ---
 
