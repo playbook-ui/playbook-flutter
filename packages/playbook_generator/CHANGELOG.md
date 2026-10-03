@@ -1,3 +1,13 @@
+## 1.6.0
+
+### Dependencies
+
+- Updated `analyzer` from `^10.0.0` to `^12.0.0`
+
+### Infrastructure
+
+- Added a workflow that caches mise on pushes to `main`
+
 ## 1.5.0
 
 ### Dependencies
