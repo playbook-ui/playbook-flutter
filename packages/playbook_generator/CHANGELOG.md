@@ -1,3 +1,9 @@
+## 1.8.0
+
+### Dependencies
+
+- Updated `analyzer` from `^13.0.0` to `^14.0.0`
+
 ## 1.7.1
 
 ### Bug Fixes
