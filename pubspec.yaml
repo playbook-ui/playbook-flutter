@@ -13,7 +13,7 @@ workspace:
   - examples/simple_app
 
 dev_dependencies:
-  melos: ^7.0.0
+  melos: ^8.0.0
   very_good_analysis: ^10.0.0
 
 melos:
