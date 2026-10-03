@@ -1,14 +1,17 @@
-name: Review
+name: Cache
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 on:
-  pull_request:
+  push:
+    branches:
+      - main
 
 jobs:
-  test:
+  mise:
+    # Must match the runner of the jobs that restore this cache, since the cache key includes the platform.
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,15 +22,3 @@ jobs:
         with:
           install: true
           cache: true
-
-      - name: Setup pub
-        run: make setup/pub
-
-      - name: Dart Analyzer
-        uses: invertase/github-action-dart-analyzer@e981b01a458d0bab71ee5da182e5b26687b7101b # v3.0.0
-        with:
-          fatal-infos: true
-          working-directory: ./packages
-
-      - name: Test
-        run: dart run melos test
