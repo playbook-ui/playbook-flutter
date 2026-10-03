@@ -1,3 +1,9 @@
+## 1.7.1
+
+### Bug Fixes
+
+- Raised the minimum Dart SDK from `^3.9.0` to `^3.11.0`, which `analyzer` `^13.0.0` requires through its dependencies
+
 ## 1.7.0
 
 ### Dependencies
