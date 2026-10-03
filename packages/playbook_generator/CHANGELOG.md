@@ -1,3 +1,14 @@
+## 1.7.0
+
+### Dependencies
+
+- Updated `analyzer` from `^12.0.0` to `^13.0.0`
+- Updated `very_good_analysis` from `^10.0.0` to `^11.0.0`
+
+### Infrastructure
+
+- Updated `jdx/mise-action` from v3.6.3 to v4.3.0 in workflows
+
 ## 1.6.0
 
 ### Dependencies
