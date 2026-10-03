@@ -6,9 +6,9 @@
 
 ### Infrastructure
 
-- Updated Flutter from 3.35.5 to 3.38.7 in `.mise.toml`
+- Updated Flutter from 3.35.5 to 3.47.5 in `.mise.toml`
 - Switched workspace resolution from `dart pub get` to `flutter pub get` in Makefile
-- Updated `actions/checkout` to v6.0.1 and `jdx/mise-action` to v3.5.1 in review workflow
+- Updated `actions/checkout` to v6.1.0 and `jdx/mise-action` to v3.6.3 in review workflow
 - Updated `circleci/node` orb to 7.2.1
 
 ## 1.3.0
