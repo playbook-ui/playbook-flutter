@@ -1,3 +1,14 @@
+## 1.5.0
+
+### Dependencies
+
+- Updated `analyzer` from `^9.0.0` to `^10.0.0`
+
+### Infrastructure
+
+- Updated `melos` from `^7.0.0` to `^8.0.0`
+- Updated `actions/checkout` to v7.0.1 in review workflow
+
 ## 1.4.0
 
 ### Dependencies
