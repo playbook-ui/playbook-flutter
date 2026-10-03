@@ -5,4 +5,4 @@ gen:
 .PHONY: setup/pub
 setup/pub:
 	dart pub global activate melos
-	dart pub get
+	flutter pub get
