@@ -1,3 +1,16 @@
+## 1.4.0
+
+### Dependencies
+
+- Updated `analyzer` from `^8.0.0` to `^9.0.0`
+
+### Infrastructure
+
+- Updated Flutter from 3.35.5 to 3.47.5 in `.mise.toml`
+- Switched workspace resolution from `dart pub get` to `flutter pub get` in Makefile
+- Updated `actions/checkout` to v6.1.0 and `jdx/mise-action` to v3.6.3 in review workflow
+- Updated `circleci/node` orb to 7.2.1
+
 ## 1.3.0
 
 ### Improvements
