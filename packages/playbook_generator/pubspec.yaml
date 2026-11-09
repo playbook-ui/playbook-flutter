@@ -12,7 +12,7 @@ resolution: workspace
 
 dependencies:
   analyzer: ^14.0.0
-  build: ^4.0.0
+  build: ^5.0.0
   source_gen: ^4.0.0
   path: ^1.9.0
   glob: ^2.1.2
